@@ -20,7 +20,7 @@ x64/
 
 # Incluídos manualmente na lista de exceções 
 *.exe
-.vs/MoneyPro/FileContentIndex/
+.vs/
 
 *_i.c
 *_p.c
