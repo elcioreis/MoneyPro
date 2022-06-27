@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BLL</RootNamespace>
+    <AssemblyName>BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcaoCotacaoBLL.cs" />
+    <Compile Include="CalendarioBLL.cs" />
+    <Compile Include="CarteiraBLL.cs" />
+    <Compile Include="CategoriaBLL.cs" />
+    <Compile Include="ConfiguracaoBLL.cs" />
+    <Compile Include="ConfiguracaoPrincipalBLL.cs" />
+    <Compile Include="ContaBLL.cs" />
+    <Compile Include="CotacaoEletronicaBLL.cs" />
+    <Compile Include="CotacaoMoedasBLL.cs" />
+    <Compile Include="DetalhesMovimentacaoBLL.cs" />
+    <Compile Include="GraficosBLL.cs" />
+    <Compile Include="GrupoCategoriaBLL.cs" />
+    <Compile Include="GrupoContaBLL.cs" />
+    <Compile Include="ImpostoBLL.cs" />
+    <Compile Include="ImpostoFaixaBLL.cs" />
+    <Compile Include="InstituicaoBLL.cs" />
+    <Compile Include="InvestimentoBLL.cs" />
+    <Compile Include="InvestimentoDespesaBLL.cs" />
+    <Compile Include="LancamentoBLL.cs" />
+    <Compile Include="MoedaBLL.cs" />
+    <Compile Include="MovimentoCambioBLL.cs" />
+    <Compile Include="MovimentoContaBLL.cs" />
+    <Compile Include="MovimentoInvestimentoBLL.cs" />
+    <Compile Include="MovimentoInvestimentoDespesaBLL.cs" />
+    <Compile Include="PainelBLL.cs" />
+    <Compile Include="PesquisaBLL.cs" />
+    <Compile Include="PlanejamentoBLL.cs" />
+    <Compile Include="RiscoBLL.cs" />
+    <Compile Include="SaldoFuturoBLL.cs" />
+    <Compile Include="TipoContaBLL.cs" />
+    <Compile Include="TipoInstituicaoBLL.cs" />
+    <Compile Include="TipoInvestimentoBLL.cs" />
+    <Compile Include="TransacaoBLL.cs" />
+    <Compile Include="TransacaoCambioBLL.cs" />
+    <Compile Include="UsuarioBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{99cc24a4-e1f9-4278-8f29-4b42c6ee06ed}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modelos\Modelos.csproj">
+      <Project>{ce668061-5bee-4510-b172-e62a489a27a5}</Project>
+      <Name>Modelos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OFXSharp\OFXSharp.csproj">
+      <Project>{7bba813d-ee93-491a-b0c7-fbd588e393cb}</Project>
+      <Name>OFXSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE668061-5BEE-4510-B172-E62A489A27A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Modelos</RootNamespace>
+    <AssemblyName>Modelos</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcaoCotacao.cs" />
+    <Compile Include="Calendario.cs" />
+    <Compile Include="Carteira.cs" />
+    <Compile Include="Categoria.cs" />
+    <Compile Include="CelulaSelecionada.cs" />
+    <Compile Include="ConfiguracaoPrincipal.cs" />
+    <Compile Include="Conta.cs" />
+    <Compile Include="CotacaoCVM.cs" />
+    <Compile Include="CotacaoMoedas.cs" />
+    <Compile Include="DetalhesMovimentacao.cs" />
+    <Compile Include="DifusorDeFluxo.cs" />
+    <Compile Include="FluxoCaixa.cs" />
+    <Compile Include="HitBTCCandles.cs" />
+    <Compile Include="HitBTCOrder.cs" />
+    <Compile Include="HitBTCTicker.cs" />
+    <Compile Include="Imposto.cs" />
+    <Compile Include="ImpostoFaixa.cs" />
+    <Compile Include="InvestimentoDetalhes.cs" />
+    <Compile Include="GrupoCategoria.cs" />
+    <Compile Include="GrupoConta.cs" />
+    <Compile Include="Instituicao.cs" />
+    <Compile Include="Investimento.cs" />
+    <Compile Include="InvestimentoDespesa.cs" />
+    <Compile Include="InvestimentoResumo.cs" />
+    <Compile Include="Lancamento.cs" />
+    <Compile Include="ListaMovimentosFundo.cs" />
+    <Compile Include="Moeda.cs" />
+    <Compile Include="MovimentoCambio.cs" />
+    <Compile Include="MovimentoConta.cs" />
+    <Compile Include="MovimentoInvestimento.cs" />
+    <Compile Include="MovimentoInvestimentoDespesa.cs" />
+    <Compile Include="MovimentoContaPesquisa.cs" />
+    <Compile Include="OrcamentoDiario.cs" />
+    <Compile Include="OrcamentoMensal.cs" />
+    <Compile Include="PagamentoCartaoCredito.cs" />
+    <Compile Include="Painel.cs" />
+    <Compile Include="Pesquisa.cs" />
+    <Compile Include="Planejamento.cs" />
+    <Compile Include="PrevisaoSaldoNegativo.cs" />
+    <Compile Include="Risco.cs" />
+    <Compile Include="SaldoFuturo.cs" />
+    <Compile Include="TiposEnum.cs" />
+    <Compile Include="TipoConta.cs" />
+    <Compile Include="TipoInstituicao.cs" />
+    <Compile Include="TipoInvestimento.cs" />
+    <Compile Include="HitBTCTrade.cs" />
+    <Compile Include="HitBTCTiposEnum.cs" />
+    <Compile Include="Transacao.cs" />
+    <Compile Include="TransacaoCambio.cs" />
+    <Compile Include="Usuario.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VariacaoUltimosDiasInvestimentos.cs" />
+    <Compile Include="VariacaoDiariaInvestimentos.cs" />
+    <Compile Include="VariacaoMensalInvestimentos.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\GrupoCategoria.datasource" />
+    <None Include="Properties\DataSources\Usuario.datasource" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

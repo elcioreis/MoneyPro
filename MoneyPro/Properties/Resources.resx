@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="z16corVermelho" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16corVermelho.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="excluir" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\Excluir 16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16giveMoney" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16giveMoney.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16aplicar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16aplicar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16senhaPadrao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16senhaPadrao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16setaCima" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16setaCima.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16acumulado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16acumulado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16losangoPreto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16LosangoPreto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16corVerde" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16corVerde.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16minimiza" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16minimiza.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16grupoContas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16grupoContas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32painel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32painel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16resumo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16resumo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32usuario" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32usuario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16investimento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16investimento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16tipoInstituicao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16tipoInstituicao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16instituicao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16instituicao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16variacao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16variacao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32investimento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\imagens\icones 32x\z32investimento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="novo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\Incluir 16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32investimentos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32investimentos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16tabela" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16tabela.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16painel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16painel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16tipoContas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16tipoContas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32pesquisar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32pesquisar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16unlink" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16unlink.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16maximiza" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16maximiza.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16lupa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16lupa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32planejamento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32planejamento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16nocoin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16nocoin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16grafico2linhas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16grafico2linhas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32contas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32contas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16coin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16coin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16calendario" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16calendario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cancela" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\StatusAnnotation_No_16xLG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32carteira" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32carteira.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16anterior" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16anterior.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16carregarDados" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16carregarDados.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoneyPro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\MoneyPro.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16radio-on-button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16radio-on-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32meusInvestimentos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32meusInvestimentos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16atencao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16atencao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16tudo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16tudo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16negativo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16negativo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16radio-off-button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16radio-off-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32cvm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32cvm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="moeda" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\Coins-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16ultimodia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16ultimodia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16editar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16editar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32lancamento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32lancamento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16tipoInvestimento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16tipoInvestimento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16proximo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16proximo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16certificado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16certificado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16dia31" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16dia31.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16lista" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16lista.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16enviar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16enviar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16taxas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16taxas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\Symbols_Complete_and_ok_16xLG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32SaldoFuturo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32SaldoFuturo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16exchange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16exchange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16fechar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16cancela.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32categoria" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32categoria.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z32budget" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 32x\z32budget.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16negative_alternativo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16negative_alternativo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16corAzul" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16corAzul.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16tributacao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\imagens\icones 16x\z16tributacao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16setaBaixo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16setaBaixo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16corAmarelo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16corAmarelo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16pagamento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16pagamento.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16conciliacao" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z16conciliacao.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="editar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\PencilAngled_16xLG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16info" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16moedas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16moedas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16link.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="salvar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\move_to_bottom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16alfinetePreso" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16alfinetePreso.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z16alfineteSolto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagens\Icones 16x\z16alfineteSolto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

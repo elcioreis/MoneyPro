@@ -1,0 +1,1010 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MoneyPro</RootNamespace>
+    <AssemblyName>MoneyPro</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>C:\Users\elcio\tempor\MoneyPro\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\debug\anycpu\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\..\..\tempor\money\AnyCPU\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>MoneyPro.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MoneyPro.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\debug\x64\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>..\..\..\..\tempor\MoneyPro\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>12CB72E8C7B14AC1D8481E97F28FEDD594184E60</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>MoneyPro_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\fmBaseSoTopo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\fmBaseSoTopo.Designer.cs">
+      <DependentUpon>fmBaseSoTopo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\fmBaseTopoRodape.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\fmBaseTopoRodape.Designer.cs">
+      <DependentUpon>fmBaseTopoRodape.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\fmBaseFerramentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base\fmBaseFerramentas.Designer.cs">
+      <DependentUpon>fmBaseFerramentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\MultiColumnComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoComparativoPorCategoria.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoComparativoPorCategoria.Designer.cs">
+      <DependentUpon>ucApuracaoComparativoPorCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDestinoPorCategoriaAnterior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDestinoPorCategoriaAnterior.Designer.cs">
+      <DependentUpon>ucApuracaoDestinoPorCategoriaAnterior.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDestinoPorCategoriaAtual.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDestinoPorCategoriaAtual.Designer.cs">
+      <DependentUpon>ucApuracaoDestinoPorCategoriaAtual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDivisaoInvestimento.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDivisaoInvestimento.Designer.cs">
+      <DependentUpon>ucApuracaoDivisaoInvestimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDivisaoRisco.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoDivisaoRisco.Designer.cs">
+      <DependentUpon>ucApuracaoDivisaoRisco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoInvestimentos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoInvestimentos.Designer.cs">
+      <DependentUpon>ucApuracaoInvestimentos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoInvestimentosAcumulados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoInvestimentosAcumulados.Designer.cs">
+      <DependentUpon>ucApuracaoInvestimentosAcumulados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoInvestimentosAcumuladosMensal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoInvestimentosAcumuladosMensal.Designer.cs">
+      <DependentUpon>ucApuracaoInvestimentosAcumuladosMensal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoSemanalPorGrupoDeContas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoSemanalPorGrupoDeContas.Designer.cs">
+      <DependentUpon>ucApuracaoSemanalPorGrupoDeContas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoMensalPorGrupoDeContas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoMensalPorGrupoDeContas.Designer.cs">
+      <DependentUpon>ucApuracaoMensalPorGrupoDeContas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoSemanalAcumulada.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\ucApuracaoSemanalAcumulada.Designer.cs">
+      <DependentUpon>ucApuracaoSemanalAcumulada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCalendario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCalendario.Designer.cs">
+      <DependentUpon>fmCalendario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteira.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteira.Designer.cs">
+      <DependentUpon>fmCarteira.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoComposicaoCarteira.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoComposicaoCarteira.Designer.cs">
+      <DependentUpon>fmCarteiraGraficoComposicaoCarteira.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoPercentual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoPercentual.Designer.cs">
+      <DependentUpon>fmCarteiraGraficoPercentual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoRendimentoDiario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoRendimentoDiario.Designer.cs">
+      <DependentUpon>fmCarteiraGraficoRendimentoDiario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraListaMovimentosFundo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraListaMovimentosFundo.Designer.cs">
+      <DependentUpon>fmCarteiraListaMovimentosFundo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraTabelaDetalhes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraTabelaDetalhes.Designer.cs">
+      <DependentUpon>fmCarteiraTabelaDetalhes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoComparativo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoComparativo.Designer.cs">
+      <DependentUpon>fmCarteiraGraficoComparativo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoRendimentoMensal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoRendimentoMensal.Designer.cs">
+      <DependentUpon>fmCarteiraGraficoRendimentoMensal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraTabelaResumo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraTabelaResumo.Designer.cs">
+      <DependentUpon>fmCarteiraTabelaResumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraTabelaVariacaoAcumulada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraTabelaVariacaoAcumulada.Designer.cs">
+      <DependentUpon>fmCarteiraTabelaVariacaoAcumulada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraVariacaoUltimosDiasUteis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraVariacaoUltimosDiasUteis.Designer.cs">
+      <DependentUpon>fmCarteiraVariacaoUltimosDiasUteis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraVariacaoDiaria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraVariacaoDiaria.Designer.cs">
+      <DependentUpon>fmCarteiraVariacaoDiaria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCarteiraVariacaoMensal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraVariacaoMensal.Designer.cs">
+      <DependentUpon>fmCarteiraVariacaoMensal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmCategorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCategorias.Designer.cs">
+      <DependentUpon>fmCategorias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmConciliacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmConciliacao.Designer.cs">
+      <DependentUpon>fmConciliacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmConfigurarPainel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmConfigurarPainel.Designer.cs">
+      <DependentUpon>fmConfigurarPainel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmContas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmContas.Designer.cs">
+      <DependentUpon>fmContas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmDatabaseAccess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmDatabaseAccess.Designer.cs">
+      <DependentUpon>fmDatabaseAccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmDetalhesMovimentacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmDetalhesMovimentacao.Designer.cs">
+      <DependentUpon>fmDetalhesMovimentacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmGruposContas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmGruposContas.Designer.cs">
+      <DependentUpon>fmGruposContas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmImposto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmImposto.Designer.cs">
+      <DependentUpon>fmImposto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmInstituicoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmInstituicoes.Designer.cs">
+      <DependentUpon>fmInstituicoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmInvestimentoDespesas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmInvestimentoDespesas.Designer.cs">
+      <DependentUpon>fmInvestimentoDespesas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmInvestimentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmInvestimentos.Designer.cs">
+      <DependentUpon>fmInvestimentos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMovimentosCDB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMovimentosCDB.Designer.cs">
+      <DependentUpon>fmMovimentosCDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMovimentosContaFluxo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMovimentosContaFluxo.Designer.cs">
+      <DependentUpon>fmMovimentosContaFluxo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMovimentosCambio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMovimentosCambio.Designer.cs">
+      <DependentUpon>fmMovimentosCambio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMovimentosConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMovimentosConta.Designer.cs">
+      <DependentUpon>fmMovimentosConta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMovimentosContaFluxoDisponivel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMovimentosContaFluxoDisponivel.designer.cs">
+      <DependentUpon>fmMovimentosContaFluxoDisponivel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMovimentosInvestimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMovimentosInvestimento.Designer.cs">
+      <DependentUpon>fmMovimentosInvestimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmOrcamentoDiario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmOrcamentoDiario.Designer.cs">
+      <DependentUpon>fmOrcamentoDiario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmOrcamentoMensal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmOrcamentoMensal.Designer.cs">
+      <DependentUpon>fmOrcamentoMensal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmPagamentoCartaoCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmPagamentoCartaoCredito.Designer.cs">
+      <DependentUpon>fmPagamentoCartaoCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmPainel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmPainel.Designer.cs">
+      <DependentUpon>fmPainel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmParceiros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmParceiros.Designer.cs">
+      <DependentUpon>fmParceiros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmLogin.Designer.cs">
+      <DependentUpon>fmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmMoedas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmMoedas.Designer.cs">
+      <DependentUpon>fmMoedas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmPesquisa.Designer.cs">
+      <DependentUpon>fmPesquisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmPlanejamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmPlanejamento.Designer.cs">
+      <DependentUpon>fmPlanejamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmPrevisaoSaldoNegativo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmPrevisaoSaldoNegativo.Designer.cs">
+      <DependentUpon>fmPrevisaoSaldoNegativo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmPrincipal.Designer.cs">
+      <DependentUpon>fmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmDownloadCotacoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmDownloadCotacoes.Designer.cs">
+      <DependentUpon>fmDownloadCotacoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmSaldoFuturo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmSaldoFuturo.Designer.cs">
+      <DependentUpon>fmSaldoFuturo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmTiposInstituicoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmTiposInstituicoes.Designer.cs">
+      <DependentUpon>fmTiposInstituicoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmTiposContas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmTiposContas.Designer.cs">
+      <DependentUpon>fmTiposContas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmTiposInvestimentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmTiposInvestimentos.Designer.cs">
+      <DependentUpon>fmTiposInvestimentos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmUsuarios.Designer.cs">
+      <DependentUpon>fmUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fmPlanejamentoManutencao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmPlanejamentoManutencao.Designer.cs">
+      <DependentUpon>fmPlanejamentoManutencao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rotinas\AcessoCotacoesBancoCentral.cs" />
+    <Compile Include="Rotinas\AcessoCVM.cs" />
+    <Compile Include="Rotinas\AcessoCVM_Lote.cs" />
+    <Compile Include="Rotinas\AcessoHitBTC.cs" />
+    <Compile Include="Rotinas\AcessoMercadoBitCoin.cs" />
+    <Compile Include="Rotinas\Geral.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rotinas\VerificarInstanciaSQL.cs" />
+    <Compile Include="Service References\ServiceBancoCentralCotacoes\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReferenceCVM\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Base\fmBaseSoTopo.resx">
+      <DependentUpon>fmBaseSoTopo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\fmBaseTopoRodape.resx">
+      <DependentUpon>fmBaseTopoRodape.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base\fmBaseFerramentas.resx">
+      <DependentUpon>fmBaseFerramentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoComparativoPorCategoria.resx">
+      <DependentUpon>ucApuracaoComparativoPorCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoDestinoPorCategoriaAnterior.resx">
+      <DependentUpon>ucApuracaoDestinoPorCategoriaAnterior.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoDestinoPorCategoriaAtual.resx">
+      <DependentUpon>ucApuracaoDestinoPorCategoriaAtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoDivisaoInvestimento.resx">
+      <DependentUpon>ucApuracaoDivisaoInvestimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoDivisaoRisco.resx">
+      <DependentUpon>ucApuracaoDivisaoRisco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoInvestimentos.resx">
+      <DependentUpon>ucApuracaoInvestimentos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoInvestimentosAcumulados.resx">
+      <DependentUpon>ucApuracaoInvestimentosAcumulados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoInvestimentosAcumuladosMensal.resx">
+      <DependentUpon>ucApuracaoInvestimentosAcumuladosMensal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoSemanalAcumulada.resx">
+      <DependentUpon>ucApuracaoSemanalAcumulada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoSemanalPorGrupoDeContas.resx">
+      <DependentUpon>ucApuracaoSemanalPorGrupoDeContas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ucApuracaoMensalPorGrupoDeContas.resx">
+      <DependentUpon>ucApuracaoMensalPorGrupoDeContas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCalendario.resx">
+      <DependentUpon>fmCalendario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteira.resx">
+      <DependentUpon>fmCarteira.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraGraficoComposicaoCarteira.resx">
+      <DependentUpon>fmCarteiraGraficoComposicaoCarteira.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraGraficoPercentual.resx">
+      <DependentUpon>fmCarteiraGraficoPercentual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraGraficoRendimentoDiario.resx">
+      <DependentUpon>fmCarteiraGraficoRendimentoDiario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraGraficoRendimentoMensal.resx">
+      <DependentUpon>fmCarteiraGraficoRendimentoMensal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraListaMovimentosFundo.resx">
+      <DependentUpon>fmCarteiraListaMovimentosFundo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraTabelaDetalhes.resx">
+      <DependentUpon>fmCarteiraTabelaDetalhes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraGraficoComparativo.resx">
+      <DependentUpon>fmCarteiraGraficoComparativo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraTabelaResumo.resx">
+      <DependentUpon>fmCarteiraTabelaResumo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraTabelaVariacaoAcumulada.resx">
+      <DependentUpon>fmCarteiraTabelaVariacaoAcumulada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraVariacaoUltimosDiasUteis.resx">
+      <DependentUpon>fmCarteiraVariacaoUltimosDiasUteis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraVariacaoDiaria.resx">
+      <DependentUpon>fmCarteiraVariacaoDiaria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraVariacaoMensal.resx">
+      <DependentUpon>fmCarteiraVariacaoMensal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCategorias.resx">
+      <DependentUpon>fmCategorias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmConciliacao.resx">
+      <DependentUpon>fmConciliacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmConfigurarPainel.resx">
+      <DependentUpon>fmConfigurarPainel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmContas.resx">
+      <DependentUpon>fmContas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmDatabaseAccess.resx">
+      <DependentUpon>fmDatabaseAccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmDetalhesMovimentacao.resx">
+      <DependentUpon>fmDetalhesMovimentacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmGruposContas.resx">
+      <DependentUpon>fmGruposContas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmImposto.resx">
+      <DependentUpon>fmImposto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmInstituicoes.resx">
+      <DependentUpon>fmInstituicoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmInvestimentoDespesas.resx">
+      <DependentUpon>fmInvestimentoDespesas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmInvestimentos.resx">
+      <DependentUpon>fmInvestimentos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMovimentosCDB.resx">
+      <DependentUpon>fmMovimentosCDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMovimentosContaFluxo.resx">
+      <DependentUpon>fmMovimentosContaFluxo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMovimentosCambio.resx">
+      <DependentUpon>fmMovimentosCambio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMovimentosConta.resx">
+      <DependentUpon>fmMovimentosConta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMovimentosContaFluxoDisponivel.resx">
+      <DependentUpon>fmMovimentosContaFluxoDisponivel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMovimentosInvestimento.resx">
+      <DependentUpon>fmMovimentosInvestimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmOrcamentoDiario.resx">
+      <DependentUpon>fmOrcamentoDiario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmOrcamentoMensal.resx">
+      <DependentUpon>fmOrcamentoMensal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmPagamentoCartaoCredito.resx">
+      <DependentUpon>fmPagamentoCartaoCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmPainel.resx">
+      <DependentUpon>fmPainel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmParceiros.resx">
+      <DependentUpon>fmParceiros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmLogin.resx">
+      <DependentUpon>fmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmMoedas.resx">
+      <DependentUpon>fmMoedas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmPesquisa.resx">
+      <DependentUpon>fmPesquisa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmPlanejamento.resx">
+      <DependentUpon>fmPlanejamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmPrevisaoSaldoNegativo.resx">
+      <DependentUpon>fmPrevisaoSaldoNegativo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmPrincipal.resx">
+      <DependentUpon>fmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmDownloadCotacoes.resx">
+      <DependentUpon>fmDownloadCotacoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmSaldoFuturo.resx">
+      <DependentUpon>fmSaldoFuturo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmTiposInstituicoes.resx">
+      <DependentUpon>fmTiposInstituicoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmTiposContas.resx">
+      <DependentUpon>fmTiposContas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmTiposInvestimentos.resx">
+      <DependentUpon>fmTiposInvestimentos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmUsuarios.resx">
+      <DependentUpon>fmUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmPlanejamentoManutencao.resx">
+      <DependentUpon>fmPlanejamentoManutencao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="MoneyPro_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\BLL.MoedaBLL.datasource" />
+    <None Include="Properties\DataSources\Modelos.AcaoCotacao.datasource" />
+    <None Include="Properties\DataSources\Modelos.Calendario.datasource" />
+    <None Include="Properties\DataSources\Modelos.Carteira.datasource" />
+    <None Include="Properties\DataSources\Modelos.Categoria.datasource" />
+    <None Include="Properties\DataSources\Modelos.Conta.datasource" />
+    <None Include="Properties\DataSources\Modelos.CotacaoCVM.datasource" />
+    <None Include="Properties\DataSources\Modelos.CotacaoMoedas.datasource" />
+    <None Include="Properties\DataSources\Modelos.DetalhesMovimentacao.datasource" />
+    <None Include="Properties\DataSources\Modelos.FluxoCaixaContaEspecifica.datasource" />
+    <None Include="Properties\DataSources\Modelos.GrupoCategoria.datasource" />
+    <None Include="Properties\DataSources\Modelos.GrupoConta.datasource" />
+    <None Include="Properties\DataSources\Modelos.Imposto.datasource" />
+    <None Include="Properties\DataSources\Modelos.ImpostoFaixa.datasource" />
+    <None Include="Properties\DataSources\Modelos.Instituicao.datasource" />
+    <None Include="Properties\DataSources\Modelos.Investimento.datasource" />
+    <None Include="Properties\DataSources\Modelos.InvestimentoDespesa.datasource" />
+    <None Include="Properties\DataSources\Modelos.InvestimentoDetalhes.datasource" />
+    <None Include="Properties\DataSources\Modelos.InvestimentoResumo.datasource" />
+    <None Include="Properties\DataSources\Modelos.Lancamento.datasource" />
+    <None Include="Properties\DataSources\Modelos.ListaMovimentosFundo.datasource" />
+    <None Include="Properties\DataSources\Modelos.Moeda.datasource" />
+    <None Include="Properties\DataSources\Modelos.MovimentoCambio.datasource" />
+    <None Include="Properties\DataSources\Modelos.MovimentoConta.datasource" />
+    <None Include="Properties\DataSources\Modelos.MovimentoContaPesquisa.datasource" />
+    <None Include="Properties\DataSources\Modelos.MovimentoInvestimento.datasource" />
+    <None Include="Properties\DataSources\Modelos.MovimentoInvestimentoDespesa.datasource" />
+    <None Include="Properties\DataSources\Modelos.OrcamentoDiario.datasource" />
+    <None Include="Properties\DataSources\Modelos.OrcamentoMensal.datasource" />
+    <None Include="Properties\DataSources\Modelos.PagamentoCartaoCredito.datasource" />
+    <None Include="Properties\DataSources\Modelos.Painel.datasource" />
+    <None Include="Properties\DataSources\Modelos.Pesquisa.datasource" />
+    <None Include="Properties\DataSources\Modelos.Planejamento.datasource" />
+    <None Include="Properties\DataSources\Modelos.PrevisaoSaldoNegativo.datasource" />
+    <None Include="Properties\DataSources\Modelos.Risco.datasource" />
+    <None Include="Properties\DataSources\Modelos.SaldoFuturo.datasource" />
+    <None Include="Properties\DataSources\Modelos.TipoConta.datasource" />
+    <None Include="Properties\DataSources\Modelos.TipoInstituicao.datasource" />
+    <None Include="Properties\DataSources\Modelos.TipoInvestimento.datasource" />
+    <None Include="Properties\DataSources\Modelos.TradeHitBTC.datasource" />
+    <None Include="Properties\DataSources\Modelos.Transacao.datasource" />
+    <None Include="Properties\DataSources\Modelos.TransacaoCambio.datasource" />
+    <None Include="Properties\DataSources\Modelos.Usuario.datasource" />
+    <None Include="Properties\DataSources\Modelos.VariacaoDezDiasInvestimentos.datasource" />
+    <None Include="Properties\DataSources\Modelos.VariacaoDiariaInvestimentos.datasource" />
+    <None Include="Properties\DataSources\Modelos.VariacaoMensalInvestimentos.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\ServiceBancoCentralCotacoes\FachadaWSSGS.wsdl" />
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.getUltimosValoresSerieVOResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.getUltimoValorVOResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.getUltimoValorXMLResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.getValorEspecialResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.getValoresSeriesVOResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.getValoresSeriesXMLResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.getValorResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\MoneyPro.ServiceBancoCentralCotacoes.WSSerieVO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.LoginResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.retornaDtLmtEntrDocsArqsDispResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.retornaListaComptcDocsAdmResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.retornaListaComptcDocsParticResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.retornaListaComptcDocsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.retornaListaDownloadDocsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.sessaoIdHeader.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.solicAutorizDownloadArqAnualResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.solicAutorizDownloadArqComptcResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.solicAutorizDownloadArqEntregaPorDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.solicAutorizDownloadArqEntregaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\MoneyPro.ServiceReferenceCVM.solicAutorizDownloadCadastroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\WsDownloadInfs.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{69f48da4-ab99-4f82-9fdd-69629d8edcbf}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{99cc24a4-e1f9-4278-8f29-4b42c6ee06ed}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modelos\Modelos.csproj">
+      <Project>{ce668061-5bee-4510-b172-e62a489a27a5}</Project>
+      <Name>Modelos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OFXSharp\OFXSharp.csproj">
+      <Project>{7bba813d-ee93-491a-b0c7-fbd588e393cb}</Project>
+      <Name>OFXSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceBancoCentralCotacoes\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceBancoCentralCotacoes\configuration.svcinfo" />
+    <None Include="Service References\ServiceBancoCentralCotacoes\configuration91.svcinfo" />
+    <None Include="Resources\z16ultimodia.png" />
+    <None Include="Resources\z16resumo.png" />
+    <None Include="Resources\z16variacao.png" />
+    <None Include="Resources\z16tudo.png" />
+    <None Include="Resources\z16acumulado.png" />
+    <None Include="Resources\z16nocoin.png" />
+    <None Include="Resources\z16coin.png" />
+    <None Include="Resources\z16cancela.png" />
+    <None Include="Resources\z16info.png" />
+    <None Include="Resources\z16LosangoPreto.png" />
+    <None Include="Resources\z16maximiza.png" />
+    <None Include="Resources\z16minimiza.png" />
+    <None Include="Resources\z16conciliacao.png" />
+    <None Include="Resources\z16pagamento.png" />
+    <None Include="Service References\ServiceReferenceCVM\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceCVM\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceCVM\configuration91.svcinfo" />
+    <None Include="Imagens\Icones 16x\moedas.png" />
+    <None Include="Imagens\Icones 32x\z32categoria.png" />
+    <None Include="Imagens\Icones 32x\z32contas.png" />
+    <None Include="Imagens\Icones 32x\z32usuario.png" />
+    <None Include="Imagens\Icones 32x\z32lancamento.png" />
+    <None Include="Imagens\Icones 32x\z32investimento.png" />
+    <None Include="Imagens\Icones 16x\z16tipoInvestimento.png" />
+    <None Include="Imagens\Icones 16x\z16senhaPadrao.png" />
+    <None Include="Imagens\Icones 16x\z16tipoInstituicao.png" />
+    <None Include="Imagens\Icones 16x\z16tipoContas.png" />
+    <None Include="Imagens\Icones 16x\z16instituicao.png" />
+    <None Include="Imagens\Icones 16x\z16grupoContas.png" />
+    <None Include="Imagens\Icones 16x\z16moedas.png" />
+    <None Include="Imagens\Icones 16x\z16taxas.png" />
+    <None Include="Imagens\Icones 16x\z16setaBaixo.png" />
+    <None Include="Imagens\Icones 16x\z16setaCima.png" />
+    <None Include="Imagens\Icones 16x\z16aplicar.png" />
+    <None Include="Imagens\Icones 16x\z16corAzul.png" />
+    <None Include="Imagens\Icones 16x\z16corVermelho.png" />
+    <None Include="Imagens\Icones 16x\z16corVerde.png" />
+    <None Include="Imagens\Icones 16x\z16editar.png" />
+    <None Include="Imagens\Icones 16x\z16investimento.png" />
+    <None Include="Imagens\Icones 16x\z16certificado.png" />
+    <None Include="Imagens\Icones 16x\z16corAmarelo.png" />
+    <None Include="Imagens\Icones 16x\z16giveMoney.png" />
+    <None Include="Imagens\Icones 32x\z32investimentos.png" />
+    <None Include="Imagens\Icones 32x\z32meusInvestimentos.png" />
+    <None Include="Imagens\Icones 32x\z32carteira.png" />
+    <None Include="Imagens\Icones 16x\z16update.png" />
+    <None Include="Imagens\Icones 16x\z16refresh.png" />
+    <None Include="Imagens\Icones 32x\z32painel.png" />
+    <None Include="Imagens\Icones 16x\z16painel.png" />
+    <None Include="Imagens\Icones 16x\z16lupa.png" />
+    <None Include="Imagens\Icones 32x\z32planejamento.png" />
+    <None Include="Imagens\Icones 16x\z16grafico2linhas.png" />
+    <None Include="Imagens\Icones 16x\z16enviar.png" />
+    <None Include="Imagens\Icones 16x\z16LosangoPreto.png" />
+    <None Include="Imagens\Icones 16x\z16carregarDados.png" />
+    <None Include="Imagens\Icones 16x\z16proximo.png" />
+    <None Include="Imagens\Icones 16x\z16anterior.png" />
+    <None Include="Imagens\Icones 16x\z16link.png" />
+    <None Include="Imagens\Icones 16x\z16atencao.png" />
+    <None Include="Imagens\Icones 16x\z16info.png" />
+    <None Include="Imagens\Icones 16x\z16calendario.png" />
+    <Content Include="Documentação CVM\meta_inf_diario_fi_cvm.txt" />
+    <Content Include="Imagens\Icones 16x\z16acumulado.png" />
+    <None Include="Imagens\Icones 16x\z16exchange.png" />
+    <None Include="Imagens\Icones 16x\z16radio-off-button.png" />
+    <None Include="Imagens\Icones 16x\z16radio-on-button.png" />
+    <None Include="Imagens\Icones 16x\z16alfinetePreso.png" />
+    <None Include="Imagens\Icones 16x\z16alfineteSolto.png" />
+    <Content Include="Imagens\Icones 16x\z16dia31.png" />
+    <Content Include="Imagens\Icones 16x\z16lista.png" />
+    <None Include="Imagens\Icones 16x\z16negativo.png" />
+    <None Include="Imagens\Icones 16x\z16negative_alternativo.png" />
+    <Content Include="Imagens\Icones 16x\z16resumo.png" />
+    <Content Include="Imagens\Icones 16x\z16tabela.png" />
+    <Content Include="Imagens\Icones 16x\z16tributacao.png" />
+    <None Include="Imagens\Icones 16x\z16unlink.png" />
+    <Content Include="Imagens\Icones 16x\z16tudo.png" />
+    <Content Include="Imagens\Icones 16x\z16ultimodia.png" />
+    <Content Include="Imagens\Icones 16x\z16variacao.png" />
+    <Content Include="Imagens\Icones 32x\z32backup.png" />
+    <Content Include="Imagens\Icones 32x\z32budget.png" />
+    <Content Include="Imagens\Icones 32x\z32cotacoes.png" />
+    <Content Include="Imagens\Icones 32x\z32cvm.png" />
+    <Content Include="Imagens\Icones 32x\z32pesquisar.png" />
+    <Content Include="Imagens\Icones 32x\z32refresh.png" />
+    <Content Include="Imagens\Icones 32x\z32SaldoFuturo.png" />
+    <Content Include="Imagens\MoneyPro.ico" />
+    <Content Include="Imagens\MoneyPro.png" />
+    <Content Include="MoneyPro.ico" />
+    <None Include="Imagens\Icones 16x\new 16x21.png" />
+    <None Include="Imagens\Icones 16x\excluir 16x16.png" />
+    <None Include="Imagens\Icones 16x\Coins-icon.png" />
+    <None Include="Imagens\Icones 16x\GrupoContas.png" />
+    <Content Include="Imagens\Icones 16x\incluir 16x16.png" />
+    <None Include="Imagens\Icones 16x\Symbols_Complete_and_ok_16xLG.png" />
+    <None Include="Imagens\Icones 16x\StatusAnnotation_No_16xLG.png" />
+    <None Include="Imagens\Icones 16x\Lixo 16x16.png" />
+    <None Include="Imagens\Icones 16x\move_to_bottom.png" />
+    <None Include="Imagens\Icones 16x\properties_16xLG.png" />
+    <None Include="Imagens\Icones 16x\PencilAngled_16xLG.png" />
+    <None Include="Imagens\Icones 16x\SenhaPadrao 16x16.png" />
+    <None Include="Imagens\Icones 16x\seta_baixo.png" />
+    <None Include="Imagens\Icones 16x\seta_cima.png" />
+    <None Include="Imagens\Icones 16x\tipoContas.png" />
+    <None Include="Imagens\Icones 16x\instituicao.png" />
+    <None Include="Imagens\Icones 16x\tipoInstituicao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceBancoCentralCotacoes\" />
+    <WCFMetadataStorage Include="Service References\ServiceReferenceCVM\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

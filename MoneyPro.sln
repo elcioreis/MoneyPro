@@ -1,0 +1,89 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyPro", "MoneyPro\MoneyPro.csproj", "{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelos", "Modelos\Modelos.csproj", "{CE668061-5BEE-4510-B172-E62A489A27A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OFXSharp", "OFXSharp\OFXSharp.csproj", "{7BBA813D-EE93-491A-B0C7-FBD588E393CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Debug|x64.ActiveCfg = Debug|x64
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Debug|x64.Build.0 = Debug|x64
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Release|x64.ActiveCfg = Release|x64
+		{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}.Release|x64.Build.0 = Release|x64
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Debug|x64.ActiveCfg = Debug|x64
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Debug|x64.Build.0 = Debug|x64
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Release|x64.ActiveCfg = Release|x64
+		{99CC24A4-E1F9-4278-8F29-4B42C6EE06ED}.Release|x64.Build.0 = Release|x64
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Debug|x64.ActiveCfg = Debug|x64
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Debug|x64.Build.0 = Debug|x64
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Release|x64.ActiveCfg = Release|x64
+		{69F48DA4-AB99-4F82-9FDD-69629D8EDCBF}.Release|x64.Build.0 = Release|x64
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Debug|x64.ActiveCfg = Debug|x64
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Debug|x64.Build.0 = Debug|x64
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Release|x64.ActiveCfg = Release|x64
+		{CE668061-5BEE-4510-B172-E62A489A27A5}.Release|x64.Build.0 = Release|x64
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Debug|x64.ActiveCfg = Debug|x64
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Debug|x64.Build.0 = Debug|x64
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Release|x64.ActiveCfg = Release|x64
+		{7BBA813D-EE93-491A-B0C7-FBD588E393CB}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://elcioreis.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MoneyPro\\MoneyPro.csproj
+		SccProjectName1 = MoneyPro
+		SccLocalPath1 = MoneyPro
+		SccProjectUniqueName2 = DAL\\DAL.csproj
+		SccProjectName2 = DAL
+		SccLocalPath2 = DAL
+		SccProjectUniqueName3 = BLL\\BLL.csproj
+		SccProjectName3 = BLL
+		SccLocalPath3 = BLL
+		SccProjectUniqueName4 = Modelos\\Modelos.csproj
+		SccProjectName4 = Modelos
+		SccLocalPath4 = Modelos
+		SccProjectUniqueName5 = OFXSharp\\OFXSharp.csproj
+		SccProjectName5 = OFXSharp
+		SccLocalPath5 = OFXSharp
+	EndGlobalSection
+EndGlobal
