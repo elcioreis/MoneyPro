@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Modelos;
+﻿using Modelos;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -481,10 +477,9 @@ namespace DAL
                 // Atualiza o planejamento, informando aumentando a parcela e colocando a próxima data.
                 cmd.CommandText = "UPDATE Planejamento SET " +
                                   "Valor = @Valor, " +
-                                  // Se for ativo, muda a data, caso contrário não muda
+                                  // Somente se for ativo muda a data
                                   (string)((ativo) ? "DtInicial = @DtInicial, " : "") +
-                                  // Se for ativo, incrementa o número de processados, caso contrário não incrementa
-                                  (string)((ativo) ? "Processados = Processados + 1, " : "") +
+                                  "Processados = Processados + 1, " +
                                   "Ativo = @Ativo " +
                                   "WHERE PlanejamentoID = @PlanejamentoID;";
 
@@ -552,7 +547,7 @@ namespace DAL
 
             conn.Open();
             try
-            {               
+            {
                 return (DateTime)cmd.ExecuteScalar();
             }
             finally
