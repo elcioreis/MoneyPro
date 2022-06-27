@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyPro", "MoneyPro\MoneyPro.csproj", "{F9AEDC4F-1C8F-4A4E-AF9F-104A1FC193A3}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelos", "Modelos\Modelos.csproj", "{CE668061-5BEE-4510-B172-E62A489A27A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OFXSharp", "OFXSharp\OFXSharp.csproj", "{7BBA813D-EE93-491A-B0C7-FBD588E393CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{FAA9EB6F-67FC-436D-872A-2A6844020066}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,25 +71,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://elcioreis.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = MoneyPro\\MoneyPro.csproj
-		SccProjectName1 = MoneyPro
-		SccLocalPath1 = MoneyPro
-		SccProjectUniqueName2 = DAL\\DAL.csproj
-		SccProjectName2 = DAL
-		SccLocalPath2 = DAL
-		SccProjectUniqueName3 = BLL\\BLL.csproj
-		SccProjectName3 = BLL
-		SccLocalPath3 = BLL
-		SccProjectUniqueName4 = Modelos\\Modelos.csproj
-		SccProjectName4 = Modelos
-		SccLocalPath4 = Modelos
-		SccProjectUniqueName5 = OFXSharp\\OFXSharp.csproj
-		SccProjectName5 = OFXSharp
-		SccLocalPath5 = OFXSharp
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E2A26FE-64AD-41EC-ABA7-752861A13AE4}
 	EndGlobalSection
 EndGlobal
