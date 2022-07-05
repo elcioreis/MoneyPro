@@ -60,6 +60,7 @@
             this.buttonGravarPlanejamento = new System.Windows.Forms.Button();
             this.buttonCancelarCategoria = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonEfetivarTodasParcelas = new System.Windows.Forms.Button();
             this.crdDebComboBox = new System.Windows.Forms.ComboBox();
             this.ativoCheckBox = new System.Windows.Forms.CheckBox();
             this.valorParcelaPanel = new System.Windows.Forms.Panel();
@@ -90,6 +91,7 @@
             // 
             // panelRodape
             // 
+            this.panelRodape.Controls.Add(this.buttonEfetivarTodasParcelas);
             this.panelRodape.Controls.Add(this.buttonGravarPlanejamento);
             this.panelRodape.Controls.Add(this.buttonCancelarCategoria);
             this.panelRodape.Location = new System.Drawing.Point(0, 448);
@@ -100,6 +102,7 @@
             this.panelRodape.Controls.SetChildIndex(this.buttonExcluir, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonCancelarCategoria, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonGravarPlanejamento, 0);
+            this.panelRodape.Controls.SetChildIndex(this.buttonEfetivarTodasParcelas, 0);
             // 
             // buttonExcluir
             // 
@@ -121,7 +124,7 @@
             apelidoLabel.Location = new System.Drawing.Point(12, 60);
             apelidoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             apelidoLabel.Name = "apelidoLabel";
-            apelidoLabel.Size = new System.Drawing.Size(75, 17);
+            apelidoLabel.Size = new System.Drawing.Size(72, 16);
             apelidoLabel.TabIndex = 0;
             apelidoLabel.Text = "Descrição:";
             // 
@@ -131,7 +134,7 @@
             contaIDLabel.Location = new System.Drawing.Point(12, 92);
             contaIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             contaIDLabel.Name = "contaIDLabel";
-            contaIDLabel.Size = new System.Drawing.Size(49, 17);
+            contaIDLabel.Size = new System.Drawing.Size(45, 16);
             contaIDLabel.TabIndex = 2;
             contaIDLabel.Text = "Conta:";
             // 
@@ -141,7 +144,7 @@
             categoriaIDLabel.Location = new System.Drawing.Point(12, 158);
             categoriaIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             categoriaIDLabel.Name = "categoriaIDLabel";
-            categoriaIDLabel.Size = new System.Drawing.Size(73, 17);
+            categoriaIDLabel.Size = new System.Drawing.Size(69, 16);
             categoriaIDLabel.TabIndex = 6;
             categoriaIDLabel.Text = "Categoria:";
             // 
@@ -151,7 +154,7 @@
             grupoCategoriaIDLabel.Location = new System.Drawing.Point(12, 191);
             grupoCategoriaIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             grupoCategoriaIDLabel.Name = "grupoCategoriaIDLabel";
-            grupoCategoriaIDLabel.Size = new System.Drawing.Size(52, 17);
+            grupoCategoriaIDLabel.Size = new System.Drawing.Size(47, 16);
             grupoCategoriaIDLabel.TabIndex = 8;
             grupoCategoriaIDLabel.Text = "Grupo:";
             // 
@@ -161,7 +164,7 @@
             valorLabel.Location = new System.Drawing.Point(12, 254);
             valorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             valorLabel.Name = "valorLabel";
-            valorLabel.Size = new System.Drawing.Size(45, 17);
+            valorLabel.Size = new System.Drawing.Size(42, 16);
             valorLabel.TabIndex = 10;
             valorLabel.Text = "Valor:";
             // 
@@ -171,7 +174,7 @@
             lancamentoIDLabel.Location = new System.Drawing.Point(12, 125);
             lancamentoIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lancamentoIDLabel.Name = "lancamentoIDLabel";
-            lancamentoIDLabel.Size = new System.Drawing.Size(90, 17);
+            lancamentoIDLabel.Size = new System.Drawing.Size(84, 16);
             lancamentoIDLabel.TabIndex = 4;
             lancamentoIDLabel.Text = "Lançamento:";
             // 
@@ -181,7 +184,7 @@
             diaLabel.Location = new System.Drawing.Point(12, 349);
             diaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             diaLabel.Name = "diaLabel";
-            diaLabel.Size = new System.Drawing.Size(33, 17);
+            diaLabel.Size = new System.Drawing.Size(31, 16);
             diaLabel.TabIndex = 18;
             diaLabel.Text = "Dia:";
             // 
@@ -191,7 +194,7 @@
             diferencaNaPrimeiraLabel.Location = new System.Drawing.Point(12, 286);
             diferencaNaPrimeiraLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             diferencaNaPrimeiraLabel.Name = "diferencaNaPrimeiraLabel";
-            diferencaNaPrimeiraLabel.Size = new System.Drawing.Size(73, 17);
+            diferencaNaPrimeiraLabel.Size = new System.Drawing.Size(68, 16);
             diferencaNaPrimeiraLabel.TabIndex = 14;
             diferencaNaPrimeiraLabel.Text = "Diferença:";
             // 
@@ -201,7 +204,7 @@
             valorParcelaLabel.Location = new System.Drawing.Point(12, 10);
             valorParcelaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             valorParcelaLabel.Name = "valorParcelaLabel";
-            valorParcelaLabel.Size = new System.Drawing.Size(97, 17);
+            valorParcelaLabel.Size = new System.Drawing.Size(92, 16);
             valorParcelaLabel.TabIndex = 12;
             valorParcelaLabel.Text = "Valor Parcela:";
             // 
@@ -211,7 +214,7 @@
             labelObservacao.Location = new System.Drawing.Point(12, 223);
             labelObservacao.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelObservacao.Name = "labelObservacao";
-            labelObservacao.Size = new System.Drawing.Size(89, 17);
+            labelObservacao.Size = new System.Drawing.Size(85, 16);
             labelObservacao.TabIndex = 23;
             labelObservacao.Text = "Observação:";
             // 
@@ -221,7 +224,7 @@
             this.repeticoesLabel.Location = new System.Drawing.Point(12, 380);
             this.repeticoesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.repeticoesLabel.Name = "repeticoesLabel";
-            this.repeticoesLabel.Size = new System.Drawing.Size(67, 17);
+            this.repeticoesLabel.Size = new System.Drawing.Size(64, 16);
             this.repeticoesLabel.TabIndex = 22;
             this.repeticoesLabel.Text = "Parcelas:";
             // 
@@ -231,7 +234,7 @@
             this.dtInicialLabel.Location = new System.Drawing.Point(12, 318);
             this.dtInicialLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dtInicialLabel.Name = "dtInicialLabel";
-            this.dtInicialLabel.Size = new System.Drawing.Size(94, 17);
+            this.dtInicialLabel.Size = new System.Drawing.Size(89, 16);
             this.dtInicialLabel.TabIndex = 16;
             this.dtInicialLabel.Text = "Próxima data:";
             // 
@@ -400,7 +403,7 @@
             this.label1.Location = new System.Drawing.Point(164, 380);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 17);
+            this.label1.Size = new System.Drawing.Size(106, 16);
             this.label1.TabIndex = 14;
             this.label1.Text = "Zero se contínuo";
             // 
@@ -414,7 +417,7 @@
             this.buttonGravarPlanejamento.Name = "buttonGravarPlanejamento";
             this.buttonGravarPlanejamento.Size = new System.Drawing.Size(31, 28);
             this.buttonGravarPlanejamento.TabIndex = 0;
-            this.toolTip.SetToolTip(this.buttonGravarPlanejamento, "Gravar");
+            this.toolTip.SetToolTip(this.buttonGravarPlanejamento, "Gravar planejamento");
             this.buttonGravarPlanejamento.UseVisualStyleBackColor = true;
             this.buttonGravarPlanejamento.Click += new System.EventHandler(this.buttonGravarPlanejamento_Click);
             // 
@@ -436,6 +439,20 @@
             // 
             this.toolTip.BackColor = System.Drawing.Color.Gold;
             this.toolTip.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.toolTip_Draw);
+            // 
+            // buttonEfetivarTodasParcelas
+            // 
+            this.buttonEfetivarTodasParcelas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonEfetivarTodasParcelas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEfetivarTodasParcelas.Image = global::MoneyPro.Properties.Resources.salvar;
+            this.buttonEfetivarTodasParcelas.Location = new System.Drawing.Point(344, 5);
+            this.buttonEfetivarTodasParcelas.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonEfetivarTodasParcelas.Name = "buttonEfetivarTodasParcelas";
+            this.buttonEfetivarTodasParcelas.Size = new System.Drawing.Size(31, 28);
+            this.buttonEfetivarTodasParcelas.TabIndex = 2;
+            this.toolTip.SetToolTip(this.buttonEfetivarTodasParcelas, "Efetivar todas parcelas");
+            this.buttonEfetivarTodasParcelas.UseVisualStyleBackColor = true;
+            this.buttonEfetivarTodasParcelas.Click += new System.EventHandler(this.buttonEfetivarTodasParcelas_Click);
             // 
             // crdDebComboBox
             // 
@@ -613,5 +630,6 @@
         private System.Windows.Forms.Panel valorParcelaPanel;
         private System.Windows.Forms.TextBox valorParcelaTextBox;
         private System.Windows.Forms.TextBox observacaoTextBox;
+        private System.Windows.Forms.Button buttonEfetivarTodasParcelas;
     }
 }

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using BLL;
 using Modelos;
-using BLL;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Text.RegularExpressions;
-using System.Globalization;
+using System.Windows.Forms;
 
 namespace MoneyPro
 {
@@ -76,6 +72,7 @@ namespace MoneyPro
             else
                 this.Data = ((DateTime)dia).Date;
 
+            buttonEfetivarTodasParcelas.Visible = false;
         }
 
         public fmPlanejamentoManutencao(bool efetivar, int usuarioID, int planejamentoID)
@@ -87,6 +84,11 @@ namespace MoneyPro
             this.PlanejamentoID = planejamentoID;
 
             this.Efetivar = efetivar;
+
+            if (efetivar)
+                this.toolTip.SetToolTip(this.buttonGravarPlanejamento, "Efetivar planejamento");
+            else
+                this.toolTip.SetToolTip(this.buttonGravarPlanejamento, "Gravar planejamento");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -218,9 +220,7 @@ namespace MoneyPro
 
                 row["ValorParcela"] = valorParcela;
 
-
-                /////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////
+                TrataExibicaoEfetivarTodasParcelas();
             }
         }
 
@@ -946,6 +946,32 @@ namespace MoneyPro
 
                 if (!Regex.IsMatch(textBox.Text + e.KeyChar, "^[+]?[0-9]{0,12}((,[0-9]{0,2})|())$"))
                     e.Handled = true;
+            }
+        }
+
+        private void TrataExibicaoEfetivarTodasParcelas()
+        {
+            if (int.TryParse(repeticoesTextBox.Text, out int vezes))
+            {
+                buttonEfetivarTodasParcelas.Visible = vezes > 0;
+            }
+            else
+            {
+                buttonEfetivarTodasParcelas.Visible = false;
+            }
+        }
+
+        private void buttonEfetivarTodasParcelas_Click(object sender, EventArgs e)
+        {
+            string msg = ValidaDados();
+            if (msg == string.Empty)
+            {
+                int repeticoes = (int)row["Repeticoes"];
+                int processadas = (int)row["Processadas"];
+            }
+            else
+            {
+                MessageBox.Show(msg, "MoneyPro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
