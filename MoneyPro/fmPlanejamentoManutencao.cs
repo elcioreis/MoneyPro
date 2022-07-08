@@ -532,11 +532,13 @@ namespace MoneyPro
                 // Aceita qualquer texto de 0 a 100 caracters
                 if (Regex.IsMatch(textbox.Text + e.KeyChar, "^.{0,100}$"))
                 {
-                    Geral.Capitaliza(textbox);                             // Capitaliza o conteúdo do textbox
+                    // Capitaliza o conteúdo do textbox
+                    Geral.Capitaliza(textbox);
                 }
                 else
                 {
-                    e.Handled = true;                                      // não passou pela regex
+                    // não passou pela regex
+                    e.Handled = true;
                 }
             }
         }
@@ -631,7 +633,7 @@ namespace MoneyPro
                 }
                 else
                 {
-                    if (bll.EfetivarPlanejamento(modelo))
+                    if (bll.EfetivarPlanejamento(modelo, out DateTime proximo))
                     {
                         this.DialogResult = DialogResult.OK;
                         Close();
@@ -912,7 +914,6 @@ namespace MoneyPro
             {
                 // Se não encontrou, procura prestações com menos de 100 parcelas
                 pos = ((string)row["Apelido"]).IndexOf("(XX/");
-
             }
 
             if (pos < 0)
@@ -966,13 +967,51 @@ namespace MoneyPro
             string msg = ValidaDados();
             if (msg == string.Empty)
             {
-                int repeticoes = (int)row["Repeticoes"];
-                int processadas = (int)row["Processadas"];
+                string zeros = new string('0', modelo.Repeticoes.ToString().Length);
+
+                PlanejamentoBLL bll = new PlanejamentoBLL();
+
+                for (int i = modelo.Processados; i < modelo.Repeticoes; i++)
+                {
+                    string contagem = $"({(modelo.Processados + 1).ToString(zeros)}/{modelo.Repeticoes})";
+
+                    modelo.Apelido = AjustaContagem(modelo.Apelido, contagem);
+                    modelo.Descricao = AjustaContagem(modelo.Descricao, contagem);
+                    modelo.Observacao = AjustaContagem(modelo.Observacao, contagem);
+
+                    if (bll.EfetivarPlanejamento(modelo, out DateTime proximoEvento))
+                    {
+                        modelo.Processados++;
+                        modelo.DtInicial = proximoEvento;
+                    }
+
+                    modelo.ValorParcela = decimal.Truncate((modelo.Valor ?? 0) * 100 / modelo.Repeticoes) / 100;
+
+                    if (!modelo.DiferencaNaPrimeira) // Diferença na última
+                    {
+                        // Se for a última parcela, calcula a diferença
+                        if (modelo.Processados == modelo.Repeticoes - 1)
+                        {
+                            decimal diferenca = (modelo.Valor ?? 0) - (modelo.ValorParcela ?? 0) * modelo.Repeticoes;
+                            modelo.ValorParcela += diferenca;
+                        }
+                    }
+                }
+                this.DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
                 MessageBox.Show(msg, "MoneyPro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private string AjustaContagem(string campo, string contagem)
+        {
+            if ((!string.IsNullOrEmpty(campo)) && (Regex.IsMatch(campo, @"\s\(\d{1,3}\/\d{1,3}\)")))
+                return campo.Trim().Substring(0, campo.LastIndexOf(' ')) + " " + contagem;
+            else
+                return campo;
         }
     }
 }

@@ -260,7 +260,7 @@ namespace DAL
             }
         }
 
-        public bool EfetivarPlanejamento(Planejamento modelo)
+        public bool EfetivarPlanejamento(Planejamento modelo, out DateTime dataProximoEvento)
         {
             // Insere o planejamento na movimentação de conta e muda as 
             // informações do planejamento para o próximo período.
@@ -278,7 +278,6 @@ namespace DAL
             }
 
             decimal? valor;
-            //decimal? diferenca = 0;
 
             if (!modelo.Total)
             {
@@ -287,30 +286,7 @@ namespace DAL
             else
             {
                 valor = modelo.ValorParcela;
-                //// Calcula o valor arredondado da parcela
-                ////valor = Math.Round((decimal)modelo.Valor / (decimal)modelo.Repeticoes, 2);
-                //// Para truncar com duas casas decimais
-                //valor = Math.Truncate((decimal)modelo.Valor / (decimal)modelo.Repeticoes * 100) / 100;
-
-                //if (modelo.DiferencaNaPrimeira)   // Diferença na primeira
-                //{
-                //    if (modelo.Processados == 0)
-                //    {
-                //        // Se for a primeira parcela, calcula a diferença
-                //        diferenca = (decimal)modelo.Valor - (valor * (decimal)modelo.Repeticoes);
-                //    }
-                //}
-                //else // Diferença na última
-                //{
-                //    if (modelo.Processados == modelo.Repeticoes - 1)
-                //    {
-                //        // Se for a última parcela, calcula a diferença
-                //        diferenca = (decimal)modelo.Valor - (valor * (decimal)modelo.Repeticoes);
-                //    }
-                //}
-                //valor += diferenca;
             }
-
 
             decimal? Credito;
             decimal? Debito;
@@ -326,9 +302,8 @@ namespace DAL
                 Debito = valor;
             }
 
-
             // 1 como parâmetro representa o próximo evento.
-            DateTime dataProximoEvento = ProximoEventoPlanejamento(modelo.PlanejamentoID, 1);
+            dataProximoEvento = ProximoEventoPlanejamento(modelo.PlanejamentoID, 1);
 
             SqlConnection conn = new SqlConnection(Dados.Conexao);
 
@@ -456,14 +431,13 @@ namespace DAL
                     {
                         cmd.Parameters.Clear();
                         cmd.CommandText = @"INSERT INTO MovimentoContaObservacao
-                                        (MovimentoContaID, Observacao)
-                                        VALUES
-                                        (@MovimentoContaID, @Observacao);";
+                                            (MovimentoContaID, Observacao)
+                                            VALUES
+                                            (@MovimentoContaID, @Observacao);";
                         cmd.Parameters.AddWithValue("@MovimentoContaID", registro);
                         cmd.Parameters.AddWithValue("@Observacao", modelo.Observacao.Trim());
 
                         cmd.ExecuteNonQuery();
-
                         cmd.Parameters.Clear();
                     }
                 }
