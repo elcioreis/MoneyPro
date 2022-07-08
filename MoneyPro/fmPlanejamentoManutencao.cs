@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using BLL;
 using Modelos;
-using BLL;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Text.RegularExpressions;
-using System.Globalization;
+using System.Windows.Forms;
 
 namespace MoneyPro
 {
@@ -76,6 +72,7 @@ namespace MoneyPro
             else
                 this.Data = ((DateTime)dia).Date;
 
+            buttonEfetivarTodasParcelas.Visible = false;
         }
 
         public fmPlanejamentoManutencao(bool efetivar, int usuarioID, int planejamentoID)
@@ -87,6 +84,11 @@ namespace MoneyPro
             this.PlanejamentoID = planejamentoID;
 
             this.Efetivar = efetivar;
+
+            if (efetivar)
+                this.toolTip.SetToolTip(this.buttonGravarPlanejamento, "Efetivar planejamento");
+            else
+                this.toolTip.SetToolTip(this.buttonGravarPlanejamento, "Gravar planejamento");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -218,9 +220,7 @@ namespace MoneyPro
 
                 row["ValorParcela"] = valorParcela;
 
-
-                /////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////
+                TrataExibicaoEfetivarTodasParcelas();
             }
         }
 
@@ -532,11 +532,13 @@ namespace MoneyPro
                 // Aceita qualquer texto de 0 a 100 caracters
                 if (Regex.IsMatch(textbox.Text + e.KeyChar, "^.{0,100}$"))
                 {
-                    Geral.Capitaliza(textbox);                             // Capitaliza o conteúdo do textbox
+                    // Capitaliza o conteúdo do textbox
+                    Geral.Capitaliza(textbox);
                 }
                 else
                 {
-                    e.Handled = true;                                      // não passou pela regex
+                    // não passou pela regex
+                    e.Handled = true;
                 }
             }
         }
@@ -631,7 +633,7 @@ namespace MoneyPro
                 }
                 else
                 {
-                    if (bll.EfetivarPlanejamento(modelo))
+                    if (bll.EfetivarPlanejamento(modelo, out DateTime proximo))
                     {
                         this.DialogResult = DialogResult.OK;
                         Close();
@@ -912,7 +914,6 @@ namespace MoneyPro
             {
                 // Se não encontrou, procura prestações com menos de 100 parcelas
                 pos = ((string)row["Apelido"]).IndexOf("(XX/");
-
             }
 
             if (pos < 0)
@@ -947,6 +948,70 @@ namespace MoneyPro
                 if (!Regex.IsMatch(textBox.Text + e.KeyChar, "^[+]?[0-9]{0,12}((,[0-9]{0,2})|())$"))
                     e.Handled = true;
             }
+        }
+
+        private void TrataExibicaoEfetivarTodasParcelas()
+        {
+            if (int.TryParse(repeticoesTextBox.Text, out int vezes))
+            {
+                buttonEfetivarTodasParcelas.Visible = vezes > 0;
+            }
+            else
+            {
+                buttonEfetivarTodasParcelas.Visible = false;
+            }
+        }
+
+        private void buttonEfetivarTodasParcelas_Click(object sender, EventArgs e)
+        {
+            string msg = ValidaDados();
+            if (msg == string.Empty)
+            {
+                string zeros = new string('0', modelo.Repeticoes.ToString().Length);
+
+                PlanejamentoBLL bll = new PlanejamentoBLL();
+
+                for (int i = modelo.Processados; i < modelo.Repeticoes; i++)
+                {
+                    string contagem = $"({(modelo.Processados + 1).ToString(zeros)}/{modelo.Repeticoes})";
+
+                    modelo.Apelido = AjustaContagem(modelo.Apelido, contagem);
+                    modelo.Descricao = AjustaContagem(modelo.Descricao, contagem);
+                    modelo.Observacao = AjustaContagem(modelo.Observacao, contagem);
+
+                    if (bll.EfetivarPlanejamento(modelo, out DateTime proximoEvento))
+                    {
+                        modelo.Processados++;
+                        modelo.DtInicial = proximoEvento;
+                    }
+
+                    modelo.ValorParcela = decimal.Truncate((modelo.Valor ?? 0) * 100 / modelo.Repeticoes) / 100;
+
+                    if (!modelo.DiferencaNaPrimeira) // Diferença na última
+                    {
+                        // Se for a última parcela, calcula a diferença
+                        if (modelo.Processados == modelo.Repeticoes - 1)
+                        {
+                            decimal diferenca = (modelo.Valor ?? 0) - (modelo.ValorParcela ?? 0) * modelo.Repeticoes;
+                            modelo.ValorParcela += diferenca;
+                        }
+                    }
+                }
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show(msg, "MoneyPro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private string AjustaContagem(string campo, string contagem)
+        {
+            if ((!string.IsNullOrEmpty(campo)) && (Regex.IsMatch(campo, @"\s\(\d{1,3}\/\d{1,3}\)")))
+                return campo.Trim().Substring(0, campo.LastIndexOf(' ')) + " " + contagem;
+            else
+                return campo;
         }
     }
 }

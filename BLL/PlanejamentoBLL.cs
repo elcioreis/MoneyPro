@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL;
 using Modelos;
-using DAL;
+using System;
 using System.Data;
 
 namespace BLL
@@ -68,10 +64,10 @@ namespace BLL
             return dal.ExcluirPlanejamento(contaID, lancamentoID, categoriaID);
         }
 
-        public bool EfetivarPlanejamento(Planejamento modelo)
+        public bool EfetivarPlanejamento(Planejamento modelo, out DateTime dataProximoEvento)
         {
             PlanejamentoDAL dal = new PlanejamentoDAL();
-            return dal.EfetivarPlanejamento(modelo);
+            return dal.EfetivarPlanejamento(modelo, out dataProximoEvento);
         }
     }
 }

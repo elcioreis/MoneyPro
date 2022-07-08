@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using BLL;
+using System;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Modelos;
-using BLL;
 
 namespace MoneyPro
 {
     public partial class fmPlanejamento : MoneyPro.Base.fmBaseTopoRodape
     {
-        
+
         private int IDUsuario { get; set; }
         private Form Origem { get; set; }
         private DateTime limite;
@@ -121,6 +116,11 @@ namespace MoneyPro
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         CarregarPlanejamento(IDUsuario, (this.Origem as FmPrincipal).Configuracoes.Planejamento_ExibeAtivas);
+                        int col = Geral.PrimeiraColunaVisivel(planejamentoDataGridView);
+                        planejamentoDataGridView.CurrentCell = planejamentoDataGridView.Rows[0].Cells[col];
+
+                        if (Origem is FmPrincipal)
+                            (Origem as FmPrincipal).CarregarRolContas();
                     }
                 }
             }
