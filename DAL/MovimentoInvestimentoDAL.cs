@@ -1,7 +1,7 @@
-﻿using System;
-using Modelos;
-using System.Data.SqlClient;
+﻿using Modelos;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DAL
 {
@@ -12,6 +12,11 @@ namespace DAL
             int investimentoCotacaoID;
             int movimentoContaID;
             int movimentoInvestimentoID;
+
+            foreach (MovimentoInvestimentoDespesa linha in despesas)
+            {
+                linha.LancamentoId = IDdoLancamento(modelo.UsuarioID, linha.Parceiro, false);
+            }
 
             SqlConnection conn = new SqlConnection(Dados.Conexao);
 
@@ -36,7 +41,7 @@ namespace DAL
                 else
                     lancamento = "Despesas de Resgate";
 
-                int lancamentoID = IDdoLancamento(modelo.UsuarioID, lancamento, false);
+                int lancamentoID = IDdoLancamento(modelo.UsuarioID, lancamento, true);
 
                 cmd.Transaction = transacao;
 
@@ -138,8 +143,6 @@ namespace DAL
                     {
                         // Insere o movimento de despesa para aparecer no grid.
 
-                        lancamentoID = IDdoLancamento(modelo.UsuarioID, linha.Parceiro, false);
-
                         cmd.Parameters.Clear();
                         cmd.CommandText = @"INSERT INTO MovimentoConta 
                                            (UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, CategoriaID,
@@ -154,7 +157,7 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@ContaID", modelo.ContaID);
                         cmd.Parameters.AddWithValue("@Data", modelo.Data);
                         cmd.Parameters.AddWithValue("@Numero", (object)modelo.Numero ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@LancamentoID", lancamentoID);
+                        cmd.Parameters.AddWithValue("@LancamentoID", linha.LancamentoId);
                         cmd.Parameters.AddWithValue("@Descricao", modelo.Descricao);
                         cmd.Parameters.AddWithValue("@CategoriaID", linha.CategoriaID);
                         cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Modelos
+﻿namespace Modelos
 {
     public class MovimentoInvestimentoDespesa
     {
@@ -15,5 +9,6 @@ namespace Modelos
         public int CategoriaID { get; set; }
         public int Ordem { get; set; }
         public decimal Valor { get; set; }
+        public decimal LancamentoId { get; set; }
     }
 }
