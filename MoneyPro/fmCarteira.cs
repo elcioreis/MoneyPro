@@ -193,46 +193,6 @@ namespace MoneyPro
             //AlturaGridSuperior();
         }
 
-        //private void AjustaAparenciaSubForm(Form subForm)
-        //{
-        //    // Ajusta o form de detalhes para que seja semelhante ao da movimentação de contas
-
-        //    // Atribui o MdiParent ao form atual
-        //    subForm.MdiParent = this.MdiParent;
-        //    // Remove as bordas
-        //    subForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-        //    // Remove os botões (remover todos os botões faz com que o menu do filho não seja fundido (merged))
-        //    subForm.ControlBox = false;
-        //    subForm.MaximizeBox = false;
-        //    subForm.MinimizeBox = false;
-        //    // Desabilita exibição do ícone
-        //    subForm.ShowIcon = false;
-        //    // Maximiza
-        //    subForm.WindowState = FormWindowState.Maximized;
-        //    // Remove o título da janela
-        //    subForm.Text = string.Empty;
-        //    // Preenche o dock
-        //    subForm.Dock = DockStyle.Fill;
-        //    // Atribui o padding 3;3;3;3 (todos lados iguais)
-        //    subForm.Padding = new Padding(3);
-        //    // Procura groupbox no formulário
-        //    foreach (Control C1 in subForm.Controls)
-        //    {
-        //        if (C1 is GroupBox)
-        //        {
-        //            C1.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-        //            foreach (Control C2 in C1.Controls)
-        //            {
-        //                C2.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            C1.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
-        //        }
-        //    }
-        //}
-
         private void buttonGraficosInvestimentos_Click(object sender, EventArgs e)
         {
             contextMenuStripGraficosDisponiveis.Show(MousePosition);
@@ -422,9 +382,12 @@ namespace MoneyPro
         private void ExibeGraficoRendimentoDiario(TipoConsultaInvestimentoVariacao tipoConsulta)
         {
             // Exibe uma sub janela com o gráfico
-            //
 
-            // Deve haver de uma a cinco linhas de fundos selecionadas.
+            // Remove a seleção da linha de totalização pra evitar erro
+            int totalRow = carteiraDataGridView.Rows.Count - 1;
+            carteiraDataGridView.Rows[totalRow].Selected = false;
+
+            // Deve haver de uma a oito linhas de fundos selecionadas.
             if (carteiraDataGridView.SelectedRows.Count < 1 || carteiraDataGridView.SelectedRows.Count > 8)
             {
                 MessageBox.Show("Selecione de um a oito itens para criar o gráfico.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
