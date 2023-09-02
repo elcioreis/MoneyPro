@@ -234,6 +234,12 @@
     <Compile Include="fmCarteiraGraficoRendimentoDiario.Designer.cs">
       <DependentUpon>fmCarteiraGraficoRendimentoDiario.cs</DependentUpon>
     </Compile>
+    <Compile Include="fmCarteiraGraficoValores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmCarteiraGraficoValores.designer.cs">
+      <DependentUpon>fmCarteiraGraficoValores.cs</DependentUpon>
+    </Compile>
     <Compile Include="fmCarteiraListaMovimentosFundo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -581,6 +587,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fmCarteiraGraficoRendimentoMensal.resx">
       <DependentUpon>fmCarteiraGraficoRendimentoMensal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmCarteiraGraficoValores.resx">
+      <DependentUpon>fmCarteiraGraficoValores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmCarteiraListaMovimentosFundo.resx">
       <DependentUpon>fmCarteiraListaMovimentosFundo.cs</DependentUpon>

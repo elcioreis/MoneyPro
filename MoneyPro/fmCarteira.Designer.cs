@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.carteiraDataGridView = new System.Windows.Forms.DataGridView();
             this.UsuarioID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Detalhe = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,9 +68,10 @@
             this.buttonListarMovimentacao = new System.Windows.Forms.Button();
             this.buttonVariacaoDiaria = new System.Windows.Forms.Button();
             this.contextMenuStripGraficosDisponiveis = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.percentualDiarioAcumuladoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.rendimentoDiarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variacaoDiariaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.percentualDiarioAcumuladoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.rendimentoMensalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variacaoMensalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,6 +83,7 @@
             this.variacaoDezUltimosDiasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variacaoDiáriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variaçãoMensalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.valorDiarioAcumuladoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.carteiraDataGridView)).BeginInit();
@@ -143,8 +145,8 @@
             // 
             this.carteiraDataGridView.AllowUserToAddRows = false;
             this.carteiraDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            this.carteiraDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Gainsboro;
+            this.carteiraDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.carteiraDataGridView.AutoGenerateColumns = false;
             this.carteiraDataGridView.CausesValidation = false;
             this.carteiraDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -273,9 +275,9 @@
             // 
             this.QtCotas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.QtCotas.DataPropertyName = "QtCotas";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N8";
-            this.QtCotas.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N8";
+            this.QtCotas.DefaultCellStyle = dataGridViewCellStyle9;
             this.QtCotas.FillWeight = 110F;
             this.QtCotas.HeaderText = "Total de Cotas";
             this.QtCotas.MinimumWidth = 100;
@@ -288,8 +290,8 @@
             // 
             this.QtCotasFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.QtCotasFmt.DataPropertyName = "QtCotasFmt";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.QtCotasFmt.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.QtCotasFmt.DefaultCellStyle = dataGridViewCellStyle10;
             this.QtCotasFmt.FillWeight = 110F;
             this.QtCotasFmt.HeaderText = "Quantidade";
             this.QtCotasFmt.MinimumWidth = 70;
@@ -312,8 +314,8 @@
             // 
             this.VrCotacaoFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.VrCotacaoFmt.DataPropertyName = "VrCotacaoFmt";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.VrCotacaoFmt.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.VrCotacaoFmt.DefaultCellStyle = dataGridViewCellStyle11;
             this.VrCotacaoFmt.HeaderText = "Cotação";
             this.VrCotacaoFmt.MinimumWidth = 70;
             this.VrCotacaoFmt.Name = "VrCotacaoFmt";
@@ -325,8 +327,8 @@
             // 
             this.Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Data.DataPropertyName = "Data";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Data.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Data.DefaultCellStyle = dataGridViewCellStyle12;
             this.Data.FillWeight = 75F;
             this.Data.HeaderText = "Data";
             this.Data.MinimumWidth = 70;
@@ -369,8 +371,8 @@
             // 
             this.VrAplicadoFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.VrAplicadoFmt.DataPropertyName = "VrAplicadoFmt";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.VrAplicadoFmt.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.VrAplicadoFmt.DefaultCellStyle = dataGridViewCellStyle13;
             this.VrAplicadoFmt.HeaderText = "Valor Aplicado";
             this.VrAplicadoFmt.MinimumWidth = 105;
             this.VrAplicadoFmt.Name = "VrAplicadoFmt";
@@ -382,8 +384,8 @@
             // 
             this.PercFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.PercFmt.DataPropertyName = "PercFmt";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PercFmt.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PercFmt.DefaultCellStyle = dataGridViewCellStyle14;
             this.PercFmt.HeaderText = "% da Carteira";
             this.PercFmt.MinimumWidth = 100;
             this.PercFmt.Name = "PercFmt";
@@ -538,9 +540,11 @@
             // 
             this.contextMenuStripGraficosDisponiveis.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStripGraficosDisponiveis.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.valorDiarioAcumuladoToolStripMenuItem,
+            this.percentualDiarioAcumuladoToolStripMenuItem,
+            this.toolStripSeparator1,
             this.rendimentoDiarioToolStripMenuItem,
             this.variacaoDiariaToolStripMenuItem,
-            this.percentualDiarioAcumuladoToolStripMenuItem,
             this.toolStripSeparator2,
             this.rendimentoMensalToolStripMenuItem,
             this.variacaoMensalToolStripMenuItem,
@@ -548,7 +552,19 @@
             this.composicaoDaCarteiraToolStripMenuItem,
             this.variacaoDasCotacoesToolStripMenuItem});
             this.contextMenuStripGraficosDisponiveis.Name = "contextMenuStripGraficos";
-            this.contextMenuStripGraficosDisponiveis.Size = new System.Drawing.Size(310, 212);
+            this.contextMenuStripGraficosDisponiveis.Size = new System.Drawing.Size(310, 242);
+            // 
+            // percentualDiarioAcumuladoToolStripMenuItem
+            // 
+            this.percentualDiarioAcumuladoToolStripMenuItem.Name = "percentualDiarioAcumuladoToolStripMenuItem";
+            this.percentualDiarioAcumuladoToolStripMenuItem.Size = new System.Drawing.Size(309, 24);
+            this.percentualDiarioAcumuladoToolStripMenuItem.Text = "Percentual Diário Acumulado";
+            this.percentualDiarioAcumuladoToolStripMenuItem.Click += new System.EventHandler(this.percentualDiarioAcumuladoToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(306, 6);
             // 
             // rendimentoDiarioToolStripMenuItem
             // 
@@ -563,13 +579,6 @@
             this.variacaoDiariaToolStripMenuItem.Size = new System.Drawing.Size(309, 24);
             this.variacaoDiariaToolStripMenuItem.Text = "Variação Diária dos Investimentos";
             this.variacaoDiariaToolStripMenuItem.Click += new System.EventHandler(this.variacaoDiariaToolStripMenuItem_Click);
-            // 
-            // percentualDiarioAcumuladoToolStripMenuItem
-            // 
-            this.percentualDiarioAcumuladoToolStripMenuItem.Name = "percentualDiarioAcumuladoToolStripMenuItem";
-            this.percentualDiarioAcumuladoToolStripMenuItem.Size = new System.Drawing.Size(309, 24);
-            this.percentualDiarioAcumuladoToolStripMenuItem.Text = "Percentual Diário Acumulado";
-            this.percentualDiarioAcumuladoToolStripMenuItem.Click += new System.EventHandler(this.percentualDiarioAcumuladoToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -653,6 +662,13 @@
             this.variaçãoMensalToolStripMenuItem.Text = "Variação Mensal";
             this.variaçãoMensalToolStripMenuItem.Click += new System.EventHandler(this.VariacaoMensalToolStripMenuItem_Click);
             // 
+            // valorDiarioAcumuladoToolStripMenuItem
+            // 
+            this.valorDiarioAcumuladoToolStripMenuItem.Name = "valorDiarioAcumuladoToolStripMenuItem";
+            this.valorDiarioAcumuladoToolStripMenuItem.Size = new System.Drawing.Size(309, 24);
+            this.valorDiarioAcumuladoToolStripMenuItem.Text = "Valor Diário Acumulado";
+            this.valorDiarioAcumuladoToolStripMenuItem.Click += new System.EventHandler(this.valorDiarioAcumuladoToolStripMenuItem_Click);
+            // 
             // fmCarteira
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -723,5 +739,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PercFmt;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Fundo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Acao;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem valorDiarioAcumuladoToolStripMenuItem;
     }
 }

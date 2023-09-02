@@ -19,6 +19,7 @@ namespace MoneyPro
         private fmCarteiraGraficoRendimentoDiario graficoRendimentoDiario;
         private fmCarteiraGraficoComposicaoCarteira graficoComposicaoCarteira;
         private fmCarteiraGraficoPercentual graficoPercentual;
+        private fmCarteiraGraficoValores graficoValores;
         private fmCarteiraListaMovimentosFundo listaMovimentosFundo;
 
         private int IDUsuario { get; set; }
@@ -420,6 +421,44 @@ namespace MoneyPro
             }
         }
 
+        private void ExibirGraficoValor(TipoConsultaInvestimentoVariacao tipoConsulta)
+        {
+            // Exibe uma sub janela com o gráfico
+            //
+
+            // Deve haver de uma a cinco linhas de fundos selecionadas.
+            if (carteiraDataGridView.SelectedRows.Count < 1 || carteiraDataGridView.SelectedRows.Count > 8)
+            {
+                MessageBox.Show("Selecione de um a oito itens para criar o gráfico.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            //
+            // Cria uma janela com o gráfico
+            // Ao fechar a janela criada, a atual é restaurada.
+            //
+
+            // Cria uma instância do form de detalhes
+            graficoValores = fmCarteiraGraficoValores.CreateInstance(this, carteiraDataGridView, tipoConsulta);
+
+            if (graficoValores != null)
+            {
+
+                // Ajusta a aparência do formulário para que ele se encaixe no lugar do formulário atual 
+                Geral.AjustaAparenciaSubForm(this, graficoValores);
+
+                // Esconde o form atual
+                this.WindowState = FormWindowState.Minimized;
+
+                graficoValores.Show();
+                graficoValores.Focus();
+            }
+            else
+            {
+                MessageBox.Show("Não existem informações a serem exibidas.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void ExibirGraficoPercentual(TipoConsultaInvestimentoVariacao tipoConsulta)
         {
             // Exibe uma sub janela com o gráfico
@@ -536,6 +575,11 @@ namespace MoneyPro
         private void buttonResumo_Click(object sender, EventArgs e)
         {
             ExibirTabelaResumo();
+        }
+
+        private void valorDiarioAcumuladoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExibirGraficoValor(TipoConsultaInvestimentoVariacao.AcumuladoDiario);
         }
 
         private void percentualDiarioAcumuladoToolStripMenuItem_Click(object sender, EventArgs e)
