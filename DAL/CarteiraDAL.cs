@@ -18,10 +18,10 @@ namespace DAL
             // Instancia um comando
             SqlCommand query = new SqlCommand(
                 @"SELECT UsuarioID, InvestimentoID, Apelido, Conta, Tipo, RiscoID, Risco, QtCotas, VrCotacao, Data, Simbolo,
-                         VrAplicado, PercCarteira, QtCotasFmt, VrCotacaoFmt, VrAplicadoFmt, PercFmt, Detalhe, Fundo, Acao
-                  FROM vw_CarteiraFormatada
-                  WHERE UsuarioID = @UsuarioID AND ((COALESCE(VrAplicado, 0) > 0) OR (@ApenasComSaldo = 0))
-                  ORDER BY Detalhe DESC, Apelido ASC;", conn);
+                                VrAplicado, PercCarteira, QtCotasFmt, VrCotacaoFmt, VrAplicadoFmt, PercFmt, Detalhe, Fundo, Acao
+                         FROM vw_CarteiraFormatada
+                         WHERE UsuarioID = @UsuarioID AND ((COALESCE(VrAplicado, 0) > 0) OR (@ApenasComSaldo = 0))
+                         ORDER BY Detalhe DESC, Apelido ASC;", conn);
 
             query.Parameters.AddWithValue("@UsuarioID", usuarioID);
             query.Parameters.AddWithValue("@ApenasComSaldo", apenasComSaldo);

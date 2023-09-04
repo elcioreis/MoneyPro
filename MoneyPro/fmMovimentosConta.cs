@@ -1,13 +1,13 @@
-﻿using System;
+﻿using BLL;
+using Modelos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using Modelos;
-using BLL;
-using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using static Modelos.Tipo;
 
 namespace MoneyPro
@@ -710,7 +710,7 @@ namespace MoneyPro
                 else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Insert)
                 {
                     // Se teclado ctrl + insert chama rotina de inclusão específica
-                    
+
                     if (TipoDeConta == Tipo.Conta.Investimento)
                     {
                         // Se tipo de conta for investimento
