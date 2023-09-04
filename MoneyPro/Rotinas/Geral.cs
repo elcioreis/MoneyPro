@@ -242,6 +242,8 @@ namespace MoneyPro
 
         internal static void AtualizarInvestimentoVariacao(fmDownloadCotacoes fmDownloadCotacoes, string mensagem)
         {
+            fmDownloadCotacoes.AtualizarProcessamento(mensagem);
+
             // Instancia uma conexão
             using (SqlConnection conn = new SqlConnection(Dados.Conexao))
             {
@@ -249,21 +251,17 @@ namespace MoneyPro
 
                 conn.Open();
 
-                int r = 0;
-
                 foreach (DataRow linha in table.Rows)
                 {
-                    fmDownloadCotacoes.AtualizarProcessamento(mensagem + " " + string.Concat(Enumerable.Repeat(".", r++)));
+                    int investimentoID = linha.Field<int>("InvestimentoID");
+                    string apelido = linha.Field<string>("Apelido");
 
-                    if (r == 10)
-                    {
-                        r = 0;
-                    }
+                    fmDownloadCotacoes.IncluirProcessamento($"    Atualizando {apelido}");
 
                     // Instancia um comando
                     using (SqlCommand comando = new SqlCommand("EXEC stpPopulaInvestimentoEspecificoVariacao @InvestimentoID;", conn))
                     {
-                        comando.Parameters.AddWithValue("@InvestimentoID", linha.Field<int>("InvestimentoID"));
+                        comando.Parameters.AddWithValue("@InvestimentoID", investimentoID);
                         // O processamento da variação de investimentos pode ser demorado, então 
                         // permite o time out com 240 segundos ao invés de 30 segundos padrão.
                         comando.CommandTimeout = 240;
@@ -997,9 +995,16 @@ namespace MoneyPro
                 using (SqlDataAdapter da = new SqlDataAdapter())
                 {
                     // Instancia um comando
-                    SqlCommand query = new SqlCommand(@"SELECT DISTINCT INVE.InvestimentoID
-                                                        FROM Investimento Inve
-                                                        ORDER BY INVE.InvestimentoID ASC;", conn);
+                    //SqlCommand query = new SqlCommand(@"
+                    //    SELECT DISTINCT INVE.InvestimentoID
+                    //    FROM Investimento Inve
+                    //    ORDER BY INVE.InvestimentoID ASC;", conn);
+
+                    SqlCommand query = new SqlCommand(@"
+                        SELECT InvestimentoID, Apelido
+                        FROM vw_CarteiraFormatada
+                        WHERE (COALESCE(VrAplicado, 0) > 0) AND Fundo = 1
+                        ORDER BY Apelido ASC;", conn);
 
                     // Coloca a query no adaptador
                     da.SelectCommand = query;
@@ -1007,7 +1012,6 @@ namespace MoneyPro
                     da.Fill(table);
                 }
             }
-
             return table;
         }
 

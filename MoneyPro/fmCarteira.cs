@@ -55,19 +55,19 @@ namespace MoneyPro
             CarregaDados();
         }
 
-        private void AlturaGridSuperior()
-        {
-            // Pega a altura da linha
-            int altLinha = carteiraDataGridView.RowTemplate.Height;
+        //private void AlturaGridSuperior()
+        //{
+        //    // Pega a altura da linha
+        //    int altLinha = carteiraDataGridView.RowTemplate.Height;
 
-            // Quatro linha + Uma de cabeçalho
-            int rows = Math.Min(carteiraDataGridView.Rows.Count, 4) + 1;
+        //    // Quatro linha + Uma de cabeçalho
+        //    int rows = Math.Min(carteiraDataGridView.Rows.Count, 4) + 1;
 
-            int altura = (altLinha * rows) + 1;
+        //    int altura = (altLinha * rows) + 1;
 
-            carteiraDataGridView.MinimumSize = new Size(0, altura);
-            carteiraDataGridView.Height = altura;
-        }
+        //    carteiraDataGridView.MinimumSize = new Size(0, altura);
+        //    carteiraDataGridView.Height = altura;
+        //}
 
         #endregion Singleton
 

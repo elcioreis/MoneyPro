@@ -375,7 +375,7 @@ namespace MoneyPro
 
             TimeSpan ts = sw.Elapsed;
             string mensagem = string.Format("Variação acumulada de investimentos calculada em {0:00}:{1:00}:{2:00}.", ts.Hours, ts.Minutes, ts.Seconds);
-            AtualizarProcessamento(mensagem);
+            IncluirProcessamento(mensagem);
 
             Origem.CarregarRolContas();
         }
