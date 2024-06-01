@@ -389,7 +389,7 @@
             this.pictureBoxCVM.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxCVM.TabIndex = 0;
             this.pictureBoxCVM.TabStop = false;
-            this.toolTip.SetToolTip(this.pictureBoxCVM, "Atualiza cotações CVM [F6]");
+            this.toolTip.SetToolTip(this.pictureBoxCVM, "Atualiza cotações Ações e CVM [F6]");
             this.pictureBoxCVM.Click += new System.EventHandler(this.PictureBoxCVM_Click);
             // 
             // pictureBoxUsuarios
@@ -471,7 +471,7 @@
             this.labelCVM.TabIndex = 1;
             this.labelCVM.Text = "Cotações";
             this.labelCVM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip.SetToolTip(this.labelCVM, "Atualiza cotações CVM [F6]");
+            this.toolTip.SetToolTip(this.labelCVM, "Atualiza cotações Ações e CVM [F6]");
             this.labelCVM.Click += new System.EventHandler(this.PictureBoxCVM_Click);
             // 
             // pictureBoxOrcamento

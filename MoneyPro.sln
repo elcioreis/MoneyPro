@@ -19,6 +19,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Banco de Dados", "Banco de Dados", "{07A5A870-5C3A-44EA-8388-8329EB21BF97}"
+	ProjectSection(SolutionItems) = preProject
+		Banco de Dados\Backup MoneyPro.sql = Banco de Dados\Backup MoneyPro.sql
+		Banco de Dados\Comparação_Devel_Produção.scmp = Banco de Dados\Comparação_Devel_Produção.scmp
+		Banco de Dados\UsuárioAdmin.sql = Banco de Dados\UsuárioAdmin.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts SQL Server", "Scripts SQL Server", "{26551E6D-5022-4C96-8347-5549102E5EC4}"
+	ProjectSection(SolutionItems) = preProject
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_74.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_74.sql
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_75.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_75.sql
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_76.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_76.sql
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_77.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_77.sql
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_78.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_78.sql
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_79.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_79.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +87,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26551E6D-5022-4C96-8347-5549102E5EC4} = {07A5A870-5C3A-44EA-8388-8329EB21BF97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E2A26FE-64AD-41EC-ABA7-752861A13AE4}

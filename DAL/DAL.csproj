@@ -11,10 +11,14 @@
     <AssemblyName>DAL</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -71,6 +75,7 @@
     <Compile Include="ConfiguracaoPrincipalDAL.cs" />
     <Compile Include="ContaDAL.cs" />
     <Compile Include="CotacaoEletronicaDAL.cs" />
+    <Compile Include="CotacaoHistoricaB3.cs" />
     <Compile Include="CotacaoMoedasDAL.cs" />
     <Compile Include="Dados.cs" />
     <Compile Include="DetalhesMovimentacaoDAL.cs" />

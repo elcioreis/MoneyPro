@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Modelos;
+﻿using Modelos;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -45,8 +41,8 @@ namespace DAL
 
             SqlCommand cmd = new SqlCommand("SELECT COUNT(*) AS Existe " +
                                             "FROM InvestimentoDespesa " +
-                                            "WHERE InvestimentoID = @InvestimentoID "+
-                                            "AND CategoriaID = @CategoriaID "+
+                                            "WHERE InvestimentoID = @InvestimentoID " +
+                                            "AND CategoriaID = @CategoriaID " +
                                             "AND InvestimentoDespesaID <> @InvestimentoDespesaID;", conn);
 
             cmd.Parameters.AddWithValue("@InvestimentoID", investimentoID);
@@ -83,8 +79,8 @@ namespace DAL
                 {
                     cmd.Transaction = transacao;
 
-                    cmd.CommandText = "INSERT INTO InvestimentoDespesa "+
-                                      "(InvestimentoID, CategoriaID, Descricao, Entrada, Saida, Ordem, ImpostoID, IR, IOF, ComeCota) "+
+                    cmd.CommandText = "INSERT INTO InvestimentoDespesa " +
+                                      "(InvestimentoID, CategoriaID, Descricao, Entrada, Saida, Ordem, ImpostoID, IR, IOF, ComeCota) " +
                                       "VALUES " +
                                       "(@InvestimentoID, @CategoriaID, @Descricao, @Entrada, @Saida, @Ordem, @ImpostoID, @IR, @IOF, @ComeCota); " +
                                       // Retorna o ID do TipoInvestimento incluído
@@ -96,7 +92,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Entrada", modelo.Entrada);
                     cmd.Parameters.AddWithValue("@Saida", modelo.Saida);
                     cmd.Parameters.AddWithValue("@Ordem", modelo.Ordem);
-                    cmd.Parameters.AddWithValue("@ImpostoID", modelo.ImpostoID);
+                    cmd.Parameters.AddWithValue("@ImpostoID", (object)modelo.ImpostoID ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@IR", modelo.IR);
                     cmd.Parameters.AddWithValue("@IOF", modelo.IOF);
                     cmd.Parameters.AddWithValue("@ComeCota", modelo.ComeCota);
@@ -135,11 +131,11 @@ namespace DAL
                 {
                     cmd.Transaction = transacao;
 
-                    cmd.CommandText = "UPDATE InvestimentoDespesa SET "+
-                                      "CategoriaID = @CategoriaID, "+
-                                      "Descricao = @Descricao, "+
-                                      "Entrada = @Entrada, "+
-                                      "Saida = @Saida, "+
+                    cmd.CommandText = "UPDATE InvestimentoDespesa SET " +
+                                      "CategoriaID = @CategoriaID, " +
+                                      "Descricao = @Descricao, " +
+                                      "Entrada = @Entrada, " +
+                                      "Saida = @Saida, " +
                                       "Ordem = @Ordem, " +
                                       "IR = @IR," +
                                       "IOF = @IOF, " +

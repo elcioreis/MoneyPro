@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL;
 using Modelos;
-using DAL;
+using System;
 using System.Data;
 
 namespace BLL
@@ -33,6 +29,12 @@ namespace BLL
         {
             AcaoCotacaoDAL dal = new AcaoCotacaoDAL();
             return dal.Alterar(modelo);
+        }
+
+        public bool AtualizarCotacaoB3(CotacaoHistoricaB3 cotacaoB3, int InvestimentoID)
+        {
+            AcaoCotacaoDAL dal = new AcaoCotacaoDAL();
+            return dal.AtualizarCotacao(cotacaoB3, InvestimentoID);
         }
     }
 }
