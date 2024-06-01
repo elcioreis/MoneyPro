@@ -1,9 +1,13 @@
 ﻿using BLL;
+using DAL;
 using Modelos;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using System.Xml;
@@ -13,6 +17,8 @@ namespace MoneyPro
 {
     public partial class fmDownloadCotacoes : Form
     {
+        AcaoCotacaoBLL bll = new AcaoCotacaoBLL();
+
         Rotinas.AcessoCVM_Lote atualizaCVM_Lote = null;
         Rotinas.AcessoMercadoBitCoin atualizaBTC = null;
         Rotinas.AcessoCotacoesBancoCentral atualizaCBC = null;
@@ -40,46 +46,157 @@ namespace MoneyPro
 
         private void ProcessaCotacoesBovespa()
         {
-            AcaoCotacaoBLL bll = new AcaoCotacaoBLL();
             DataTable acoes = bll.BuscarCotacoes();
 
             if (acoes.Rows.Count > 0)
             {
-                IncluirProcessamento("Buscando cotação de ações na BOVESPA.");
+                IncluirProcessamento("Buscando cotação de ações na BOVESPA (B3).");
+                ProcurarArquivosB3(acoes);
             }
 
-            foreach (DataRow linha in acoes.Rows)
+            //foreach (DataRow linha in acoes.Rows)
+            //{
+            //    //IncluirProcessamento("Buscando cotação de " + (string)linha["Apelido"] + ".");
+            //    IncluirProcessamento($"Buscando cotação de {(string)linha["Apelido"]} ({(string)linha["Consulta"]}).");
+
+            //    //AcaoCotacao modelo = CarregaCotacao((string)linha["Consulta"]);
+            //    AcaoCotacao modelo = CarregaCotacao(linha.Field<string>("Consulta"));
+
+            //    if (modelo.InvestimentoID > 0)
+            //    {
+            //        modelo.InvestimentoID = (int)linha["InvestimentoID"];
+            //        modelo.AcaoCotacaoID = bll.ExisteCotacao(modelo.InvestimentoID, modelo.Data);
+
+            //        if (modelo.AcaoCotacaoID == 0)
+            //        {
+            //            // Inclui cotação
+            //            bll.Incluir(modelo);
+            //            AtualizarProcessamento("Cotação de " + modelo.Codigo + " de " + modelo.Data.ToString("dd/MM/yyyy") + " incluída.");
+            //        }
+            //        else
+            //        {
+            //            // Atualiza cotação;
+            //            bll.Alterar(modelo);
+            //            AtualizarProcessamento("Cotação de " + modelo.Codigo + " de " + modelo.Data.ToString("dd/MM/yyyy") + " atualizada.");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        AtualizarProcessamento("Cotação de " + modelo.Codigo + " falhou na atualização.");
+            //    }
+            //}
+
+            //CotacaoEletronicaBLL cota = new CotacaoEletronicaBLL();
+            //cota.AtualizaAcoesBOVESPA();
+        }
+
+        private void ProcurarArquivosB3(DataTable acoes)
+        {
+            // Pega a pasta de downloads, que sempre fica abaixo da pasta do usuário corrente
+            string pastaDownload = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\Downloads";
+            // Procura todos arquivos de cotação histórica diária da Bolsa de Valores de São Paulo (B3) que seguem o padrão
+            // COTAHIST_Dddmmaaaa.txt onde ddmmaaaa é o dia da cotação histórica
+            var arquivos = Directory
+                .GetFiles(pastaDownload, "COTAHIST_*.txt")
+                .Select(fn => new FileInfo(fn))
+                .OrderBy(f => f.Name);
+
+            if (arquivos.Count() > 0)
             {
-                IncluirProcessamento("Buscando cotação de " + (string)linha["Consulta"] + ".");
 
-                AcaoCotacao modelo = CarregaCotacao((string)linha["Consulta"]);
-
-                if (modelo.InvestimentoID > 0)
+                for (int i = 0; i < arquivos.Count(); i++)
                 {
-                    modelo.InvestimentoID = (int)linha["InvestimentoID"];
-                    modelo.AcaoCotacaoID = bll.ExisteCotacao(modelo.InvestimentoID, modelo.Data);
+                    var arquivo = arquivos.ElementAt(i).Name;
+                    IncluirProcessamento($"Processando arquivo {arquivo}");
+                    if (ProcessarArquivoB3(arquivos.ElementAt(i).FullName, acoes))
+                    {
+                        int ponto = arquivos.ElementAt(i).FullName.IndexOf('.');
 
-                    if (modelo.AcaoCotacaoID == 0)
-                    {
-                        // Inclui cotação
-                        bll.Incluir(modelo);
-                        AtualizarProcessamento("Cotação de " + modelo.Codigo + " de " + modelo.Data.ToString("dd/MM/yyyy") + " incluída.");
+                        File.Move(arquivos.ElementAt(i).FullName,
+                            arquivos.ElementAt(i).FullName.Substring(0, ponto) + ".ok");
                     }
-                    else
-                    {
-                        // Atualiza cotação;
-                        bll.Alterar(modelo);
-                        AtualizarProcessamento("Cotação de " + modelo.Codigo + " de " + modelo.Data.ToString("dd/MM/yyyy") + " atualizada.");
-                    }
-                }
-                else
-                {
-                    AtualizarProcessamento("Cotação de " + modelo.Codigo + " falhou na atualização.");
                 }
             }
+            else
+            {
+                IncluirProcessamento("Não foram encontrados arquivos ");
+            }
+        }
 
-            CotacaoEletronicaBLL cota = new CotacaoEletronicaBLL();
-            cota.AtualizaAcoesBOVESPA();
+        private bool ProcessarArquivoB3(string arquivoB3, DataTable acoes)
+        {
+            List<DataRow> rows = acoes.AsEnumerable().ToList();
+
+            using (var file = new StreamReader(arquivoB3))
+            {
+                string line = string.Empty;
+
+                try
+                {
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        if (line.StartsWith("01"))
+                        {
+                            var CotacaoB3 = new CotacaoHistoricaB3
+                            {
+                                Tipreg = Convert.ToInt32(line.Substring(0, 2)),
+                                DataPregao = DateTime.ParseExact(line.Substring(2, 8), "yyyyMMdd", CultureInfo.InvariantCulture),
+                                CodBDI = line.Substring(10, 2),
+                                CodNeg = line.Substring(12, 12).Trim(), // Código da ação na B3
+                                TpMerc = Convert.ToInt32(line.Substring(24, 3)),
+                                NomRes = line.Substring(27, 12).Trim(),
+                                Especi = line.Substring(39, 10).Trim(),
+                                PrazoT = line.Substring(49, 3).Trim(),
+                                ModRef = line.Substring(52, 4).Trim(),
+                                PreAbe = Convert.ToDecimal(line.Substring(56, 13)) / 100,
+                                PreMax = Convert.ToDecimal(line.Substring(69, 13)) / 100,
+                                PreMin = Convert.ToDecimal(line.Substring(82, 13)) / 100,
+                                PreMed = Convert.ToDecimal(line.Substring(95, 13)) / 100,
+                                PreUlt = Convert.ToDecimal(line.Substring(108, 13)) / 100,
+                                PreOFC = Convert.ToDecimal(line.Substring(121, 13)) / 100,
+                                PreOFV = Convert.ToDecimal(line.Substring(134, 13)) / 100,
+                                TotNeg = Convert.ToInt32(line.Substring(147, 5)),
+                                QuaTot = Convert.ToDecimal(line.Substring(152, 18)),
+                                VolTot = Convert.ToDecimal(line.Substring(170, 18)) / 100,
+                                PreExe = Convert.ToDecimal(line.Substring(188, 13)) / 100,
+                                IndOPC = Convert.ToDecimal(line.Substring(201, 1)),
+                                DatVen = DateTime.ParseExact(line.Substring(202, 8), "yyyyMMdd", CultureInfo.InvariantCulture),
+                                FatCot = Convert.ToDecimal(line.Substring(210, 7)),
+                                PtoExe = Convert.ToDecimal(line.Substring(217, 13)) / 1000000,
+                                CodIsi = line.Substring(230, 12).Trim(),
+                                DisMes = Convert.ToDecimal(line.Substring(242, 3))
+                            };
+
+                            //rows.Find()
+                            var acaoProcurada = rows.Find(x => x.Field<String>("Consulta") == CotacaoB3.CodNeg);
+
+                            if (acaoProcurada != null)
+                            {
+                                bll.AtualizarCotacaoB3(CotacaoB3, acaoProcurada.Field<int>("InvestimentoID"));
+                                //Console.WriteLine($"Achei {CotacaoB3.CodNeg}");
+                            }
+                        }
+                    }
+
+                    file.Close();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        private DataTable CriarDataTableAcoes()
+        {
+            var dtbAcoes = new DataTable();
+            dtbAcoes.Columns.Add("InvestimentoID", typeof(int));
+            dtbAcoes.Columns.Add("Apelido", typeof(string));
+            dtbAcoes.Columns.Add("Descricao", typeof(string));
+            dtbAcoes.Columns.Add("Consulta", typeof(string));
+
+            return dtbAcoes;
         }
 
         private AcaoCotacao CarregaCotacao(string codigoPapel)
@@ -245,9 +362,13 @@ namespace MoneyPro
             // Inicia o cronômetro para saber o tempo de download das cotações
             stopWatch.Start();
 
-            using (Rotinas.AcessoHitBTC acessoHitBTC = new Rotinas.AcessoHitBTC(this.Origem, this.Origem.UserID))
+            try
             {
-                acessoHitBTC.CarregarCandlesHorario();
+                ProcessaCotacoesBovespa();
+            }
+            catch
+            {
+                IncluirProcessamento("Erro ao atualizar cotações da Bovespa (B3)");
             }
 
             try
@@ -281,14 +402,9 @@ namespace MoneyPro
                 IncluirProcessamento(string.Format(" - {0}", e));
             }
 
-            try
+            using (Rotinas.AcessoHitBTC acessoHitBTC = new Rotinas.AcessoHitBTC(this.Origem, this.Origem.UserID))
             {
-                // TODO Retirar comentário ao finalizar o desenvolvimento
-                //ProcessaCotacoesBovespa();
-            }
-            catch
-            {
-                // Não dá mensagem de erro.
+                acessoHitBTC.CarregarCandlesHorario();
             }
 
             if (!Problemas)
@@ -305,7 +421,7 @@ namespace MoneyPro
             }
             else
             {
-                IncluirProcessamento("Os investimentos não foram atualizados.");
+                IncluirProcessamento("Os investimentos foram atualizados.");
             }
 
             // Faz com que o rol de contas à esquerda da tela seja atualizado

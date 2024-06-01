@@ -9,13 +9,17 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MoneyPro</RootNamespace>
     <AssemblyName>MoneyPro</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -97,8 +101,8 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -725,6 +729,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Documentação\Modelo - Caso de Uso.dotx" />
+    <None Include="Documentação\MoneyPro.eap" />
+    <None Include="Documentação\SeriesHistoricas_Layout.pdf" />
+    <None Include="Documentação\Tarefas MoneyPro.xlsx" />
     <None Include="MoneyPro_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BLL.MoedaBLL.datasource" />
@@ -954,7 +962,7 @@
     <None Include="Imagens\Icones 16x\z16atencao.png" />
     <None Include="Imagens\Icones 16x\z16info.png" />
     <None Include="Imagens\Icones 16x\z16calendario.png" />
-    <Content Include="Documentação CVM\meta_inf_diario_fi_cvm.txt" />
+    <Content Include="Documentação\meta_inf_diario_fi_cvm.txt" />
     <Content Include="Imagens\Icones 16x\z16acumulado.png" />
     <None Include="Imagens\Icones 16x\z16exchange.png" />
     <None Include="Imagens\Icones 16x\z16radio-off-button.png" />

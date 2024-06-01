@@ -136,7 +136,6 @@
             this.panelRodape.ResumeLayout(false);
             this.panelRodape.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
