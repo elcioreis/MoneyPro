@@ -72,7 +72,7 @@ namespace MoneyPro
                 Boolean isDebugMode = false;
 
 #if DEBUG
-                                isDebugMode = true;
+                isDebugMode = true;
 #endif
 
                 if (Environment.Is64BitProcess)
@@ -782,7 +782,8 @@ namespace MoneyPro
 
         private void FmPrincipal_Show(object sender, EventArgs e)
         {
-            panelEsquerdo.Width = Configuracoes.PanelEsquerdoWidth;
+            if (Configuracoes != null)
+                panelEsquerdo.Width = Configuracoes.PanelEsquerdoWidth;
         }
 
 
@@ -808,7 +809,7 @@ namespace MoneyPro
         private void FmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult resp = MessageBox.Show("Deseja fechar o MoneyPro?", Geral.Sistema(true), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            e.Cancel = (resp == DialogResult.No);
+            e.Cancel = resp == DialogResult.No;
         }
 
         private void PictureBoxCVM_Click(object sender, EventArgs e)
@@ -948,7 +949,8 @@ namespace MoneyPro
         {
             try
             {
-                Cursor.Current = Cursors.WaitCursor; fmCarteiraVariacaoDiaria fmCarteiraVariacaoDiaria = fmCarteiraVariacaoDiaria.CreateInstance(this, _userID);
+                Cursor.Current = Cursors.WaitCursor;
+                fmCarteiraVariacaoDiaria fmCarteiraVariacaoDiaria = fmCarteiraVariacaoDiaria.CreateInstance(this, _userID);
                 FormataFormulario(fmCarteiraVariacaoDiaria);
             }
             finally
