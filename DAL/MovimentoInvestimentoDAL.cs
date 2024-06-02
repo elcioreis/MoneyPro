@@ -127,6 +127,9 @@ namespace DAL
                     // Não há passo 1 no investimento, o passo zero é o lançamento principal e as despesas são lançadas do passo 2 em diante.
                     Passo += 2;
 
+                    // Todos os lançamentos de despesas terão o mesmo DoMovimentoContaID
+                    int doMovimentoContaID = movimentoContaID;
+
                     // Insere as despesas do investimento
                     foreach (MovimentoInvestimentoDespesa linha in despesas)
                     {
@@ -169,7 +172,7 @@ namespace DAL
                             cmd.Parameters.AddWithValue("@Debito", linha.Valor);
                             cmd.Parameters.AddWithValue("@Conciliacao", modelo.Conciliacao);
                             cmd.Parameters.AddWithValue("@Sistema", true);
-                            cmd.Parameters.AddWithValue("@DoMovimentoContaID", movimentoContaID);
+                            cmd.Parameters.AddWithValue("@DoMovimentoContaID", doMovimentoContaID);
 
                             movimentoContaID = (int)cmd.ExecuteScalar();
 
