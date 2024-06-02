@@ -3,6 +3,9 @@ Sistema de gerenciamento financeiro para Windows.
 
 Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Server.
 
+## Branch 240602 -> Versão 1.2.0.81
+	Correção da cobrança de tarifas em entrada de investimentos
+
 ## Branch 240519 -> Versão 1.2.0.80
 	Importação de arquivo de ativos financeiros da bolsa de valores de SP (B3)
 	Atualização de preços dos ativos de interesse baseados na importação da B3

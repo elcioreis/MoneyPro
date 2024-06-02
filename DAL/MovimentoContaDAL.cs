@@ -962,24 +962,25 @@ namespace DAL
         {
             SqlConnection conn = new SqlConnection(Dados.Conexao);
 
-            SqlCommand cmd = new SqlCommand(@"DECLARE @ContaID INT;
+            SqlCommand cmd = new SqlCommand(
+                @"DECLARE @ContaID INT;
 
-                                              SELECT @ContaID = ContaID    
-                                              FROM MovimentoConta
-                                              WHERE MovimentoContaID = @MovimentoContaID;
+                         SELECT @ContaID = ContaID    
+                         FROM MovimentoConta
+                         WHERE MovimentoContaID = @MovimentoContaID;
 
-                                              DELETE FROM MovimentoInvestimento
-                                              WHERE MovimentoContaID = @MovimentoContaID;
+                         DELETE FROM MovimentoInvestimento
+                         WHERE MovimentoContaID = @MovimentoContaID;
 
-                                              DELETE FROM MovimentoConta
-                                              WHERE MovimentoContaID = @MovimentoContaID
-                                                 OR DoMovimentoContaID = @MovimentoContaID;
+                         DELETE FROM MovimentoConta
+                         WHERE MovimentoContaID = @MovimentoContaID
+                            OR DoMovimentoContaID = @MovimentoContaID;
 
-                                              DELETE FROM Lancamento
-                                              WHERE Automatico = 1
-                                              AND UsuarioID = (SELECT UsuarioID FROM Conta WHERE ContaID = @ContaID)
-                                              AND LancamentoID NOT IN (SELECT DISTINCT LancamentoID FROM MovimentoConta)
-                                              AND LancamentoID NOT IN(SELECT DISTINCT LancamentoID FROM Planejamento); ", conn);
+                         DELETE FROM Lancamento
+                         WHERE Automatico = 1
+                         AND UsuarioID = (SELECT UsuarioID FROM Conta WHERE ContaID = @ContaID)
+                         AND LancamentoID NOT IN (SELECT DISTINCT LancamentoID FROM MovimentoConta)
+                         AND LancamentoID NOT IN(SELECT DISTINCT LancamentoID FROM Planejamento); ", conn);
 
             cmd.Parameters.AddWithValue("@MovimentoContaID", movimentoContaID);
 
@@ -1129,16 +1130,16 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT 
-                                                MovimentoContaID, UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao,
-                                                CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito, Valor, Balanco, Conciliacao,
-                                                PilhaMovimentoContaID, DoMovimentoContaID, Sistema, MovimentoInvestimentoID, InvestimentoID,
-                                                TransacaoID, InvestimentoCotacaoID, QtCotas, VrBruto, VrLiquido, SldCotas, VrCotacao,
-                                                VrDespesa, Legenda
-                                                FROM vw_MovimentacaoConta
-                                                WHERE MovimentoContaID = @MovimentoContaID
-                                                ORDER BY Data ASC, MovimentoContaID ASC;", conn);
-
+            SqlCommand query = new SqlCommand(
+                @"SELECT 
+                             MovimentoContaID, UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao,
+                             CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito, Valor, Balanco, Conciliacao,
+                             PilhaMovimentoContaID, DoMovimentoContaID, Sistema, MovimentoInvestimentoID, InvestimentoID,
+                             TransacaoID, InvestimentoCotacaoID, QtCotas, VrBruto, VrLiquido, SldCotas, VrCotacao,
+                             VrDespesa, Legenda
+                         FROM vw_MovimentacaoConta
+                         WHERE MovimentoContaID = @MovimentoContaID
+                         ORDER BY Data ASC, MovimentoContaID ASC;", conn);
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@MovimentoContaID", movimentoContaID);
             // Coloca a query no adaptador
@@ -1228,6 +1229,5 @@ namespace DAL
                 }
             }
         }
-
     }
 }

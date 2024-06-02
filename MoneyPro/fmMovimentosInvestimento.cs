@@ -1,15 +1,10 @@
-﻿using MoneyPro.Base;
+﻿using BLL;
+using Modelos;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Modelos;
-using BLL;
 using System.Text.RegularExpressions;
-using System.Linq;
+using System.Windows.Forms;
 
 namespace MoneyPro
 {
@@ -268,7 +263,6 @@ namespace MoneyPro
             {
                 CVMcheckBox.Checked = false;
             }
-
         }
 
         private void CarregaListaDespesas()
@@ -278,7 +272,7 @@ namespace MoneyPro
                 DataTable transacaoTable = (DataTable)transacaoBindingSource.DataSource;
                 DataRow transacaoRow = transacaoTable.Rows[transacaoIDComboBox.SelectedIndex];
 
-                bool saida = ((int)transacaoRow["Tipo"] == 2);
+                bool saida = (int)transacaoRow["Tipo"] == 2;
 
                 DataTable investimentoTable = (DataTable)investimentoBindingSource.DataSource;
                 DataRow investimentoRow = investimentoTable.Rows[investimentoIDComboBox.SelectedIndex];
@@ -475,7 +469,6 @@ namespace MoneyPro
 
                 SomaDespesas();
             }
-
         }
 
         private void SomaDespesas()
@@ -493,8 +486,10 @@ namespace MoneyPro
 
             if (row["VrBruto"] != null)
             {
-                row["VrLiquido"] = (decimal)row["VrBruto"] -
-                                   (decimal)row["VrDespesa"];
+                if (Venda)
+                    row["VrLiquido"] = (decimal)row["VrBruto"] - (decimal)row["VrDespesa"];
+                else
+                    row["VrLiquido"] = (decimal)row["VrBruto"] + (decimal)row["VrDespesa"];
             }
         }
 
@@ -564,12 +559,12 @@ namespace MoneyPro
             //            
 
             if (row["Data"] != DBNull.Value)
-                modelo.Data = (DateTime)row["Data"];
+                modelo.Data = row.Field<DateTime>("Data");//  (DateTime)row["Data"];
             else
                 modelo.Data = null;
 
             if (row["VrCotacao"] != DBNull.Value)
-                modelo.VrCotacao = (decimal)row["VrCotacao"];
+                modelo.VrCotacao = row.Field<decimal>("VrCotacao");
             else
                 modelo.VrCotacao = null;
 
@@ -581,7 +576,7 @@ namespace MoneyPro
             //
 
             if (row["Numero"] != DBNull.Value)
-                modelo.Numero = (string)row["Numero"];
+                modelo.Numero = row.Field<string>("Numero");
             else
                 modelo.Numero = null;
 
@@ -592,39 +587,37 @@ namespace MoneyPro
 
             if (modelo.CrdDeb == "C")
             {
-                ///                modelo.Credito = (decimal)row["VrLiquido"];
-                modelo.Credito = (decimal)row["VrBruto"];
+                modelo.Credito = row.Field<decimal>("VrLiquido");
                 modelo.Debito = null;
             }
             else
             {
                 modelo.Credito = null;
-                ///                modelo.Debito = (decimal)row["VrLiquido"];
-                modelo.Debito = (decimal)row["VrLiquido"];
+                modelo.Debito = row.Field<decimal>("VrBruto");
             }
 
             if (row["Conciliacao"] != DBNull.Value)
-                modelo.Conciliacao = (string)row["Conciliacao"];
+                modelo.Conciliacao = row.Field<string>("Conciliacao");
             else
                 modelo.Conciliacao = null;
 
             if (row["InvestimentoCotacaoID"] != DBNull.Value)
-                modelo.InvestimentoCotacaoID = (int)row["InvestimentoCotacaoID"];
+                modelo.InvestimentoCotacaoID = row.Field<Int32>("InvestimentoCotacaoID");
             else
                 modelo.InvestimentoCotacaoID = null;
 
             if (row["QtCotas"] != DBNull.Value)
-                modelo.QtCotas = (decimal)row["QtCotas"];
+                modelo.QtCotas = row.Field<decimal>("QtCotas");
             else
                 modelo.QtCotas = null;
 
             if (row["VrBruto"] != DBNull.Value)
-                modelo.VrBruto = (decimal)row["VrBruto"];
+                modelo.VrBruto = row.Field<decimal>("VrBruto");
             else
                 modelo.VrBruto = null;
 
             if (row["VrLiquido"] != DBNull.Value)
-                modelo.VrLiquido = (decimal)row["VrLiquido"];
+                modelo.VrLiquido = row.Field<decimal>("VrLiquido");
             else
                 modelo.VrLiquido = null;
 
@@ -633,7 +626,7 @@ namespace MoneyPro
             //else
             //    modelo.SldCotas = null;
 
-            if (row["Descricao"] == DBNull.Value || (string)row["Descricao"] == String.Empty)
+            if (row["Descricao"] == DBNull.Value || row.Field<string>("Descricao") == String.Empty)
             {
                 if (modelo.QtCotas != null && modelo.VrCotacao != null)
                     modelo.Descricao = String.Format("{0} Cotas @ R$ {1}",
@@ -644,11 +637,11 @@ namespace MoneyPro
             }
             else
             {
-                modelo.Descricao = (string)row["Descricao"];
+                modelo.Descricao = row.Field<string>("Descricao");
             }
 
             if (row["VrDespesa"] != DBNull.Value)
-                modelo.VrDespesa = (decimal)row["VrDespesa"];
+                modelo.VrDespesa = row.Field<decimal>("VrDespesa");
             else
                 modelo.VrDespesa = null;
 
@@ -684,7 +677,7 @@ namespace MoneyPro
 
             if (bll.Validar(modelo))
             {
-                return (bll.GravarMovimentoInvestimento(modelo, despesas) > 0);
+                return bll.GravarMovimentoInvestimento(modelo, despesas) > 0;
             }
             else
             {
@@ -776,7 +769,7 @@ namespace MoneyPro
             // CrdDeb pode ser C para crédito ou D para débito
             // Se C, então venda, pois crédito
             // Se D, então compra, pois débito
-            Venda = ((string)dr["CrdDeb"])[0] == 'C'; 
+            Venda = ((string)dr["CrdDeb"])[0] == 'C';
             bool fundo = (bool)dr["Fundo"];
             bool acao = (bool)dr["Acao"];
 
@@ -808,6 +801,33 @@ namespace MoneyPro
             if (e.KeyChar == '.')
             {
                 e.KeyChar = ',';
+            }
+        }
+
+        private void transacaoIDComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var combo = (ComboBox)sender;
+
+            if (combo.SelectedValue != null)
+            {
+                var id = ((ComboBox)sender).SelectedValue;
+                // Para saber se a transação é de compra ou venda ((D)ébito ou (C)rédito)
+                var CrdDeb = ((DataTable)transacaoBindingSource.DataSource).Rows.Find(id).Field<string>("CrdDeb");
+
+                Venda = CrdDeb == "D";
+
+                if (Venda)
+                {
+                    lblFormulaTotal.Text = "e = (c + d)";
+                    vrSubTotal.Text = "Valor Total Líquido";
+                    vrTotal.Text = "Valor Total Bruto";
+                }
+                else
+                {
+                    lblFormulaTotal.Text = "e = (c - d)";
+                    vrSubTotal.Text = "Valor Total Bruto:";
+                    vrTotal.Text = "Valor Total Líquido:";
+                }
             }
         }
     }
