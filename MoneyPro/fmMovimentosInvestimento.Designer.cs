@@ -34,13 +34,13 @@
             System.Windows.Forms.Label transacaoIDLabel;
             System.Windows.Forms.Label qtCotasLabel;
             System.Windows.Forms.Label vrCotaLabel;
-            System.Windows.Forms.Label vrBrutoLabel;
             System.Windows.Forms.Label vrDespesaLabel;
-            System.Windows.Forms.Label vrLiquidoLabel;
             System.Windows.Forms.Label descricaoLabel;
             System.Windows.Forms.Label label6;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.vrSubTotal = new System.Windows.Forms.Label();
+            this.vrTotal = new System.Windows.Forms.Label();
             this.panelTransacao = new System.Windows.Forms.Panel();
             this.transacaoIDComboBox = new System.Windows.Forms.ComboBox();
             this.movimentoContaBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -48,7 +48,7 @@
             this.panelMovimento = new System.Windows.Forms.Panel();
             this.CVMcheckBox = new System.Windows.Forms.CheckBox();
             this.descricaoTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblFormulaTotal = new System.Windows.Forms.Label();
             this.vrLiquidoTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.vrDespesaTextBox = new System.Windows.Forms.TextBox();
@@ -79,9 +79,7 @@
             transacaoIDLabel = new System.Windows.Forms.Label();
             qtCotasLabel = new System.Windows.Forms.Label();
             vrCotaLabel = new System.Windows.Forms.Label();
-            vrBrutoLabel = new System.Windows.Forms.Label();
             vrDespesaLabel = new System.Windows.Forms.Label();
-            vrLiquidoLabel = new System.Windows.Forms.Label();
             descricaoLabel = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             this.panelRodape.SuspendLayout();
@@ -101,7 +99,7 @@
             this.panelRodape.Controls.Add(this.buttonGravarCategoria);
             this.panelRodape.Controls.Add(this.buttonCancelarCategoria);
             this.panelRodape.Location = new System.Drawing.Point(0, 439);
-            this.panelRodape.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelRodape.Margin = new System.Windows.Forms.Padding(5);
             this.panelRodape.Size = new System.Drawing.Size(913, 37);
             this.panelRodape.Controls.SetChildIndex(this.buttonIncluir, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonExcluir, 0);
@@ -125,7 +123,7 @@
             // labelTopo
             // 
             this.labelTopo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.labelTopo.Size = new System.Drawing.Size(199, 32);
+            this.labelTopo.Size = new System.Drawing.Size(198, 32);
             this.labelTopo.Text = "Investimentos";
             // 
             // dataLabel
@@ -134,7 +132,7 @@
             dataLabel.Location = new System.Drawing.Point(16, 14);
             dataLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             dataLabel.Name = "dataLabel";
-            dataLabel.Size = new System.Drawing.Size(42, 17);
+            dataLabel.Size = new System.Drawing.Size(39, 16);
             dataLabel.TabIndex = 6;
             dataLabel.Text = "Data:";
             // 
@@ -144,7 +142,7 @@
             investimentoIDLabel.Location = new System.Drawing.Point(16, 46);
             investimentoIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             investimentoIDLabel.Name = "investimentoIDLabel";
-            investimentoIDLabel.Size = new System.Drawing.Size(91, 17);
+            investimentoIDLabel.Size = new System.Drawing.Size(85, 16);
             investimentoIDLabel.TabIndex = 7;
             investimentoIDLabel.Text = "Investimento:";
             // 
@@ -154,7 +152,7 @@
             transacaoIDLabel.Location = new System.Drawing.Point(16, 15);
             transacaoIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             transacaoIDLabel.Name = "transacaoIDLabel";
-            transacaoIDLabel.Size = new System.Drawing.Size(80, 17);
+            transacaoIDLabel.Size = new System.Drawing.Size(76, 16);
             transacaoIDLabel.TabIndex = 0;
             transacaoIDLabel.Text = "Transação:";
             // 
@@ -164,7 +162,7 @@
             qtCotasLabel.Location = new System.Drawing.Point(408, 14);
             qtCotasLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             qtCotasLabel.Name = "qtCotasLabel";
-            qtCotasLabel.Size = new System.Drawing.Size(146, 17);
+            qtCotasLabel.Size = new System.Drawing.Size(137, 16);
             qtCotasLabel.TabIndex = 7;
             qtCotasLabel.Text = "Quantidade de Cotas:";
             // 
@@ -174,19 +172,19 @@
             vrCotaLabel.Location = new System.Drawing.Point(408, 46);
             vrCotaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             vrCotaLabel.Name = "vrCotaLabel";
-            vrCotaLabel.Size = new System.Drawing.Size(102, 17);
+            vrCotaLabel.Size = new System.Drawing.Size(96, 16);
             vrCotaLabel.TabIndex = 8;
             vrCotaLabel.Text = "Preço da Cota:";
             // 
-            // vrBrutoLabel
+            // vrSubTotal
             // 
-            vrBrutoLabel.AutoSize = true;
-            vrBrutoLabel.Location = new System.Drawing.Point(408, 86);
-            vrBrutoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            vrBrutoLabel.Name = "vrBrutoLabel";
-            vrBrutoLabel.Size = new System.Drawing.Size(119, 17);
-            vrBrutoLabel.TabIndex = 22;
-            vrBrutoLabel.Text = "Valor Total Bruto:";
+            this.vrSubTotal.AutoSize = true;
+            this.vrSubTotal.Location = new System.Drawing.Point(408, 86);
+            this.vrSubTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.vrSubTotal.Name = "vrSubTotal";
+            this.vrSubTotal.Size = new System.Drawing.Size(110, 16);
+            this.vrSubTotal.TabIndex = 22;
+            this.vrSubTotal.Text = "Valor Total Bruto:";
             // 
             // vrDespesaLabel
             // 
@@ -194,20 +192,20 @@
             vrDespesaLabel.Location = new System.Drawing.Point(408, 263);
             vrDespesaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             vrDespesaLabel.Name = "vrDespesaLabel";
-            vrDespesaLabel.Size = new System.Drawing.Size(131, 17);
+            vrDespesaLabel.Size = new System.Drawing.Size(126, 16);
             vrDespesaLabel.TabIndex = 24;
             vrDespesaLabel.Text = "Total de Despesas:";
             // 
-            // vrLiquidoLabel
+            // vrTotal
             // 
-            vrLiquidoLabel.AutoSize = true;
-            vrLiquidoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            vrLiquidoLabel.Location = new System.Drawing.Point(408, 295);
-            vrLiquidoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            vrLiquidoLabel.Name = "vrLiquidoLabel";
-            vrLiquidoLabel.Size = new System.Drawing.Size(151, 17);
-            vrLiquidoLabel.TabIndex = 26;
-            vrLiquidoLabel.Text = "Valor Total Líquido:";
+            this.vrTotal.AutoSize = true;
+            this.vrTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vrTotal.Location = new System.Drawing.Point(408, 295);
+            this.vrTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.vrTotal.Name = "vrTotal";
+            this.vrTotal.Size = new System.Drawing.Size(151, 17);
+            this.vrTotal.TabIndex = 26;
+            this.vrTotal.Text = "Valor Total Líquido:";
             // 
             // descricaoLabel
             // 
@@ -215,7 +213,7 @@
             descricaoLabel.Location = new System.Drawing.Point(16, 86);
             descricaoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             descricaoLabel.Name = "descricaoLabel";
-            descricaoLabel.Size = new System.Drawing.Size(75, 17);
+            descricaoLabel.Size = new System.Drawing.Size(72, 16);
             descricaoLabel.TabIndex = 28;
             descricaoLabel.Text = "Descrição:";
             // 
@@ -225,7 +223,7 @@
             label6.Location = new System.Drawing.Point(16, 114);
             label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(75, 17);
+            label6.Size = new System.Drawing.Size(73, 16);
             label6.TabIndex = 29;
             label6.Text = "Despesas:";
             // 
@@ -236,7 +234,7 @@
             this.panelTransacao.Controls.Add(this.transacaoIDComboBox);
             this.panelTransacao.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTransacao.Location = new System.Drawing.Point(0, 49);
-            this.panelTransacao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelTransacao.Margin = new System.Windows.Forms.Padding(4);
             this.panelTransacao.Name = "panelTransacao";
             this.panelTransacao.Size = new System.Drawing.Size(913, 48);
             this.panelTransacao.TabIndex = 0;
@@ -249,11 +247,12 @@
             this.transacaoIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.transacaoIDComboBox.FormattingEnabled = true;
             this.transacaoIDComboBox.Location = new System.Drawing.Point(120, 11);
-            this.transacaoIDComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.transacaoIDComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.transacaoIDComboBox.Name = "transacaoIDComboBox";
             this.transacaoIDComboBox.Size = new System.Drawing.Size(257, 24);
             this.transacaoIDComboBox.TabIndex = 1;
             this.transacaoIDComboBox.ValueMember = "TransacaoID";
+            this.transacaoIDComboBox.SelectedIndexChanged += new System.EventHandler(this.transacaoIDComboBox_SelectedIndexChanged);
             this.transacaoIDComboBox.Leave += new System.EventHandler(this.transacaoIDComboBox_Leave);
             // 
             // movimentoContaBindingSource
@@ -273,15 +272,15 @@
             this.panelMovimento.Controls.Add(label6);
             this.panelMovimento.Controls.Add(descricaoLabel);
             this.panelMovimento.Controls.Add(this.descricaoTextBox);
-            this.panelMovimento.Controls.Add(this.label5);
-            this.panelMovimento.Controls.Add(vrLiquidoLabel);
+            this.panelMovimento.Controls.Add(this.lblFormulaTotal);
+            this.panelMovimento.Controls.Add(this.vrTotal);
             this.panelMovimento.Controls.Add(this.vrLiquidoTextBox);
             this.panelMovimento.Controls.Add(this.label4);
             this.panelMovimento.Controls.Add(vrDespesaLabel);
             this.panelMovimento.Controls.Add(this.vrDespesaTextBox);
             this.panelMovimento.Controls.Add(this.movimentoInvestimentoDespesaDataGridView);
             this.panelMovimento.Controls.Add(this.label3);
-            this.panelMovimento.Controls.Add(vrBrutoLabel);
+            this.panelMovimento.Controls.Add(this.vrSubTotal);
             this.panelMovimento.Controls.Add(this.vrBrutoTextBox);
             this.panelMovimento.Controls.Add(this.label2);
             this.panelMovimento.Controls.Add(this.label1);
@@ -296,7 +295,7 @@
             this.panelMovimento.Controls.Add(this.dataDateTimePicker);
             this.panelMovimento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMovimento.Location = new System.Drawing.Point(0, 97);
-            this.panelMovimento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMovimento.Margin = new System.Windows.Forms.Padding(4);
             this.panelMovimento.Name = "panelMovimento";
             this.panelMovimento.Size = new System.Drawing.Size(913, 342);
             this.panelMovimento.TabIndex = 1;
@@ -305,10 +304,10 @@
             // 
             this.CVMcheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CVMcheckBox.AutoSize = true;
-            this.CVMcheckBox.Location = new System.Drawing.Point(845, 44);
-            this.CVMcheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CVMcheckBox.Location = new System.Drawing.Point(846, 44);
+            this.CVMcheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CVMcheckBox.Name = "CVMcheckBox";
-            this.CVMcheckBox.Size = new System.Drawing.Size(59, 21);
+            this.CVMcheckBox.Size = new System.Drawing.Size(58, 20);
             this.CVMcheckBox.TabIndex = 30;
             this.CVMcheckBox.Text = "CVM";
             this.toolTip.SetToolTip(this.CVMcheckBox, "Informa se a cotação é proveniente da CVM");
@@ -319,21 +318,21 @@
             // 
             this.descricaoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.movimentoContaBindingSource, "Descricao", true));
             this.descricaoTextBox.Location = new System.Drawing.Point(119, 81);
-            this.descricaoTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.descricaoTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.descricaoTextBox.Name = "descricaoTextBox";
             this.descricaoTextBox.Size = new System.Drawing.Size(256, 22);
             this.descricaoTextBox.TabIndex = 2;
             // 
-            // label5
+            // lblFormulaTotal
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(809, 295);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 17);
-            this.label5.TabIndex = 28;
-            this.label5.Text = "e = (c - d)";
+            this.lblFormulaTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFormulaTotal.AutoSize = true;
+            this.lblFormulaTotal.Location = new System.Drawing.Point(809, 295);
+            this.lblFormulaTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFormulaTotal.Name = "lblFormulaTotal";
+            this.lblFormulaTotal.Size = new System.Drawing.Size(61, 16);
+            this.lblFormulaTotal.TabIndex = 28;
+            this.lblFormulaTotal.Text = "e = (c - d)";
             // 
             // vrLiquidoTextBox
             // 
@@ -341,7 +340,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.vrLiquidoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.movimentoContaBindingSource, "VrLiquido", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.vrLiquidoTextBox.Location = new System.Drawing.Point(581, 290);
-            this.vrLiquidoTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vrLiquidoTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.vrLiquidoTextBox.Name = "vrLiquidoTextBox";
             this.vrLiquidoTextBox.Size = new System.Drawing.Size(159, 22);
             this.vrLiquidoTextBox.TabIndex = 8;
@@ -357,7 +356,7 @@
             this.label4.Location = new System.Drawing.Point(809, 263);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(16, 17);
+            this.label4.Size = new System.Drawing.Size(15, 16);
             this.label4.TabIndex = 26;
             this.label4.Text = "d";
             // 
@@ -368,7 +367,7 @@
             this.vrDespesaTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.vrDespesaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.movimentoContaBindingSource, "VrDespesa", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
             this.vrDespesaTextBox.Location = new System.Drawing.Point(581, 258);
-            this.vrDespesaTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vrDespesaTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.vrDespesaTextBox.Name = "vrDespesaTextBox";
             this.vrDespesaTextBox.ReadOnly = true;
             this.vrDespesaTextBox.Size = new System.Drawing.Size(159, 22);
@@ -396,7 +395,7 @@
             this.Valor});
             this.movimentoInvestimentoDespesaDataGridView.DataSource = this.movimentoInvestimentoDespesaBindingSource;
             this.movimentoInvestimentoDespesaDataGridView.Location = new System.Drawing.Point(119, 114);
-            this.movimentoInvestimentoDespesaDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.movimentoInvestimentoDespesaDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.movimentoInvestimentoDespesaDataGridView.MultiSelect = false;
             this.movimentoInvestimentoDespesaDataGridView.Name = "movimentoInvestimentoDespesaDataGridView";
             this.movimentoInvestimentoDespesaDataGridView.RowHeadersVisible = false;
@@ -443,11 +442,11 @@
             // 
             this.Despesa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Despesa.DataPropertyName = "Despesa";
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.Despesa.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            this.Despesa.DefaultCellStyle = dataGridViewCellStyle3;
             this.Despesa.FillWeight = 150F;
             this.Despesa.Frozen = true;
             this.Despesa.HeaderText = "Despesa";
@@ -469,10 +468,10 @@
             // Valor
             // 
             this.Valor.DataPropertyName = "Valor";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "F2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Valor.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "F2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.Valor.DefaultCellStyle = dataGridViewCellStyle4;
             this.Valor.FillWeight = 70F;
             this.Valor.HeaderText = "Valor";
             this.Valor.MinimumWidth = 6;
@@ -490,7 +489,7 @@
             this.label3.Location = new System.Drawing.Point(809, 86);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 17);
+            this.label3.Size = new System.Drawing.Size(62, 16);
             this.label3.TabIndex = 24;
             this.label3.Text = "c = (a * b)";
             // 
@@ -499,7 +498,7 @@
             this.vrBrutoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.vrBrutoTextBox.Location = new System.Drawing.Point(581, 81);
-            this.vrBrutoTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vrBrutoTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.vrBrutoTextBox.Name = "vrBrutoTextBox";
             this.vrBrutoTextBox.Size = new System.Drawing.Size(156, 22);
             this.vrBrutoTextBox.TabIndex = 5;
@@ -515,7 +514,7 @@
             this.label2.Location = new System.Drawing.Point(809, 46);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(16, 17);
+            this.label2.Size = new System.Drawing.Size(15, 16);
             this.label2.TabIndex = 22;
             this.label2.Text = "b";
             // 
@@ -526,7 +525,7 @@
             this.label1.Location = new System.Drawing.Point(809, 14);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 17);
+            this.label1.Size = new System.Drawing.Size(15, 16);
             this.label1.TabIndex = 21;
             this.label1.Text = "a";
             // 
@@ -536,7 +535,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Location = new System.Drawing.Point(412, 73);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(381, 1);
             this.panel2.TabIndex = 20;
@@ -546,7 +545,7 @@
             this.vrCotaTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.vrCotaTextBox.Location = new System.Drawing.Point(581, 41);
-            this.vrCotaTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.vrCotaTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.vrCotaTextBox.Name = "vrCotaTextBox";
             this.vrCotaTextBox.Size = new System.Drawing.Size(212, 22);
             this.vrCotaTextBox.TabIndex = 4;
@@ -560,7 +559,7 @@
             this.qtCotasTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.qtCotasTextBox.Location = new System.Drawing.Point(581, 9);
-            this.qtCotasTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.qtCotasTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.qtCotasTextBox.Name = "qtCotasTextBox";
             this.qtCotasTextBox.Size = new System.Drawing.Size(212, 22);
             this.qtCotasTextBox.TabIndex = 3;
@@ -577,7 +576,7 @@
             this.investimentoIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.investimentoIDComboBox.FormattingEnabled = true;
             this.investimentoIDComboBox.Location = new System.Drawing.Point(117, 41);
-            this.investimentoIDComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.investimentoIDComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.investimentoIDComboBox.Name = "investimentoIDComboBox";
             this.investimentoIDComboBox.Size = new System.Drawing.Size(257, 24);
             this.investimentoIDComboBox.TabIndex = 1;
@@ -594,7 +593,7 @@
             this.dataDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.movimentoContaBindingSource, "Data", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.dataDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dataDateTimePicker.Location = new System.Drawing.Point(119, 9);
-            this.dataDateTimePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataDateTimePicker.Margin = new System.Windows.Forms.Padding(4);
             this.dataDateTimePicker.Name = "dataDateTimePicker";
             this.dataDateTimePicker.Size = new System.Drawing.Size(256, 22);
             this.dataDateTimePicker.TabIndex = 0;
@@ -610,7 +609,7 @@
             this.buttonGravarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGravarCategoria.Image = global::MoneyPro.Properties.Resources.ok;
             this.buttonGravarCategoria.Location = new System.Drawing.Point(828, 5);
-            this.buttonGravarCategoria.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonGravarCategoria.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGravarCategoria.Name = "buttonGravarCategoria";
             this.buttonGravarCategoria.Size = new System.Drawing.Size(31, 28);
             this.buttonGravarCategoria.TabIndex = 0;
@@ -624,7 +623,7 @@
             this.buttonCancelarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelarCategoria.Image = global::MoneyPro.Properties.Resources.cancela;
             this.buttonCancelarCategoria.Location = new System.Drawing.Point(866, 5);
-            this.buttonCancelarCategoria.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancelarCategoria.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancelarCategoria.Name = "buttonCancelarCategoria";
             this.buttonCancelarCategoria.Size = new System.Drawing.Size(31, 28);
             this.buttonCancelarCategoria.TabIndex = 1;
@@ -694,7 +693,7 @@
 //        private System.Windows.Forms.DataGridViewTextBoxColumn MovimentoInvestimentoDespesaID;
 //        private System.Windows.Forms.DataGridViewTextBoxColumn Ordem;
         private System.Windows.Forms.TextBox vrDespesaTextBox;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblFormulaTotal;
         private System.Windows.Forms.TextBox vrLiquidoTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonGravarCategoria;
@@ -708,5 +707,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Parceiro;
         private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
         private System.Windows.Forms.CheckBox CVMcheckBox;
+        private System.Windows.Forms.Label vrSubTotal;
+        private System.Windows.Forms.Label vrTotal;
     }
 }
