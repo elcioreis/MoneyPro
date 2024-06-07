@@ -111,7 +111,6 @@ namespace MoneyPro.Rotinas
                     // Informa que as cotações dos fundos foram atualiada após um novo investimente ter sido cadastrado em Investimento
                     bll.InformarAtualizacao();
                 }
-
             }
             return sucesso;
         }
@@ -172,7 +171,7 @@ namespace MoneyPro.Rotinas
 
             File.Delete(arquivoZIP);
 
-            return (File.Exists(arquivoCSV));
+            return File.Exists(arquivoCSV);
         }
 
         private void LerInformacoesArquivoCSV(string arquivoCSV)
@@ -186,13 +185,10 @@ namespace MoneyPro.Rotinas
             // Remove o cabeçalho da lista
             if (comCabecalho[0].Length == 9)
             {
-
                 comCabecalho.RemoveAt(0);
-
 
                 var cotacaoCVM = comCabecalho.Select(a => new CotacaoCVM()
                 {
-
                     // TP_FUNDO; CNPJ_FUNDO; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
                     // FI; 00.017.024 / 0001 - 53; 2019 - 06 - 03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
                     // FI; 00.017.024 / 0001 - 53; 2019 - 06 - 04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
@@ -227,16 +223,13 @@ namespace MoneyPro.Rotinas
                         Application.DoEvents();
                     }
                 }
-
             }
             else if (comCabecalho[0].Length == 8)
             {
-
                 comCabecalho.RemoveAt(0);
 
                 var cotacaoCVM = comCabecalho.Select(a => new CotacaoCVM()
                 {
-
                     // CNPJ_FUNDO; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
                     // 00.017.024 / 0001 - 53; 2019 - 06 - 03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
                     // 00.017.024 / 0001 - 53; 2019 - 06 - 04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1

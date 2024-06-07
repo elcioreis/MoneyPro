@@ -357,34 +357,34 @@ namespace MoneyPro
             {
                 case 1:
                     // dia pode começar por 0, 1, 2 ou 3
-                    resp = (Regex.IsMatch(texto, "^[0123]$"));
+                    resp = Regex.IsMatch(texto, "^[0123]$");
                     break;
                 case 2:
                     // se o dia começa por 0, o segundo dígito pode ser de 1 a 9
                     // se o dia começa por 1 ou 2, o segundo dígito pode ser de 0 a 9
                     // se o dia começa por 3, o segundo dígito somente pode ser 0 ou 1
-                    resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])$"));
+                    resp = Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])$");
                     break;
                 case 3:
                     // Igual a regra anterior, porém somente aceita a bara no terceiro dígito
-                    resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/$"));
+                    resp = Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/$");
                     break;
                 case 4:
                     // O quarto dígito somente pode ser 0 ou 1
-                    resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/[01]$"));
+                    resp = Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/[01]$");
                     break;
                 case 5:
                     // Se o quarto dígito for 0, o segundo pode ser de 1 a 9
                     // Se o quarto dígito for 1, o segundo pode ser 0 a 2
-                    resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])$"));
+                    resp = Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])$");
                     break;
                 case 6:
                     // Igual a regra anterior, porém somente aceita a bara no sexto dígito
-                    resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/$"));
+                    resp = Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/$");
                     break;
                 case 7:
                     // A setima posição pode ser 1 ou 2
-                    resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[12]$"));
+                    resp = Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[12]$");
                     break;
                 case 8:
                 // A oitava posição pode ser qualquer dígito de 0 a 9
@@ -392,14 +392,14 @@ namespace MoneyPro
                 // A nona posição pode ser qualquer dígito de 0 a 9
                 case 10:
                     // A decima posicação pode ser qualquer dígito de 0 a 9
-                    resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}$"));
+                    resp = Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}$");
                     break;
                 default:
                     resp = false;
                     break;
             }
 
-            if ((resp) && (tam == 10))
+            if (resp && (tam == 10))
             {
                 // Se o regex passou e tem 10 caracteres, tenta converte a data
                 DateTime dt;
@@ -471,34 +471,34 @@ namespace MoneyPro
             {
                 case 1:
                     // dia pode começar por 0, 1, 2 ou 3
-                    resp = (Regex.IsMatch(texto, "^[0123]$"));
+                    resp = Regex.IsMatch(texto, "^[0123]$");
                     break;
                 case 2:
                     // se o dia começa por 0, 1 ou 2, o segundo dígito pode ser de 0 a 9
                     // se o dia começa por 3, o segundo dígito somente pode ser 0 ou 1
                     //resp = (Regex.IsMatch(texto, "^(0[1-9]|[12][0-9]|3[01])$"));
-                    resp = (Regex.IsMatch(texto, "^([012][0-9]|3[01])$"));
+                    resp = Regex.IsMatch(texto, "^([012][0-9]|3[01])$");
                     break;
                 case 3:
                     // Igual a regra anterior, porém somente aceita a bara no terceiro dígito
-                    resp = (Regex.IsMatch(texto, "^([012][0-9]|3[01])/$"));
+                    resp = Regex.IsMatch(texto, "^([012][0-9]|3[01])/$");
                     break;
                 case 4:
                     // O quarto dígito somente pode ser 0 ou 1
-                    resp = (Regex.IsMatch(texto, "^([012][0-9]|3[01])/[01]$"));
+                    resp = Regex.IsMatch(texto, "^([012][0-9]|3[01])/[01]$");
                     break;
                 case 5:
                     // Se o quarto dígito for 0, o segundo pode ser de 1 a 9
                     // Se o quarto dígito for 1, o segundo pode ser 0 a 2
-                    resp = (Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])$"));
+                    resp = Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])$");
                     break;
                 case 6:
                     // Igual a regra anterior, porém somente aceita a bara no sexto dígito
-                    resp = (Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])/$"));
+                    resp = Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])/$");
                     break;
                 case 7:
                     // A setima posição pode ser 1 ou 2
-                    resp = (Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12]$"));
+                    resp = Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12]$");
                     break;
                 case 8:
                 // A oitava posição pode ser qualquer dígito de 0 a 9
@@ -506,21 +506,21 @@ namespace MoneyPro
                 // A nona posição pode ser qualquer dígito de 0 a 9
                 case 10:
                     // A decima posicação pode ser qualquer dígito de 0 a 9
-                    resp = (Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}$"));
+                    resp = Regex.IsMatch(texto, "^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}$");
                     break;
                 case 11:
                     // A 11a posição pode ser somente branco caso a conta permita data e hora
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s$");
                     break;
                 case 12:
                     // A 12a posição pode ser qualquer dígito de 0 a 2([012]) caso a conta permita data e hora
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s[012]$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s[012]$");
                     break;
                 case 13:
                     // A 13a posição pode ser qualquer dígito se a 12a for 0 ou 1
@@ -528,56 +528,56 @@ namespace MoneyPro
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3])$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3])$");
                     break;
                 case 14:
                     // A 14a posição pode ser somente dois pontos (:)
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):$");
                     break;
                 case 15:
                     // A 15a posição pode ser qualquer dígito de 0 a 5
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5]$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5]$");
                     break;
                 case 16:
                     // A 16a posição pode ser qualquer dígito de 0 a 9
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]$");
                     break;
                 case 17:
                     // A 17a posição pode ser somente dois pontos (:)
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]:$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]:$");
                     break;
                 case 18:
                     // A 18a posição pode ser qualquer dígito de 0 a 5
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]:[0-5]$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]:[0-5]$");
                     break;
                 case 19:
                     // A 19a posição pode ser qualquer dígito de 0 a 9
                     if (!trataHora)
                         resp = false;
                     else
-                        resp = (Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$"));
+                        resp = Regex.IsMatch(texto, @"^([012][0-9]|3[01])/(0[1-9]|1[0-2])/[12][0-9]{1,3}\s([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$");
                     break;
                 default:
                     resp = false;
                     break;
             }
 
-            if ((resp) && (tam == 10))
+            if (resp && (tam == 10))
             {
                 // Se o regex passou e tem 10 caracteres, tenta converte a data
                 DateTime dt;
@@ -615,7 +615,7 @@ namespace MoneyPro
 
             var result = ping.Send(siteParaPingar);
 
-            return (result.Status == System.Net.NetworkInformation.IPStatus.Success);
+            return result.Status == System.Net.NetworkInformation.IPStatus.Success;
         }
 
         public static DateTime UltimoDiaUtil(DateTime data)
@@ -1000,11 +1000,12 @@ namespace MoneyPro
                     //    FROM Investimento Inve
                     //    ORDER BY INVE.InvestimentoID ASC;", conn);
 
-                    SqlCommand query = new SqlCommand(@"
-                        SELECT InvestimentoID, Apelido
-                        FROM vw_CarteiraFormatada
-                        WHERE (COALESCE(VrAplicado, 0) > 0) AND Fundo = 1
-                        ORDER BY Apelido ASC;", conn);
+                    SqlCommand query = new SqlCommand(
+                        @"SELECT cf.InvestimentoID, cf.Apelido
+                                 FROM vw_CarteiraFormatada cf
+                                      INNER JOIN Investimento iv ON iv.InvestimentoID = cf.InvestimentoID
+                                 WHERE ((COALESCE(cf.VrAplicado, 0) > 0) OR  Ativo = 1) AND (cf.Fundo = 1 OR cf.Acao = 1)
+                                 ORDER BY cf.Acao ASC, cf.Apelido ASC;", conn);
 
                     // Coloca a query no adaptador
                     da.SelectCommand = query;

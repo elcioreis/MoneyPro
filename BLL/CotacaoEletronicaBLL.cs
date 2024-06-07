@@ -67,7 +67,7 @@ namespace BLL
             return dal.ListarCNPJFundosCVM();
         }
 
-        public void AtualizaAcoesBOVESPA()
+        public void AtualizaAcoesB3()
         {
             CotacaoEletronicaDAL dal = new CotacaoEletronicaDAL();
             dal.AtualizaAcoesBOVESPA();

@@ -1,6 +1,5 @@
 ﻿using BLL;
 using DAL;
-using Modelos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,10 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace MoneyPro
 {
@@ -42,52 +38,20 @@ namespace MoneyPro
             InitializeComponent();
         }
 
-        #region Cotacoes Bovespa
+        #region Cotacoes B3
 
-        private void ProcessaCotacoesBovespa()
+        private void ProcessaCotacoesB3()
         {
             DataTable acoes = bll.BuscarCotacoes();
 
             if (acoes.Rows.Count > 0)
             {
-                IncluirProcessamento("Buscando cotação de ações na BOVESPA (B3).");
+                IncluirProcessamento("Buscando cotação de ações em arquivo B3.");
                 ProcurarArquivosB3(acoes);
             }
 
-            //foreach (DataRow linha in acoes.Rows)
-            //{
-            //    //IncluirProcessamento("Buscando cotação de " + (string)linha["Apelido"] + ".");
-            //    IncluirProcessamento($"Buscando cotação de {(string)linha["Apelido"]} ({(string)linha["Consulta"]}).");
-
-            //    //AcaoCotacao modelo = CarregaCotacao((string)linha["Consulta"]);
-            //    AcaoCotacao modelo = CarregaCotacao(linha.Field<string>("Consulta"));
-
-            //    if (modelo.InvestimentoID > 0)
-            //    {
-            //        modelo.InvestimentoID = (int)linha["InvestimentoID"];
-            //        modelo.AcaoCotacaoID = bll.ExisteCotacao(modelo.InvestimentoID, modelo.Data);
-
-            //        if (modelo.AcaoCotacaoID == 0)
-            //        {
-            //            // Inclui cotação
-            //            bll.Incluir(modelo);
-            //            AtualizarProcessamento("Cotação de " + modelo.Codigo + " de " + modelo.Data.ToString("dd/MM/yyyy") + " incluída.");
-            //        }
-            //        else
-            //        {
-            //            // Atualiza cotação;
-            //            bll.Alterar(modelo);
-            //            AtualizarProcessamento("Cotação de " + modelo.Codigo + " de " + modelo.Data.ToString("dd/MM/yyyy") + " atualizada.");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        AtualizarProcessamento("Cotação de " + modelo.Codigo + " falhou na atualização.");
-            //    }
-            //}
-
-            //CotacaoEletronicaBLL cota = new CotacaoEletronicaBLL();
-            //cota.AtualizaAcoesBOVESPA();
+            CotacaoEletronicaBLL cota = new CotacaoEletronicaBLL();
+            cota.AtualizaAcoesB3();
         }
 
         private void ProcurarArquivosB3(DataTable acoes)
@@ -111,9 +75,13 @@ namespace MoneyPro
                     if (ProcessarArquivoB3(arquivos.ElementAt(i).FullName, acoes))
                     {
                         int ponto = arquivos.ElementAt(i).FullName.IndexOf('.');
+                        string oldFileName = arquivos.ElementAt(i).FullName;
+                        string newFileName = arquivos.ElementAt(i).FullName.Substring(0, ponto) + ".ok";
 
-                        File.Move(arquivos.ElementAt(i).FullName,
-                            arquivos.ElementAt(i).FullName.Substring(0, ponto) + ".ok");
+                        if (File.Exists(newFileName))
+                            File.Delete(newFileName);
+
+                        File.Move(oldFileName, newFileName);
                     }
                 }
             }
@@ -188,106 +156,106 @@ namespace MoneyPro
             }
         }
 
-        private DataTable CriarDataTableAcoes()
-        {
-            var dtbAcoes = new DataTable();
-            dtbAcoes.Columns.Add("InvestimentoID", typeof(int));
-            dtbAcoes.Columns.Add("Apelido", typeof(string));
-            dtbAcoes.Columns.Add("Descricao", typeof(string));
-            dtbAcoes.Columns.Add("Consulta", typeof(string));
+        //private DataTable CriarDataTableAcoes()
+        //{
+        //    var dtbAcoes = new DataTable();
+        //    dtbAcoes.Columns.Add("InvestimentoID", typeof(int));
+        //    dtbAcoes.Columns.Add("Apelido", typeof(string));
+        //    dtbAcoes.Columns.Add("Descricao", typeof(string));
+        //    dtbAcoes.Columns.Add("Consulta", typeof(string));
 
-            return dtbAcoes;
-        }
+        //    return dtbAcoes;
+        //}
 
-        private AcaoCotacao CarregaCotacao(string codigoPapel)
-        {
-            NumberStyles style = NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint;
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("pt-BR");
+        //private AcaoCotacao CarregaCotacao(string codigoPapel)
+        //{
+        //    NumberStyles style = NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint;
+        //    CultureInfo culture = CultureInfo.CreateSpecificCulture("pt-BR");
 
-            AcaoCotacao modelo = new AcaoCotacao();
+        //    AcaoCotacao modelo = new AcaoCotacao();
 
-            string url = @"http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=" + codigoPapel;
+        //    string url = @"http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=" + codigoPapel;
 
-            string xml;
-            try
-            {
-                using (var webClient = new WebClient())
-                {
-                    xml = webClient.DownloadString(url);
-                }
-            }
-            catch
-            {
-                xml = String.Empty;
-                modelo.InvestimentoID = -1;
-                modelo.Codigo = codigoPapel;
-            }
+        //    string xml;
+        //    try
+        //    {
+        //        using (var webClient = new WebClient())
+        //        {
+        //            xml = webClient.DownloadString(url);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        xml = String.Empty;
+        //        modelo.InvestimentoID = -1;
+        //        modelo.Codigo = codigoPapel;
+        //    }
 
-            if (xml != String.Empty)
-            {
-                XDocument xDoc = XDocument.Parse(xml);
+        //    if (xml != String.Empty)
+        //    {
+        //        XDocument xDoc = XDocument.Parse(xml);
 
-                foreach (XElement item in xDoc.Root.Nodes())
-                {
-                    if (item.NodeType == XmlNodeType.Element)
-                    {
-                        modelo.Codigo = item.Attribute("Codigo").Value;
-                        modelo.Nome = item.Attribute("Nome").Value;
-                        modelo.Ibovespa = item.Attribute("Ibovespa").Value;
+        //        foreach (XElement item in xDoc.Root.Nodes())
+        //        {
+        //            if (item.NodeType == XmlNodeType.Element)
+        //            {
+        //                modelo.Codigo = item.Attribute("Codigo").Value;
+        //                modelo.Nome = item.Attribute("Nome").Value;
+        //                modelo.Ibovespa = item.Attribute("Ibovespa").Value;
 
-                        DateTime data;
+        //                DateTime data;
 
-                        if (!DateTime.TryParseExact(item.Attribute("Data").Value, "dd/MM/yyyyHH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out data))
-                        {
-                            if (!DateTime.TryParseExact(item.Attribute("Data").Value, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out data))
-                            {
-                                data = DateTime.Parse("01/01/1900");
-                            }
-                        }
-                        modelo.Data = data;
+        //                if (!DateTime.TryParseExact(item.Attribute("Data").Value, "dd/MM/yyyyHH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out data))
+        //                {
+        //                    if (!DateTime.TryParseExact(item.Attribute("Data").Value, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out data))
+        //                    {
+        //                        data = DateTime.Parse("01/01/1900");
+        //                    }
+        //                }
+        //                modelo.Data = data;
 
-                        decimal valor;
+        //                decimal valor;
 
-                        if (!Decimal.TryParse(item.Attribute("Abertura").Value, style, culture, out valor))
-                        {
-                            valor = 0;
-                        }
-                        modelo.Abertura = valor;
+        //                if (!Decimal.TryParse(item.Attribute("Abertura").Value, style, culture, out valor))
+        //                {
+        //                    valor = 0;
+        //                }
+        //                modelo.Abertura = valor;
 
-                        if (!Decimal.TryParse(item.Attribute("Minimo").Value, style, culture, out valor))
-                        {
-                            valor = 0;
-                        }
-                        modelo.Minimo = valor;
+        //                if (!Decimal.TryParse(item.Attribute("Minimo").Value, style, culture, out valor))
+        //                {
+        //                    valor = 0;
+        //                }
+        //                modelo.Minimo = valor;
 
-                        if (!Decimal.TryParse(item.Attribute("Maximo").Value, style, culture, out valor))
-                        {
-                            valor = 0;
-                        }
-                        modelo.Maximo = valor;
+        //                if (!Decimal.TryParse(item.Attribute("Maximo").Value, style, culture, out valor))
+        //                {
+        //                    valor = 0;
+        //                }
+        //                modelo.Maximo = valor;
 
-                        if (!Decimal.TryParse(item.Attribute("Medio").Value, style, culture, out valor))
-                        {
-                            valor = 0;
-                        }
-                        modelo.Medio = valor;
+        //                if (!Decimal.TryParse(item.Attribute("Medio").Value, style, culture, out valor))
+        //                {
+        //                    valor = 0;
+        //                }
+        //                modelo.Medio = valor;
 
-                        if (!Decimal.TryParse(item.Attribute("Ultimo").Value, style, culture, out valor))
-                        {
-                            valor = 0;
-                        }
-                        modelo.Ultimo = valor;
+        //                if (!Decimal.TryParse(item.Attribute("Ultimo").Value, style, culture, out valor))
+        //                {
+        //                    valor = 0;
+        //                }
+        //                modelo.Ultimo = valor;
 
-                        if (!Decimal.TryParse(item.Attribute("Oscilacao").Value, style, culture, out valor))
-                        {
-                            valor = 0;
-                        }
-                        modelo.Oscilacao = valor;
-                    }
-                }
-            }
-            return modelo;
-        }
+        //                if (!Decimal.TryParse(item.Attribute("Oscilacao").Value, style, culture, out valor))
+        //                {
+        //                    valor = 0;
+        //                }
+        //                modelo.Oscilacao = valor;
+        //            }
+        //        }
+        //    }
+        //    return modelo;
+        //}
 
         #endregion Cotacoes Bovespa
 
@@ -364,15 +332,6 @@ namespace MoneyPro
 
             try
             {
-                ProcessaCotacoesBovespa();
-            }
-            catch
-            {
-                IncluirProcessamento("Erro ao atualizar cotações da Bovespa (B3)");
-            }
-
-            try
-            {
                 ProcessaCotacoesCVM();
             }
             catch (ArgumentException)
@@ -385,6 +344,16 @@ namespace MoneyPro
                 //IncluirProcessamento(ex.InnerException.ToString());
                 IncluirProcessamento("Erro ao atualizar cotações da CVM:");
                 IncluirProcessamento(string.Format(" - {0}", e));
+            }
+
+            try
+            {
+                ProcessaCotacoesB3();
+            }
+            catch (Exception ex)
+            {
+                IncluirProcessamento("Erro ao atualizar cotações B3");
+                IncluirProcessamento(ex.Message);
             }
 
             try
