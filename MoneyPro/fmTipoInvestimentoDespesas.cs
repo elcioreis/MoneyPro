@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using BLL;
 using Modelos;
-using MoneyPro.Base;
-using BLL;
+using System;
+using System.Data;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace MoneyPro
 {
@@ -17,7 +12,7 @@ namespace MoneyPro
         private int IDInvestimento { get; set; }
         private int IDUsuario { get; set; }
 
-        public fmInvestimentoDespesas(int investimentoID)
+        public fmTipoInvestimentoDespesas(int investimentoID)
         {
             InitializeComponent();
             this.IDInvestimento = investimentoID;
@@ -114,12 +109,7 @@ namespace MoneyPro
             if (investimentoDespesaDataGridView.CurrentRow != null)
             {
                 // Se a linha atual tiver índice menor que zero, o que indica que já há uma inclusão em curso.
-                if (
-                    (int)
-                        investimentoDespesaDataGridView.CurrentRow.Cells[
-                            "InvestimentoDespesaID"
-                        ].Value < 0
-                )
+                if ((int)investimentoDespesaDataGridView.CurrentRow.Cells["InvestimentoDespesaID"].Value < 0)
                 {
                     // Cancela a inclusão, pois índices menores que zero estão em inclusão
                     return;

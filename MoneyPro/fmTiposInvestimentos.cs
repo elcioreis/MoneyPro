@@ -216,7 +216,15 @@ namespace MoneyPro
 
         private void buttonDespesas_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Abre janela para definir despesas");
+            if (tipoInvestimentoDataGridView.CurrentRow == null)
+            {
+                return;
+            }
+
+            int tipoInvestimentoID = (int)tipoInvestimentoDataGridView.CurrentRow.Cells["TipoInvestimentoID"].Value;
+
+            fmTipoInvestimentoDespesas form = new fmTipoInvestimentoDespesas(tipoInvestimentoID);
+            form.ShowDialog();
         }
     }
 }
