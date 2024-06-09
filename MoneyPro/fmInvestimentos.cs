@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BLL;
+using Modelos;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using Modelos;
-using BLL;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using static Modelos.Tipo;
-using System.Collections.Generic;
 
 namespace MoneyPro
 {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using BLL;
 using Modelos;
-using BLL;
+using System;
+using System.Data;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace MoneyPro
 {
@@ -216,6 +212,11 @@ namespace MoneyPro
         private void tipoInvestimentoDataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             tipoInvestimentoDataGridView.EditingControl.KeyPress += tipoInvestimentoDataGridView_KeyPress;
+        }
+
+        private void buttonDespesas_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Abre janela para definir despesas");
         }
     }
 }

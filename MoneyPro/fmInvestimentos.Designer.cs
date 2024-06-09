@@ -47,7 +47,6 @@
             this.btnTributacao = new System.Windows.Forms.Button();
             this.buttonGraficoComparativo = new System.Windows.Forms.Button();
             this.investimentoDataGridView = new System.Windows.Forms.DataGridView();
-            this.investimentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.InvestimentoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsuarioID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apelido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,6 +68,7 @@
             this.DataInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ultimo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.investimentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.investimentoDataGridView)).BeginInit();
@@ -78,8 +78,9 @@
             // panelRodape
             // 
             this.panelRodape.Controls.Add(this.buttonTaxas);
-            this.panelRodape.Location = new System.Drawing.Point(0, 306);
-            this.panelRodape.Size = new System.Drawing.Size(816, 30);
+            this.panelRodape.Location = new System.Drawing.Point(0, 377);
+            this.panelRodape.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelRodape.Size = new System.Drawing.Size(1088, 37);
             this.panelRodape.TabIndex = 1;
             this.panelRodape.Controls.SetChildIndex(this.buttonIncluir, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonExcluir, 0);
@@ -100,7 +101,8 @@
             this.panelTopo.Controls.Add(this.btnInstituicao);
             this.panelTopo.Controls.Add(this.btnMoedas);
             this.panelTopo.Controls.Add(this.btnTiposInvestimentos);
-            this.panelTopo.Size = new System.Drawing.Size(816, 40);
+            this.panelTopo.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.panelTopo.Size = new System.Drawing.Size(1088, 49);
             this.panelTopo.TabIndex = 2;
             this.panelTopo.Controls.SetChildIndex(this.labelTopo, 0);
             this.panelTopo.Controls.SetChildIndex(this.btnTiposInvestimentos, 0);
@@ -111,7 +113,8 @@
             // 
             // labelTopo
             // 
-            this.labelTopo.Size = new System.Drawing.Size(280, 24);
+            this.labelTopo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.labelTopo.Size = new System.Drawing.Size(367, 32);
             this.labelTopo.Text = "Cadastro de Investimentos";
             // 
             // toolTip
@@ -125,9 +128,10 @@
             this.btnTiposInvestimentos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTiposInvestimentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTiposInvestimentos.Image = global::MoneyPro.Properties.Resources.z16tipoInvestimento;
-            this.btnTiposInvestimentos.Location = new System.Drawing.Point(694, 9);
+            this.btnTiposInvestimentos.Location = new System.Drawing.Point(925, 11);
+            this.btnTiposInvestimentos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTiposInvestimentos.Name = "btnTiposInvestimentos";
-            this.btnTiposInvestimentos.Size = new System.Drawing.Size(23, 23);
+            this.btnTiposInvestimentos.Size = new System.Drawing.Size(31, 28);
             this.btnTiposInvestimentos.TabIndex = 0;
             this.btnTiposInvestimentos.TabStop = false;
             this.toolTip.SetToolTip(this.btnTiposInvestimentos, "Tipos de Investimentos");
@@ -139,9 +143,10 @@
             this.btnInstituicao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInstituicao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInstituicao.Image = global::MoneyPro.Properties.Resources.z16instituicao;
-            this.btnInstituicao.Location = new System.Drawing.Point(723, 9);
+            this.btnInstituicao.Location = new System.Drawing.Point(964, 11);
+            this.btnInstituicao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnInstituicao.Name = "btnInstituicao";
-            this.btnInstituicao.Size = new System.Drawing.Size(23, 23);
+            this.btnInstituicao.Size = new System.Drawing.Size(31, 28);
             this.btnInstituicao.TabIndex = 1;
             this.btnInstituicao.TabStop = false;
             this.toolTip.SetToolTip(this.btnInstituicao, "Instituições");
@@ -153,9 +158,10 @@
             this.btnMoedas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMoedas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoedas.Image = global::MoneyPro.Properties.Resources.z16moedas;
-            this.btnMoedas.Location = new System.Drawing.Point(781, 9);
+            this.btnMoedas.Location = new System.Drawing.Point(1041, 11);
+            this.btnMoedas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnMoedas.Name = "btnMoedas";
-            this.btnMoedas.Size = new System.Drawing.Size(23, 23);
+            this.btnMoedas.Size = new System.Drawing.Size(31, 28);
             this.btnMoedas.TabIndex = 3;
             this.btnMoedas.TabStop = false;
             this.toolTip.SetToolTip(this.btnMoedas, "Moedas");
@@ -166,12 +172,13 @@
             // 
             this.buttonTaxas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTaxas.Image = global::MoneyPro.Properties.Resources.z16taxas;
-            this.buttonTaxas.Location = new System.Drawing.Point(61, 3);
+            this.buttonTaxas.Location = new System.Drawing.Point(81, 4);
+            this.buttonTaxas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonTaxas.Name = "buttonTaxas";
-            this.buttonTaxas.Size = new System.Drawing.Size(23, 23);
+            this.buttonTaxas.Size = new System.Drawing.Size(31, 28);
             this.buttonTaxas.TabIndex = 2;
             this.buttonTaxas.TabStop = false;
-            this.toolTip.SetToolTip(this.buttonTaxas, "Taxas Sobre o Investimento");
+            this.toolTip.SetToolTip(this.buttonTaxas, "Despesas sobre o investimento");
             this.buttonTaxas.UseVisualStyleBackColor = true;
             this.buttonTaxas.Click += new System.EventHandler(this.buttonTaxas_Click);
             // 
@@ -180,9 +187,10 @@
             this.btnTributacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTributacao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTributacao.Image = global::MoneyPro.Properties.Resources.z16tributacao;
-            this.btnTributacao.Location = new System.Drawing.Point(752, 9);
+            this.btnTributacao.Location = new System.Drawing.Point(1003, 11);
+            this.btnTributacao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTributacao.Name = "btnTributacao";
-            this.btnTributacao.Size = new System.Drawing.Size(23, 23);
+            this.btnTributacao.Size = new System.Drawing.Size(31, 28);
             this.btnTributacao.TabIndex = 2;
             this.toolTip.SetToolTip(this.btnTributacao, "Tributação");
             this.btnTributacao.UseVisualStyleBackColor = true;
@@ -193,9 +201,10 @@
             this.buttonGraficoComparativo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGraficoComparativo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGraficoComparativo.Image = global::MoneyPro.Properties.Resources.z16grafico2linhas;
-            this.buttonGraficoComparativo.Location = new System.Drawing.Point(665, 9);
+            this.buttonGraficoComparativo.Location = new System.Drawing.Point(887, 11);
+            this.buttonGraficoComparativo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonGraficoComparativo.Name = "buttonGraficoComparativo";
-            this.buttonGraficoComparativo.Size = new System.Drawing.Size(23, 23);
+            this.buttonGraficoComparativo.Size = new System.Drawing.Size(31, 28);
             this.buttonGraficoComparativo.TabIndex = 4;
             this.toolTip.SetToolTip(this.buttonGraficoComparativo, "Gráfico Cotações");
             this.buttonGraficoComparativo.UseVisualStyleBackColor = true;
@@ -233,11 +242,13 @@
             this.Ativo});
             this.investimentoDataGridView.DataSource = this.investimentoBindingSource;
             this.investimentoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.investimentoDataGridView.Location = new System.Drawing.Point(0, 40);
+            this.investimentoDataGridView.Location = new System.Drawing.Point(0, 49);
+            this.investimentoDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.investimentoDataGridView.Name = "investimentoDataGridView";
             this.investimentoDataGridView.RowHeadersVisible = false;
+            this.investimentoDataGridView.RowHeadersWidth = 51;
             this.investimentoDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.investimentoDataGridView.Size = new System.Drawing.Size(816, 266);
+            this.investimentoDataGridView.Size = new System.Drawing.Size(1088, 328);
             this.investimentoDataGridView.TabIndex = 0;
             this.investimentoDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.investimentoDataGridView_CellFormatting);
             this.investimentoDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.investimentoDataGridView_EditingControlShowing);
@@ -245,25 +256,25 @@
             this.investimentoDataGridView.Paint += new System.Windows.Forms.PaintEventHandler(this.investimentoDataGridView_Paint);
             this.investimentoDataGridView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.investimentoDataGridView_KeyPress);
             // 
-            // investimentoBindingSource
-            // 
-            this.investimentoBindingSource.DataSource = typeof(Modelos.Investimento);
-            // 
             // InvestimentoID
             // 
             this.InvestimentoID.DataPropertyName = "InvestimentoID";
             this.InvestimentoID.Frozen = true;
             this.InvestimentoID.HeaderText = "InvestimentoID";
+            this.InvestimentoID.MinimumWidth = 6;
             this.InvestimentoID.Name = "InvestimentoID";
             this.InvestimentoID.Visible = false;
+            this.InvestimentoID.Width = 125;
             // 
             // UsuarioID
             // 
             this.UsuarioID.DataPropertyName = "UsuarioID";
             this.UsuarioID.Frozen = true;
             this.UsuarioID.HeaderText = "UsuarioID";
+            this.UsuarioID.MinimumWidth = 6;
             this.UsuarioID.Name = "UsuarioID";
             this.UsuarioID.Visible = false;
+            this.UsuarioID.Width = 125;
             // 
             // Apelido
             // 
@@ -273,7 +284,7 @@
             this.Apelido.HeaderText = "Apelido";
             this.Apelido.MinimumWidth = 70;
             this.Apelido.Name = "Apelido";
-            this.Apelido.Width = 70;
+            this.Apelido.Width = 83;
             // 
             // Descricao
             // 
@@ -289,22 +300,28 @@
             // 
             this.TipoInvestimentoID.DataPropertyName = "TipoInvestimentoID";
             this.TipoInvestimentoID.HeaderText = "TipoInvestimentoID";
+            this.TipoInvestimentoID.MinimumWidth = 6;
             this.TipoInvestimentoID.Name = "TipoInvestimentoID";
             this.TipoInvestimentoID.Visible = false;
+            this.TipoInvestimentoID.Width = 125;
             // 
             // InstituicaoID
             // 
             this.InstituicaoID.DataPropertyName = "InstituicaoID";
             this.InstituicaoID.HeaderText = "InstituicaoID";
+            this.InstituicaoID.MinimumWidth = 6;
             this.InstituicaoID.Name = "InstituicaoID";
             this.InstituicaoID.Visible = false;
+            this.InstituicaoID.Width = 125;
             // 
             // MoedaID
             // 
             this.MoedaID.DataPropertyName = "MoedaID";
             this.MoedaID.HeaderText = "MoedaID";
+            this.MoedaID.MinimumWidth = 6;
             this.MoedaID.Name = "MoedaID";
             this.MoedaID.Visible = false;
+            this.MoedaID.Width = 125;
             // 
             // RiscoID
             // 
@@ -314,7 +331,7 @@
             this.RiscoID.MinimumWidth = 70;
             this.RiscoID.Name = "RiscoID";
             this.RiscoID.Visible = false;
-            this.RiscoID.Width = 70;
+            this.RiscoID.Width = 125;
             // 
             // CodigoAnbima
             // 
@@ -339,7 +356,7 @@
             this.Consulta.MinimumWidth = 80;
             this.Consulta.Name = "Consulta";
             this.Consulta.ToolTipText = "CNPJ do Fundo";
-            this.Consulta.Width = 80;
+            this.Consulta.Width = 88;
             // 
             // TaxaAdministracao
             // 
@@ -461,7 +478,7 @@
             this.DataInicio.MinimumWidth = 50;
             this.DataInicio.Name = "DataInicio";
             this.DataInicio.ToolTipText = "Início do investimento";
-            this.DataInicio.Width = 59;
+            this.DataInicio.Width = 67;
             // 
             // Ultimo
             // 
@@ -472,7 +489,7 @@
             this.Ultimo.MinimumWidth = 50;
             this.Ultimo.Name = "Ultimo";
             this.Ultimo.ToolTipText = "Última cotação disponível";
-            this.Ultimo.Width = 61;
+            this.Ultimo.Width = 74;
             // 
             // Ativo
             // 
@@ -480,14 +497,20 @@
             this.Ativo.DataPropertyName = "Ativo";
             this.Ativo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Ativo.HeaderText = "Ativo";
+            this.Ativo.MinimumWidth = 6;
             this.Ativo.Name = "Ativo";
-            this.Ativo.Width = 37;
+            this.Ativo.Width = 43;
+            // 
+            // investimentoBindingSource
+            // 
+            this.investimentoBindingSource.DataSource = typeof(Modelos.Investimento);
             // 
             // fmInvestimentos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(816, 336);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.ClientSize = new System.Drawing.Size(1088, 414);
             this.Controls.Add(this.investimentoDataGridView);
+            this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.Name = "fmInvestimentos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fmInvestimentos_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fmInvestimentos_KeyDown);
