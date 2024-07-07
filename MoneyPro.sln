@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts SQL Server", "Scrip
 		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_78.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_78.sql
 		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_79.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_1_0_79.sql
 		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_2_0_80.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_2_0_80.sql
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_2_0_81.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_2_0_81.sql
+		Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_3_0_82.sql = Banco de Dados\Scripts SQL Server\MoneyPro_Script_1_3_0_82.sql
 	EndProjectSection
 EndProject
 Global

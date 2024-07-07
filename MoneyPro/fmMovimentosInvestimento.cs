@@ -1,7 +1,6 @@
 ﻿using BLL;
 using Modelos;
 using System;
-using System.ComponentModel;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -61,7 +60,18 @@ namespace MoneyPro
 
             movimentoContaBindingSource.DataSource = table;
 
-            investimentoIDComboBox.SelectedIndexChanged += investimentoIDComboBox_SelectedIndexChanged;
+            if (IDMovimentoConta > 0)
+            {
+                investimentoIDComboBox.Enabled = false;
+                dataDateTimePicker.Leave -= dataDateTimePicker_Leave;
+
+                // TODO Desabilitar botão salvar se conciliado = C ou R
+            }
+            else
+            {
+                investimentoIDComboBox.SelectedIndexChanged += investimentoIDComboBox_SelectedIndexChanged;
+                //investimentoIDComboBox.SelectedIndexChanged -= investimentoIDComboBox_SelectedIndexChanged;
+            }
 
             if (table.Rows.Count != 0)
                 AtualizaCotacao();
@@ -104,7 +114,7 @@ namespace MoneyPro
         private void AlterarMovimentoInvestimento()
         {
             row = ((DataTable)movimentoContaBindingSource.DataSource).Rows[0];
-            CarregaListaDespesas();
+            //CarregaListaDespesas();
         }
 
         private void CarregaBindings()
@@ -114,7 +124,7 @@ namespace MoneyPro
             TransacaoBLL bll = new TransacaoBLL();
             transacaoBindingSource.DataSource = bll.Listar();
 
-            // Exemplo databinding manual
+            // Binding para transacaos
             transacaoIDComboBox.DataBindings.Add("SelectedValue",
                                                  movimentoContaBindingSource,
                                                  "TransacaoID",
@@ -150,7 +160,6 @@ namespace MoneyPro
                                             DataSourceUpdateMode.OnValidation,
                                             null,
                                             "N2");
-
         }
 
         private void CarregaInvestimentos(bool venda, bool fundo, bool acao)
@@ -287,7 +296,7 @@ namespace MoneyPro
                 }
                 else
                 {
-                    // Para inclusão de investimento, carrega uma lista de despesas vazia.
+                    // Para alteração de investimento, carrega uma lista de despesas já preenchidas.
                     MovimentoInvestimentoDespesaBLL bll = new MovimentoInvestimentoDespesaBLL();
                     movimentoInvestimentoDespesaBindingSource.DataSource = bll.CarregarListaDespesas(IDMovimentoConta);
                 }
@@ -523,23 +532,22 @@ namespace MoneyPro
         {
             MovimentoInvestimento modelo = new MovimentoInvestimento();
 
-            row.EndEdit();
-
             modelo.MovimentoContaID = (int)row["MovimentoContaID"];
             modelo.MovimentoInvestimentoID = (int)row["MovimentoInvestimentoID"];
             modelo.UsuarioID = (int)row["UsuarioID"];
             modelo.ContaID = (int)row["ContaID"];
+            modelo.InvestimentoID = (int?)investimentoIDComboBox.SelectedValue;
+            modelo.GrupoCategoriaID = ((DataRowView)investimentoIDComboBox.SelectedItem).Row.Field<int?>("GrupoCategoriaID");
 
             //
             // Propriedades necessárias ao cadastro da cotação
             //
-
             if (transacaoIDComboBox.SelectedIndex >= 0)
             {
                 DataTable tableTransacao = (DataTable)transacaoBindingSource.DataSource;
                 DataRow rowTransacao = tableTransacao.Rows[transacaoIDComboBox.SelectedIndex];
 
-                // Informações provenientes da tabela de transações, através do combobx transação
+                // Informações provenientes da tabela de transações, através do combobox transação
                 modelo.CrdDeb = (string)rowTransacao["CrdDeb"];
                 modelo.TransacaoID = (int?)rowTransacao["TransacaoID"];
                 modelo.CategoriaID = (int?)rowTransacao["CategoriaID"];
@@ -550,9 +558,6 @@ namespace MoneyPro
                 modelo.TransacaoID = null;
                 modelo.CategoriaID = null;
             }
-
-            // Recebe o investimento a partir do combobox de investimentos   
-            modelo.InvestimentoID = (int?)investimentoIDComboBox.SelectedValue;
 
             //
             // Incluir aqui uma geração de Parceiro/Lançamento para tratar o nome do investimento.
@@ -574,6 +579,7 @@ namespace MoneyPro
             //
             // Propriedades necessárias ao cadastro do movimento em conta
             //
+            row.EndEdit();
 
             if (row["Numero"] != DBNull.Value)
                 modelo.Numero = row.Field<string>("Numero");
@@ -581,13 +587,11 @@ namespace MoneyPro
                 modelo.Numero = null;
 
             // Encontra o número do lançamento/parceiro 
-            modelo.LancamentoID = Math.Abs(IDdoLancamento(IDUsuario, (string)investimentoIDComboBox.Text));
-
-            modelo.GrupoCategoriaID = null;
+            modelo.LancamentoID = Math.Abs(IDdoLancamento(IDUsuario, (string)investimentoIDComboBox.Text, false));
 
             if (modelo.CrdDeb == "C")
             {
-                modelo.Credito = row.Field<decimal>("VrLiquido");
+                modelo.Credito = row.Field<decimal>("VrBruto");
                 modelo.Debito = null;
             }
             else
@@ -685,10 +689,10 @@ namespace MoneyPro
             }
         }
 
-        private int IDdoLancamento(int usuarioID, string conteudo)
+        private int IDdoLancamento(int usuarioID, string conteudo, bool apagaNaoUtilizado)
         {
             LancamentoBLL bll = new LancamentoBLL();
-            return bll.IDdoLancamento(usuarioID, conteudo);
+            return bll.IDdoLancamento(usuarioID, conteudo, apagaNaoUtilizado);
         }
 
         private void dataDateTimePicker_Leave(object sender, EventArgs e)
@@ -773,18 +777,14 @@ namespace MoneyPro
             bool fundo = (bool)dr["Fundo"];
             bool acao = (bool)dr["Acao"];
 
+            decimal qtCotas = row.Field<decimal?>("QtCotas") ?? 0;
+            decimal vrCota = row.Field<decimal?>("VrCotacao") ?? 0;
+
             CarregaInvestimentos(Venda, fundo, acao);
             CarregaListaDespesas();
-        }
 
-        private void movimentoContaBindingSource_BindingComplete(object sender, BindingCompleteEventArgs e)
-        {
-
-        }
-
-        private void movimentoContaBindingSource_AddingNew(object sender, AddingNewEventArgs e)
-        {
-
+            qtCotasTextBox.Text = qtCotas.ToString();
+            vrCotaTextBox.Text = vrCota.ToString();
         }
 
         private void CVMcheckBox_CheckedChanged(object sender, EventArgs e)

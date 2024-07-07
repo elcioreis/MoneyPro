@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Modelos;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Modelos;
 
 namespace DAL
 {
@@ -107,7 +103,7 @@ namespace DAL
                 try
                 {
                     conn.Open();
-                    return ((int)query.ExecuteScalar() > 0);
+                    return (int)query.ExecuteScalar() > 0;
                 }
                 finally
                 {
@@ -305,10 +301,20 @@ namespace DAL
             // Instancia um comando
 
             // É um select simples, apenas tirando os pontos, barras e traços
-            SqlCommand query = new SqlCommand(@"SELECT Consulta AS CodigoCVM
-                                                FROM Investimento
-                                                WHERE Consulta IS NOT NULL
-                                                ORDER BY CodigoCVM;", conn);
+            SqlCommand query = new SqlCommand(
+                @"SELECT Inve.Consulta AS CodigoCVM, Tipo.Fundo, Tipo.Acao
+                         FROM Investimento Inve
+                              JOIN TipoInvestimento Tipo 
+                                ON Tipo.TipoInvestimentoID = Inve.TipoInvestimentoID
+                               AND (Tipo.Fundo = 1 OR Tipo.Acao = 1)
+                         WHERE Inve.Consulta IS NOT NULL
+                         ORDER BY CodigoCVM;", conn);
+
+            //SqlCommand query = new SqlCommand(
+            //    @"SELECT Consulta AS CodigoCVM
+            //             FROM Investimento
+            //             WHERE Consulta IS NOT NULL
+            //             ORDER BY CodigoCVM;", conn);
 
             // Coloca a query no adaptador
             da.SelectCommand = query;
@@ -343,7 +349,7 @@ namespace DAL
 
                     cmd.Parameters.AddWithValue("@Data", data);
 
-                    return ((Int32)cmd.ExecuteScalar() > 0);
+                    return (Int32)cmd.ExecuteScalar() > 0;
 
                 }
             }

@@ -352,6 +352,12 @@
     <Compile Include="fmInstituicoes.Designer.cs">
       <DependentUpon>fmInstituicoes.cs</DependentUpon>
     </Compile>
+    <Compile Include="fmTipoInvestimentoDespesas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmTipoInvestimentoDespesas.Designer.cs">
+      <DependentUpon>fmTipoInvestimentoDespesas.cs</DependentUpon>
+    </Compile>
     <Compile Include="fmInvestimentoDespesas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -645,6 +651,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fmInstituicoes.resx">
       <DependentUpon>fmInstituicoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmTipoInvestimentoDespesas.resx">
+      <DependentUpon>fmTipoInvestimentoDespesas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmInvestimentoDespesas.resx">
       <DependentUpon>fmInvestimentoDespesas.cs</DependentUpon>

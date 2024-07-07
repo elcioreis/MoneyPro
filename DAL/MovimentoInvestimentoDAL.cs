@@ -15,7 +15,7 @@ namespace DAL
 
             foreach (MovimentoInvestimentoDespesa linha in despesas)
             {
-                linha.LancamentoId = IDdoLancamento(modelo.UsuarioID, linha.Parceiro, false);
+                linha.LancamentoId = IDdoLancamento(modelo.UsuarioID, linha.Parceiro, false, null, null);
             }
 
             using (SqlConnection conn = new SqlConnection(Dados.Conexao))
@@ -42,7 +42,7 @@ namespace DAL
                     else
                         lancamento = "Despesas de Resgate";
 
-                    int lancamentoID = IDdoLancamento(modelo.UsuarioID, lancamento, false);
+                    int lancamentoID = IDdoLancamento(modelo.UsuarioID, lancamento, false, null, null);
 
                     cmd.Transaction = transacao;
 
@@ -209,10 +209,11 @@ namespace DAL
             using (SqlConnection conn = new SqlConnection(Dados.Conexao))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(@"SELECT COUNT(MovimentoContaID) Lancamentos
-                                                         FROM MovimentoConta
-                                                         WHERE ContaID = @ContaID
-                                                         AND CAST(Data AS DATE) = @Data;", conn))
+                using (SqlCommand cmd = new SqlCommand(
+                    @"SELECT COUNT(MovimentoContaID) Lancamentos
+                             FROM MovimentoConta
+                             WHERE ContaID = @ContaID
+                             AND CAST(Data AS DATE) = @Data;", conn))
                 {
                     cmd.Parameters.AddWithValue("@ContaID", contaID);
                     cmd.Parameters.AddWithValue("@Data", data.Date);
@@ -230,13 +231,14 @@ namespace DAL
         {
             int investimentoCotacaoID;
 
-            SqlConnection conn = new SqlConnection(Dados.Conexao);
+            SqlConnection conexao = new SqlConnection(Dados.Conexao);
 
-            conn.Open();
+            conexao.Open();
 
-            SqlTransaction transacao = conn.BeginTransaction("Movimentacao");
+            SqlTransaction transacao = conexao.BeginTransaction("Movimentacao");
 
-            SqlCommand cmd = conn.CreateCommand();
+            SqlCommand cmd = conexao.CreateCommand();
+            cmd.Transaction = transacao;
 
             try
             {
@@ -247,13 +249,11 @@ namespace DAL
                 else
                     lancamento = "Despesas de Resgate";
 
-                int lancamentoID = IDdoLancamento(modelo.UsuarioID, lancamento, false);
+                int lancamentoID = IDdoLancamento(modelo.UsuarioID, lancamento, false, null, null);
 
                 cmd.Transaction = transacao;
 
-                cmd.CommandText = @"DECLARE @InvestimentoCotacaoID INT;
-                                    EXEC stpAtualizaCotacao @InvestimentoID, @Data, @VrCotacao, @ForcaAtualizacao; 
-                                    SELECT @InvestimentoCotacaoID;";
+                cmd.CommandText = @"EXEC stpAtualizaCotacao @InvestimentoID, @Data, @VrCotacao, @ForcaAtualizacao";
 
                 cmd.Parameters.AddWithValue("@InvestimentoID", modelo.InvestimentoID);
                 cmd.Parameters.AddWithValue("@Data", modelo.Data);
@@ -264,18 +264,18 @@ namespace DAL
 
                 cmd.Parameters.Clear();
                 cmd.CommandText = @"UPDATE MovimentoConta SET 
-                                    ContaID = @ContaID, 
-                                    Data = @Data, 
-                                    Numero = @Numero, 
-                                    LancamentoID = @LancamentoID, 
-                                    Descricao = @Descricao, 
-                                    CategoriaID = @CategoriaID, 
-                                    GrupoCategoriaID = @GrupoCategoriaID,
-                                    CrdDeb = @CrdDeb,
-                                    Credito = @Credito,
-                                    Debito = @Debito,
-                                    Conciliacao = @Conciliacao,
-                                    Sistema = @Sistema
+                                        ContaID = @ContaID, 
+                                        Data = @Data, 
+                                        Numero = @Numero, 
+                                        LancamentoID = @LancamentoID, 
+                                        Descricao = @Descricao, 
+                                        CategoriaID = @CategoriaID, 
+                                        GrupoCategoriaID = @GrupoCategoriaID,
+                                        CrdDeb = @CrdDeb,
+                                        Credito = @Credito,
+                                        Debito = @Debito,
+                                        Conciliacao = @Conciliacao,
+                                        Sistema = @Sistema
                                     WHERE MovimentoContaID = @MovimentoContaID;";
 
                 cmd.Parameters.AddWithValue("@ContaID", modelo.ContaID);
@@ -327,7 +327,7 @@ namespace DAL
                 cmd.CommandText = @"UPDATE InvestimentoCotacao
                                     SET VrCotacao = @VrCotacao
                                     WHERE InvestimentoCotacaoID = @InvestimentoCotacaoID
-                                    AND   CotacaoDaCVM = 0;";
+                                    AND   CotacaoDaCVM = 0";
 
                 cmd.Parameters.AddWithValue("@VrCotacao", modelo.VrCotacao);
                 cmd.Parameters.AddWithValue("@InvestimentoCotacaoID", investimentoCotacaoID);
@@ -337,50 +337,49 @@ namespace DAL
                 // Apaga os lançamentos de despesas de aplicação, abaixo serão reinseridos.
                 cmd.Parameters.Clear();
                 cmd.CommandText =
-                    "DELETE FROM movimentoinvestimentodespesa " +
-                    "WHERE MovimentoInvestimentoID = @MovimentoInvestimentoID;";
+                    @"DELETE FROM MovimentoInvestimentoDespesa WHERE MovimentoInvestimentoID = @MovimentoInvestimentoID";
                 cmd.Parameters.AddWithValue("@MovimentoInvestimentoID", modelo.MovimentoInvestimentoID);
                 cmd.ExecuteNonQuery();
 
                 cmd.Parameters.Clear();
                 cmd.CommandText =
-                    "DELETE FROM MovimentoConta " +
-                    "WHERE DoMovimentoContaID = @MovimentoContaID " +
-                    "AND Sistema = 1;";
+                    @"DELETE FROM MovimentoConta
+                      WHERE DoMovimentoContaID = @MovimentoContaID AND Sistema = 1";
                 cmd.Parameters.AddWithValue("@MovimentoContaID", modelo.MovimentoContaID);
                 cmd.ExecuteNonQuery();
 
+                // Não há passo 1 no investimento, o passo zero é o lançamento principal e as despesas são lançadas do passo 2 em diante.
+                int Passo = 2;
+
                 // Insere as despesas do investimento
-                foreach (MovimentoInvestimentoDespesa linha in despesas)
+                foreach (MovimentoInvestimentoDespesa despesa in despesas)
                 {
-                    lancamentoID = IDdoLancamento(modelo.UsuarioID, linha.Parceiro, false);
+                    lancamentoID = IDdoLancamento(modelo.UsuarioID, despesa.Parceiro, false, conexao, transacao);
 
                     cmd.Parameters.Clear();
                     cmd.CommandText =
-                        "INSERT INTO MovimentoInvestimentoDespesa " +
-                        "(MovimentoInvestimentoID, CategoriaID, Valor, Ordem) " +
-                        "VALUES " +
-                        "(@MovimentoInvestimentoID, @CategoriaID, @Valor, @Ordem);";
+                        @"INSERT INTO MovimentoInvestimentoDespesa
+                          (MovimentoInvestimentoID, CategoriaID, Valor, Ordem)
+                          VALUES
+                          (@MovimentoInvestimentoID, @CategoriaID, @Valor, @Ordem);";
 
                     cmd.Parameters.AddWithValue("@MovimentoInvestimentoID", modelo.MovimentoInvestimentoID);
-                    cmd.Parameters.AddWithValue("@CategoriaID", linha.CategoriaID);
-                    cmd.Parameters.AddWithValue("@Valor", linha.Valor);
-                    cmd.Parameters.AddWithValue("@Ordem", linha.Ordem);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@CategoriaID", despesa.CategoriaID);
+                    cmd.Parameters.AddWithValue("@Valor", despesa.Valor);
+                    cmd.Parameters.AddWithValue("@Ordem", despesa.Ordem);
 
-                    if (linha.Valor != 0)
+                    if (despesa.Valor != 0)
                     {
                         // Insere o movimento de despesa para aparecer no grid.
                         cmd.Parameters.Clear();
                         cmd.CommandText =
-                            "INSERT INTO MovimentoConta " +
-                            "(UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, CategoriaID, " +
-                            " GrupoCategoriaID, CrdDeb, Credito, Debito, Conciliacao, Sistema, DoMovimentoContaID) " +
-                            "VALUES " +
-                            "(@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID, @Descricao, @CategoriaID, " +
-                            " @GrupoCategoriaID, @CrdDeb, @Credito, @Debito, @Conciliacao, @Sistema, @DoMovimentoContaID); " +
-
-                            "SELECT CAST(@@IDENTITY AS INT) AS MovimentoContaID;";
+                            @"INSERT INTO MovimentoConta
+                              (UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, CategoriaID,
+                               GrupoCategoriaID, CrdDeb, Credito, Debito, Conciliacao, Sistema, DoMovimentoContaID) 
+                              VALUES 
+                              (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID, @Descricao, @CategoriaID,
+                               @GrupoCategoriaID, @CrdDeb, @Credito, @Debito, @Conciliacao, @Sistema, @DoMovimentoContaID)
+                              SELECT CAST(@@IDENTITY AS INT) AS MovimentoContaID";
 
                         cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
                         cmd.Parameters.AddWithValue("@ContaID", modelo.ContaID);
@@ -388,15 +387,27 @@ namespace DAL
                         cmd.Parameters.AddWithValue("@Numero", (object)modelo.Numero ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@LancamentoID", lancamentoID);
                         cmd.Parameters.AddWithValue("@Descricao", modelo.Descricao);
-                        cmd.Parameters.AddWithValue("@CategoriaID", linha.CategoriaID);
+                        cmd.Parameters.AddWithValue("@CategoriaID", despesa.CategoriaID);
                         cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@CrdDeb", "D");
                         cmd.Parameters.AddWithValue("@Credito", DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Debito", linha.Valor);
+                        cmd.Parameters.AddWithValue("@Debito", despesa.Valor);
                         cmd.Parameters.AddWithValue("@Conciliacao", modelo.Conciliacao);
                         cmd.Parameters.AddWithValue("@Sistema", true);
                         cmd.Parameters.AddWithValue("@DoMovimentoContaID", modelo.MovimentoContaID);
 
+                        int movimentoContaID = (int)cmd.ExecuteScalar();
+
+                        // Insere a informação na tabela de ligações
+                        cmd.Parameters.Clear();
+                        cmd.CommandText = @"INSERT INTO MovimentoContaLigacao
+                                            (MovimentoContaID, Passo, MovimentoInvestimentoID)
+                                            VALUES
+                                            (@MovimentoContaID, @Passo, @MovimentoInvestimentoID);";
+
+                        cmd.Parameters.AddWithValue("@MovimentoContaID", movimentoContaID);
+                        cmd.Parameters.AddWithValue("@Passo", Passo++);
+                        cmd.Parameters.AddWithValue("@MovimentoInvestimentoID", modelo.MovimentoInvestimentoID);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -412,15 +423,15 @@ namespace DAL
             }
             finally
             {
-                conn.Close();
-                conn.Dispose();
+                conexao.Close();
+                conexao.Dispose();
             }
         }
 
-        private int IDdoLancamento(int usuarioID, string conteudo, bool apagaNaoUtilizados = true)
+        private int IDdoLancamento(int usuarioID, string conteudo, bool apagaNaoUtilizados = true, SqlConnection conexao = null, SqlTransaction transacao = null)
         {
             LancamentoDAL dal = new LancamentoDAL();
-            return Math.Abs(dal.IDdoLancamento(usuarioID, conteudo, apagaNaoUtilizados));
+            return Math.Abs(dal.IDdoLancamento(usuarioID, conteudo, apagaNaoUtilizados, conexao, transacao));
         }
     }
 }

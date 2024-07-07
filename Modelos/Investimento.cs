@@ -25,6 +25,6 @@ namespace Modelos
         public decimal? InicialMinimo { get; set; }
         public decimal? MovimentoMinimo { get; set; }
         public decimal? SaldoMinimo { get; set; }
-        //public decimal? QtCotas { get; set; }
+        public int? GrupoCategoriaID { get; set; }
     }
 }

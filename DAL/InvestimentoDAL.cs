@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Modelos;
+﻿using Modelos;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
 
 namespace DAL
 {
@@ -57,23 +52,27 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT Invt.InvestimentoID, Invt.UsuarioID, Invt.Apelido, Invt.Descricao,
-                                                       Invt.TipoInvestimentoID, Invt.InstituicaoID, Invt.MoedaID,
-                                                       Invt.RiscoID, Invt.Consulta, Invt.Ativo, Invt.DataInicio,
-                                                       COALESCE(SUM(MInv.QtCotas), 0) QtCotas
-                                                FROM Investimento Invt
-                                                     JOIN TipoInvestimento Tipo ON Tipo.TipoInvestimentoID = Invt.TipoInvestimentoID
-                                                LEFT JOIN MovimentoInvestimento MInv ON Minv.InvestimentoID = Invt.InvestimentoID
-                                                WHERE Invt.UsuarioID = @UsuarioID
-                                                AND   Invt.Ativo = 1
-                                                AND ((Tipo.Fundo = 1 AND Tipo.Fundo = @Fundo) OR (Tipo.Acao = 1 AND Tipo.Acao = @Acao))
-                                                GROUP BY Invt.InvestimentoID, Invt.UsuarioID, Invt.Apelido, Invt.Descricao,
-                                                         Invt.TipoInvestimentoID, Invt.InstituicaoID, Invt.MoedaID,
-                                                         Invt.RiscoID, Invt.Consulta, Invt.Ativo, Invt.DataInicio " +
+            SqlCommand query = new SqlCommand(
+                @"SELECT Invt.InvestimentoID, Invt.UsuarioID, Invt.Apelido, Invt.Descricao,
+                                Invt.TipoInvestimentoID, Invt.InstituicaoID, Invt.MoedaID,
+                                Invt.RiscoID, Invt.Consulta, Invt.Ativo, Invt.DataInicio,
+                                COALESCE(SUM(MInv.QtCotas), 0) QtCotas,
+                                GCat.GrupoCategoriaID
+                         FROM Investimento Invt
+                              JOIN TipoInvestimento Tipo ON Tipo.TipoInvestimentoID = Invt.TipoInvestimentoID
+                         LEFT JOIN MovimentoInvestimento MInv ON Minv.InvestimentoID = Invt.InvestimentoID
+                         LEFT JOIN GrupoCategoria GCat ON GCat.Apelido = Invt.Consulta
+                         WHERE Invt.UsuarioID = @UsuarioID
+                         AND   Invt.Ativo = 1
+                         AND ((Tipo.Fundo = 1 AND Tipo.Fundo = @Fundo) OR (Tipo.Acao = 1 AND Tipo.Acao = @Acao))
+                         GROUP BY Invt.InvestimentoID, Invt.UsuarioID, Invt.Apelido, Invt.Descricao,
+                                  Invt.TipoInvestimentoID, Invt.InstituicaoID, Invt.MoedaID,
+                                  Invt.RiscoID, Invt.Consulta, Invt.Ativo, Invt.DataInicio,
+                                  GCat.GrupoCategoriaID " +
 
-                                               ( venda ? "HAVING COALESCE(SUM(MInv.QtCotas), 0) > 0 " : " ") +
+                         (venda ? "HAVING COALESCE(SUM(MInv.QtCotas), 0) > 0 " : " ") +
 
-                                               "ORDER BY Invt.Apelido ASC;", conn);
+                        "ORDER BY Invt.Apelido ASC;", conn);
 
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@UsuarioID", usuarioID);
@@ -170,6 +169,12 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@SaldoMinimo", modelo.SaldoMinimo);
 
                     registro = (int)cmd.ExecuteScalar();
+
+                    cmd.CommandText = @"EXEC stpAtualizaGruposCategoriaAcao @UsuarioID";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
+                    cmd.ExecuteNonQuery();
+
                     transacao.Commit();
                 }
             }
@@ -248,6 +253,11 @@ namespace DAL
 
                     if ((int)cmd.ExecuteScalar() == 0)
                         registro = (int)modelo.TipoInvestimentoID;
+
+                    cmd.CommandText = @"EXEC stpAtualizaGruposCategoriaAcao @UsuarioID";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
+                    cmd.ExecuteNonQuery();
 
                     transacao.Commit();
 
@@ -370,13 +380,13 @@ namespace DAL
             conn.Open();
             try
             {
-                return ((int)cmd.ExecuteScalar() != 0);
+                return (int)cmd.ExecuteScalar() != 0;
             }
             finally
             {
                 conn.Close();
                 conn.Dispose();
             }
-        }        
+        }
     }
 }

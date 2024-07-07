@@ -1254,7 +1254,7 @@ namespace MoneyPro
             {
                 bool conciliado;
 
-                switch ((TipoConciliacao)(((string)movimentoContaDataGridView.CurrentRow.Cells["Conciliacao"].Value)[0]))
+                switch ((TipoConciliacao)((string)movimentoContaDataGridView.CurrentRow.Cells["Conciliacao"].Value)[0])
                 {
                     case TipoConciliacao.NaoConciliado:
                         conciliado = false;
@@ -1615,8 +1615,8 @@ namespace MoneyPro
                                 break;
                         }
                     }
-                    else if ((movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Valor")) ||
-                             (movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Balanco")))
+                    else if (movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Valor") ||
+                             movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Balanco"))
                     {
                         try
                         {
@@ -1644,9 +1644,11 @@ namespace MoneyPro
 
                         }
                     }
-                    else if (movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Descricao") ||
+                    else if (movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Data") ||
+                             movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Descricao") ||
                              movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Lancamento") ||
-                             movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Categoria"))
+                             movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Categoria") ||
+                             movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("GrupoCategoria"))
                     {
                         e.CellStyle.ForeColor = Color.Black;
                         e.CellStyle.SelectionForeColor = SystemColors.HighlightText;
@@ -1842,7 +1844,7 @@ namespace MoneyPro
         private int IDdoLancamento(int usuarioID, string conteudo)
         {
             LancamentoBLL bll = new LancamentoBLL();
-            return bll.IDdoLancamento(usuarioID, conteudo);
+            return bll.IDdoLancamento(usuarioID, conteudo, true);
         }
 
         private int IDdaGrupoCategoria(int usuarioID, string conteudo)
@@ -1978,7 +1980,7 @@ namespace MoneyPro
             // Posiciona na última linha do grid que não seja um lançamento futuro
             for (int lin = movimentoContaDataGridView.Rows.Count - 1; lin > 1; lin--)
             {
-                switch ((TipoConciliacao)(((string)movimentoContaDataGridView.Rows[lin].Cells["Conciliacao"].Value)[0]))
+                switch ((TipoConciliacao)((string)movimentoContaDataGridView.Rows[lin].Cells["Conciliacao"].Value)[0])
                 {
                     case TipoConciliacao.Futuro:
                     case TipoConciliacao.Agendado:
@@ -2173,7 +2175,7 @@ namespace MoneyPro
 
             if (int.TryParse(txt, out tag))
             {
-                cancelarFiltroPeloGrupoToolStripMenuItem.Visible = (tag != 0);
+                cancelarFiltroPeloGrupoToolStripMenuItem.Visible = tag != 0;
             }
         }
 
@@ -2201,7 +2203,7 @@ namespace MoneyPro
 
             if (int.TryParse(txt, out tag))
             {
-                cancelarFiltroPelaCategoriaToolStripMenuItem.Visible = (tag != 0);
+                cancelarFiltroPelaCategoriaToolStripMenuItem.Visible = tag != 0;
             }
         }
 
@@ -2228,7 +2230,7 @@ namespace MoneyPro
 
             if (int.TryParse(txt, out tag))
             {
-                cancelarFiltroPeloLancamentoToolStripMenuItem.Visible = (tag != 0);
+                cancelarFiltroPeloLancamentoToolStripMenuItem.Visible = tag != 0;
             }
         }
 
@@ -2255,7 +2257,7 @@ namespace MoneyPro
 
             if (int.TryParse(txt, out tag))
             {
-                cancelarFiltroPorDataToolStripMenuItem.Visible = (tag != 0);
+                cancelarFiltroPorDataToolStripMenuItem.Visible = tag != 0;
             }
         }
 
@@ -2410,7 +2412,7 @@ namespace MoneyPro
                                                             MessageBoxIcon.Warning,
                                                             MessageBoxDefaultButton.Button2);
 
-                        incluir = (resp == DialogResult.Yes);
+                        incluir = resp == DialogResult.Yes;
                     }
 
                     #endregion Verificação sobre planejamento
@@ -2579,7 +2581,7 @@ namespace MoneyPro
 
         private void opcaoDetalhesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ToolStripMenuItem origem = (sender as ToolStripMenuItem);
+            ToolStripMenuItem origem = sender as ToolStripMenuItem;
 
             // Esconde o form atual
             this.WindowState = FormWindowState.Minimized;
@@ -2697,7 +2699,7 @@ namespace MoneyPro
                     itemTitulo.DisplayStyle = ToolStripItemDisplayStyle.Text;
                     itemTitulo.BackColor = Color.DarkGray;
                     itemTitulo.ForeColor = Color.White;
-                    itemTitulo.Font = (new Font("Segoe UI", 9, FontStyle.Bold));
+                    itemTitulo.Font = new Font("Segoe UI", 9, FontStyle.Bold);
 
                     contextMenuStripDetalhes.Items.Add(itemTitulo);
 
@@ -3072,7 +3074,7 @@ namespace MoneyPro
                 // Se o registro for conciliado ou for contra-partirda a observação será ReadOnly
                 textBoxObservacao.ReadOnly = RegistroConciliado(novaLinha) || movimentoContaDataGridView.Rows[novaLinha].Cells["DoMovimentoContaID"].Value != DBNull.Value;
 
-                textBoxObservacao.BackColor = (textBoxObservacao.ReadOnly ? Color.Khaki : SystemColors.Window);
+                textBoxObservacao.BackColor = textBoxObservacao.ReadOnly ? Color.Khaki : SystemColors.Window;
             }
         }
 
@@ -3099,7 +3101,7 @@ namespace MoneyPro
             // Conciliado = "C" - lançamento é conciliado
             // Conciliado = "R" - lançamento é reconciliado
 
-            return (conciliado == "C" || conciliado == "R");
+            return conciliado == "C" || conciliado == "R";
         }
 
         private void MovimentoContaDataGridView_KeyDown(object sender, KeyEventArgs e)
