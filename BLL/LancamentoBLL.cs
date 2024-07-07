@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL;
 using Modelos;
-using DAL;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace BLL
@@ -53,7 +50,6 @@ namespace BLL
                 msg = String.Format("O apelido {0} já está sendo utilizado, por favor, mude o apelido.", modelo.Apelido);
             }
 
-
             if (!String.IsNullOrEmpty(msg))
             {
                 // Se exibir qualquer mensagem na tela, não será considerado válido
@@ -66,38 +62,38 @@ namespace BLL
             }
         }
 
-        public int Gravar(Lancamento modelo)
+        public int Gravar(Lancamento modelo, SqlConnection conn = null)
         {
             LancamentoDAL dal = new LancamentoDAL();
 
             if (modelo.LancamentoID < 0)
             {
                 // É uma inclusão
-                return dal.Incluir(modelo);
+                return dal.Incluir(modelo, conn);
             }
             else
             {
                 // É uma alteração
-                return dal.Alterar(modelo);
+                return dal.Alterar(modelo, conn);
             }
         }
 
-        public void Excluir(int lancamentoID)
+        public void Excluir(int lancamentoID, SqlConnection conn = null)
         {
             LancamentoDAL obj = new LancamentoDAL();
-            obj.Excluir(lancamentoID);
+            obj.Excluir(lancamentoID, conn);
         }
 
-        public int IDdoLancamento(int usuarioID, string conteudo)
+        public int IDdoLancamento(int usuarioID, string conteudo, bool apagaNaoUtilizados, SqlConnection conn = null)
         {
             LancamentoDAL dal = new LancamentoDAL();
-            return dal.IDdoLancamento(usuarioID, conteudo);
+            return dal.IDdoLancamento(usuarioID, conteudo, apagaNaoUtilizados, conn);
         }
 
-        public int IDdoLancamentoPadraoCDB(int usuarioID)
+        public int IDdoLancamentoPadraoCDB(int usuarioID, SqlConnection conn = null)
         {
             LancamentoDAL dal = new LancamentoDAL();
-            return dal.IDdoLancamentoPadroCDB(usuarioID);
+            return dal.IDdoLancamentoPadroCDB(usuarioID, conn);
         }
     }
 }

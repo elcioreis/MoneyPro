@@ -253,7 +253,6 @@
             this.investimentoDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.investimentoDataGridView_CellFormatting);
             this.investimentoDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.investimentoDataGridView_EditingControlShowing);
             this.investimentoDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.investimentoDataGridView_RowValidating);
-            this.investimentoDataGridView.Paint += new System.Windows.Forms.PaintEventHandler(this.investimentoDataGridView_Paint);
             this.investimentoDataGridView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.investimentoDataGridView_KeyPress);
             // 
             // InvestimentoID

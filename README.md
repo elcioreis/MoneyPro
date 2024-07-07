@@ -3,9 +3,12 @@ Sistema de gerenciamento financeiro para Windows.
 
 Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Server.
 
-## Versão 1.3.0.82
+## Versões futuras
     Implementação de cadastro de impostos/taxas por tipo de investimento
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
+
+## Versão 1.3.0.82
+    Correção do módulo de compra e venda de cotas de fundos ou de ações que não carregava dados corretamente para alteração
 
 ## Versão 1.2.0.81
 	Correção da cobrança de tarifas em entrada de investimentos

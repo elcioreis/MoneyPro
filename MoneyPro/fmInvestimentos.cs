@@ -605,11 +605,6 @@ namespace MoneyPro
             form.ShowDialog();
         }
 
-        private void investimentoDataGridView_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void investimentoDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (investimentoDataGridView.CurrentRow != null)

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Modelos;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -82,18 +76,16 @@ namespace DAL
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
             SqlCommand query = new SqlCommand(
-                "SELECT " +
-                "Desp.MovimentoInvestimentoDespesaID, Desp.MovimentoInvestimentoID, Desp.CategoriaID,  " +
-                "Desp.Ordem, Ctgo.vFiltro AS Despesa, Desp.Valor, Lcto.Apelido AS Parceiro " +
-                "FROM MovimentoInvestimento Invt " +
-                "INNER JOIN MovimentoInvestimentoDespesa Desp " +
-                "ON Desp.MovimentoInvestimentoID = Invt.MovimentoInvestimentoID " +
-                "LEFT JOIN MovimentoConta Cnta ON Cnta.DoMovimentoContaID = Invt.MovimentoContaID " +
-                "AND Cnta.CategoriaID = Desp.CategoriaID " +
-                "LEFT JOIN Lancamento Lcto ON Lcto.LancamentoID = Cnta.LancamentoID " +
-                "INNER JOIN vw_CategoriasSelecionaveis Ctgo ON Ctgo.CategoriaID = Desp.CategoriaID  " +
-                "WHERE Invt.MovimentoContaID = @MovimentoContaID " +
-                "ORDER BY Desp.Ordem ASC;", conn);
+                @"SELECT 
+                             Desp.MovimentoInvestimentoDespesaID, Desp.MovimentoInvestimentoID, Desp.CategoriaID,
+                             Desp.Ordem, Ctgo.vFiltro AS Despesa, Desp.Valor, Lcto.Apelido AS Parceiro
+                         FROM MovimentoInvestimento Invt
+                         INNER JOIN MovimentoInvestimentoDespesa Desp ON Desp.MovimentoInvestimentoID = Invt.MovimentoInvestimentoID
+                         LEFT JOIN MovimentoConta Cnta ON Cnta.DoMovimentoContaID = Invt.MovimentoContaID AND Cnta.CategoriaID = Desp.CategoriaID
+                         LEFT JOIN Lancamento Lcto ON Lcto.LancamentoID = Cnta.LancamentoID
+                         INNER JOIN vw_CategoriasSelecionaveis Ctgo ON Ctgo.CategoriaID = Desp.CategoriaID
+                         WHERE Invt.MovimentoContaID = @MovimentoContaID
+                         ORDER BY Desp.Ordem ASC;", conn);
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@MovimentoContaID", movimentoContaID);
             // Coloca a query no adaptador

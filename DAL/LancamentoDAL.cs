@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Modelos;
+﻿using Modelos;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace DAL
 {
@@ -65,11 +62,18 @@ namespace DAL
             return disponivel;
         }
 
-        public int Incluir(Lancamento modelo)
+        public int Incluir(Lancamento modelo, SqlConnection conn = null)
         {
+            bool conexaoPorParametro = true;
+            if (conn == null)
+            {
+                conn = new SqlConnection(Dados.Conexao);
+                conexaoPorParametro = false;
+            }
+
             int registro = -1;
 
-            SqlConnection conn = new SqlConnection(Dados.Conexao);
+            //SqlConnection conn = new SqlConnection(Dados.Conexao);
 
             SqlCommand cmd = new SqlCommand("INSERT INTO Lancamento " +
                                             "(UsuarioID, Apelido, Descricao, Ativo, Sistema) " +
@@ -84,9 +88,10 @@ namespace DAL
             cmd.Parameters.AddWithValue("@Ativo", modelo.Ativo);
             cmd.Parameters.AddWithValue("@Sistema", modelo.Sistema);
 
-            conn.Open();
             try
             {
+                if (!conexaoPorParametro)
+                    conn.Open();
                 registro = (int)cmd.ExecuteScalar();
             }
             catch (SyntaxErrorException e)
@@ -95,21 +100,32 @@ namespace DAL
             }
             finally
             {
-                conn.Close();
-                conn.Dispose();
+                if (!conexaoPorParametro)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
             }
 
             return registro;
         }
 
-        public int IDdoLancamentoPadroCDB(int usuarioID)
+        public int IDdoLancamentoPadroCDB(int usuarioID, SqlConnection conn = null)
         {
+            bool conexaoPorParametro = true;
+            if (conn == null)
+            {
+                conn = new SqlConnection(Dados.Conexao);
+                conexaoPorParametro = false;
+            }
+
             int idLancamento = 0;
 
-            // Instancia uma conexão
-            using (SqlConnection conn = new SqlConnection(Dados.Conexao))
+            try
             {
-                conn.Open();
+                if (!conexaoPorParametro)
+                    conn.Open();
+
                 // Instancia um comando
                 using (SqlCommand query = new SqlCommand())
                 {
@@ -137,11 +153,24 @@ namespace DAL
 
                 return idLancamento;
             }
+            finally
+            {
+                if (!conexaoPorParametro)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
         }
 
-        public int Alterar(Lancamento modelo)
+        public int Alterar(Lancamento modelo, SqlConnection conn = null)
         {
-            SqlConnection conn = new SqlConnection(Dados.Conexao);
+            bool conexaoPorParametro = true;
+            if (conn == null)
+            {
+                conn = new SqlConnection(Dados.Conexao);
+                conexaoPorParametro = false;
+            }
 
             // Um lançamento não poderá ser transferido para outro 
             // usuário, por isso o campo UsuarioID nunca é atualizado
@@ -163,7 +192,8 @@ namespace DAL
 
             try
             {
-                conn.Open();
+                if (!conexaoPorParametro)
+                    conn.Open();
 
                 if ((int)cmd.ExecuteScalar() == 0)
                     return modelo.LancamentoID;
@@ -176,14 +206,22 @@ namespace DAL
             }
             finally
             {
-                conn.Close();
-                conn.Dispose();
+                if (!conexaoPorParametro)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
             }
         }
 
-        public void Excluir(int lancamentoID)
+        public void Excluir(int lancamentoID, SqlConnection conn = null)
         {
-            SqlConnection conn = new SqlConnection(Dados.Conexao);
+            bool conexaoPorParametro = true;
+            if (conn == null)
+            {
+                conn = new SqlConnection(Dados.Conexao);
+                conexaoPorParametro = false;
+            }
 
             SqlCommand cmd = new SqlCommand("DELETE FROM Lancamento " +
                                             "WHERE LancamentoID = @LancamentoID;", conn);
@@ -192,7 +230,8 @@ namespace DAL
 
             try
             {
-                conn.Open();
+                if (!conexaoPorParametro)
+                    conn.Open();
                 cmd.ExecuteScalar();
             }
             catch (SyntaxErrorException e)
@@ -201,41 +240,50 @@ namespace DAL
             }
             finally
             {
-                conn.Close();
-                conn.Dispose();
+                if (!conexaoPorParametro)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
             }
         }
 
-        public int IDdoLancamento(int usuarioID, string conteudo, bool apagaNaoUtilizados = true)
+        public int IDdoLancamento(int usuarioID, string conteudo, bool apagaNaoUtilizados = true, SqlConnection conexao = null, SqlTransaction transacao = null)
         {
-            SqlConnection conn = new SqlConnection(Dados.Conexao);
+            bool conexaoPorParametro = true;
+            if (conexao == null)
+            {
+                conexao = new SqlConnection(Dados.Conexao);
+                conexaoPorParametro = false;
+            }
 
-            SqlCommand cmd = conn.CreateCommand();
+            SqlCommand cmd = conexao.CreateCommand();
+
+            if (transacao != null)
+                cmd.Transaction = transacao;
 
             StringBuilder texto = new StringBuilder("");
 
             if (apagaNaoUtilizados)
-                texto.Append("DELETE FROM Lancamento " +
-                             "WHERE Automatico = 1 " + 
-                             "AND   LancamentoID NOT IN (SELECT DISTINCT LancamentoID " +
-                             "                           FROM MovimentoConta WHERE NOT LancamentoID IS NULL) " +
-                             "AND   LancamentoID NOT IN (SELECT DISTINCT LancamentoID " +
-                             "                           FROM Planejamento WHERE NOT LancamentoID IS NULL) ");
-
+                texto.Append(
+                    @"DELETE FROM Lancamento
+                            WHERE Automatico = 1 
+                            AND   LancamentoID NOT IN (SELECT DISTINCT LancamentoID FROM MovimentoConta WHERE NOT LancamentoID IS NULL) 
+                            AND   LancamentoID NOT IN (SELECT DISTINCT LancamentoID FROM Planejamento WHERE NOT LancamentoID IS NULL); ");
 
             texto.Append(
-              "IF (EXISTS (SELECT 1 FROM Lancamento WHERE UsuarioID = @UsuarioID AND Apelido = @Apelido)) " +
-              "BEGIN " +
-              "  SELECT LancamentoID FROM Lancamento WHERE UsuarioID = @UsuarioID AND Apelido = @Apelido; " +
-              "END " +
-              "ELSE " +
-              "BEGIN " +
-              "  INSERT INTO Lancamento " +
-              "  (UsuarioID, Apelido, Descricao, Automatico) " +
-              "  VALUES " +
-              "  (@UsuarioID, @Apelido, 'Incluído através da movimentação de conta', 1); " +
-              "  SELECT CAST(SCOPE_IDENTITY() * -1 AS INT); " +
-              "END;");
+                @"IF (EXISTS (SELECT 1 FROM Lancamento WHERE UsuarioID = @UsuarioID AND Apelido = @Apelido)) 
+                        BEGIN 
+                            SELECT LancamentoID FROM Lancamento WHERE UsuarioID = @UsuarioID AND Apelido = @Apelido; 
+                        END  
+                        ELSE 
+                        BEGIN 
+                            INSERT INTO Lancamento 
+                            (UsuarioID, Apelido, Descricao, Automatico)
+                            VALUES 
+                            (@UsuarioID, @Apelido, 'Incluído através da movimentação de conta', 1);
+                            SELECT CAST(SCOPE_IDENTITY() * -1 AS INT);
+                        END;");
 
             cmd.CommandText = texto.ToString();
             cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
@@ -243,7 +291,9 @@ namespace DAL
 
             try
             {
-                conn.Open();
+                if (!conexaoPorParametro)
+                    conexao.Open();
+
                 return (int)cmd.ExecuteScalar();
             }
             catch (SyntaxErrorException e)
@@ -252,8 +302,11 @@ namespace DAL
             }
             finally
             {
-                conn.Close();
-                conn.Dispose();
+                if (!conexaoPorParametro)
+                {
+                    conexao.Close();
+                    conexao.Dispose();
+                }
             }
         }
     }

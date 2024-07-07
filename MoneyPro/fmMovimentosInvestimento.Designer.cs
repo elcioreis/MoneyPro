@@ -37,8 +37,8 @@
             System.Windows.Forms.Label vrDespesaLabel;
             System.Windows.Forms.Label descricaoLabel;
             System.Windows.Forms.Label label6;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.vrSubTotal = new System.Windows.Forms.Label();
             this.vrTotal = new System.Windows.Forms.Label();
             this.panelTransacao = new System.Windows.Forms.Panel();
@@ -176,16 +176,6 @@
             vrCotaLabel.TabIndex = 8;
             vrCotaLabel.Text = "Preço da Cota:";
             // 
-            // vrSubTotal
-            // 
-            this.vrSubTotal.AutoSize = true;
-            this.vrSubTotal.Location = new System.Drawing.Point(408, 86);
-            this.vrSubTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.vrSubTotal.Name = "vrSubTotal";
-            this.vrSubTotal.Size = new System.Drawing.Size(110, 16);
-            this.vrSubTotal.TabIndex = 22;
-            this.vrSubTotal.Text = "Valor Total Bruto:";
-            // 
             // vrDespesaLabel
             // 
             vrDespesaLabel.AutoSize = true;
@@ -195,17 +185,6 @@
             vrDespesaLabel.Size = new System.Drawing.Size(126, 16);
             vrDespesaLabel.TabIndex = 24;
             vrDespesaLabel.Text = "Total de Despesas:";
-            // 
-            // vrTotal
-            // 
-            this.vrTotal.AutoSize = true;
-            this.vrTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.vrTotal.Location = new System.Drawing.Point(408, 295);
-            this.vrTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.vrTotal.Name = "vrTotal";
-            this.vrTotal.Size = new System.Drawing.Size(151, 17);
-            this.vrTotal.TabIndex = 26;
-            this.vrTotal.Text = "Valor Total Líquido:";
             // 
             // descricaoLabel
             // 
@@ -226,6 +205,27 @@
             label6.Size = new System.Drawing.Size(73, 16);
             label6.TabIndex = 29;
             label6.Text = "Despesas:";
+            // 
+            // vrSubTotal
+            // 
+            this.vrSubTotal.AutoSize = true;
+            this.vrSubTotal.Location = new System.Drawing.Point(408, 86);
+            this.vrSubTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.vrSubTotal.Name = "vrSubTotal";
+            this.vrSubTotal.Size = new System.Drawing.Size(110, 16);
+            this.vrSubTotal.TabIndex = 22;
+            this.vrSubTotal.Text = "Valor Total Bruto:";
+            // 
+            // vrTotal
+            // 
+            this.vrTotal.AutoSize = true;
+            this.vrTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vrTotal.Location = new System.Drawing.Point(408, 295);
+            this.vrTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.vrTotal.Name = "vrTotal";
+            this.vrTotal.Size = new System.Drawing.Size(151, 17);
+            this.vrTotal.TabIndex = 26;
+            this.vrTotal.Text = "Valor Total Líquido:";
             // 
             // panelTransacao
             // 
@@ -258,8 +258,6 @@
             // movimentoContaBindingSource
             // 
             this.movimentoContaBindingSource.DataSource = typeof(Modelos.MovimentoConta);
-            this.movimentoContaBindingSource.AddingNew += new System.ComponentModel.AddingNewEventHandler(this.movimentoContaBindingSource_AddingNew);
-            this.movimentoContaBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.movimentoContaBindingSource_BindingComplete);
             // 
             // transacaoBindingSource
             // 
@@ -343,7 +341,7 @@
             this.vrLiquidoTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.vrLiquidoTextBox.Name = "vrLiquidoTextBox";
             this.vrLiquidoTextBox.Size = new System.Drawing.Size(159, 22);
-            this.vrLiquidoTextBox.TabIndex = 8;
+            this.vrLiquidoTextBox.TabIndex = 9;
             this.vrLiquidoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.vrLiquidoTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.vrLiquidoTextBox_KeyDown);
             this.vrLiquidoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.vrLiquidoTextBox_KeyPress);
@@ -371,7 +369,7 @@
             this.vrDespesaTextBox.Name = "vrDespesaTextBox";
             this.vrDespesaTextBox.ReadOnly = true;
             this.vrDespesaTextBox.Size = new System.Drawing.Size(159, 22);
-            this.vrDespesaTextBox.TabIndex = 7;
+            this.vrDespesaTextBox.TabIndex = 8;
             this.vrDespesaTextBox.TabStop = false;
             this.vrDespesaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -442,11 +440,11 @@
             // 
             this.Despesa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Despesa.DataPropertyName = "Despesa";
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            this.Despesa.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.Despesa.DefaultCellStyle = dataGridViewCellStyle1;
             this.Despesa.FillWeight = 150F;
             this.Despesa.Frozen = true;
             this.Despesa.HeaderText = "Despesa";
@@ -468,10 +466,10 @@
             // Valor
             // 
             this.Valor.DataPropertyName = "Valor";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "F2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.Valor.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "F2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Valor.DefaultCellStyle = dataGridViewCellStyle2;
             this.Valor.FillWeight = 70F;
             this.Valor.HeaderText = "Valor";
             this.Valor.MinimumWidth = 6;
