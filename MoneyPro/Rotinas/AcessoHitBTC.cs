@@ -112,26 +112,27 @@ namespace MoneyPro.Rotinas
                     // Instancia um comando
                     using (SqlCommand query = new SqlCommand(
                         @"SELECT Base.Simbolo, Base.SimboloWebService, 
-                                 MAX(Base.UltimaTradeID) UltimaTradeID, 
-                                 MAX(Base.DataAbertura) DataAbertura
-                          FROM (SELECT MEle.Simbolo, MEle.SimboloWebService, 0  UltimaTradeID, Cnta.DataAbertura
-                                FROM Instituicao Inst
-                                     JOIN Conta Cnta ON Cnta.InstituicaoID = Inst.InstituicaoID
-                                     JOIN Moeda Moed ON Moed.MoedaID = Cnta.MoedaID 
-                                     JOIN MoedaEletronica MEle ON MEle.MoedaID = Moed.MoedaID
-                                WHERE Inst.HitBTC = 1
+                                         MAX(Base.UltimaTradeID) UltimaTradeID, 
+                                         MAX(Base.DataAbertura) DataAbertura
+                                  FROM (SELECT MEle.Simbolo, MEle.SimboloWebService, 0  UltimaTradeID, Cnta.DataAbertura
+                                        FROM Instituicao Inst
+                                             JOIN Conta Cnta ON Cnta.InstituicaoID = Inst.InstituicaoID
+                                             JOIN Moeda Moed ON Moed.MoedaID = Cnta.MoedaID 
+                                             JOIN MoedaEletronica MEle ON MEle.MoedaID = Moed.MoedaID
+                                        WHERE Inst.HitBTC = 1
+                                          AND Inst.Ativo = 1
+                                        UNION ALL
 
-                                UNION ALL
-
-                                SELECT MEle.Simbolo, MEle.SimboloWebService, MAX(THit.TradeID) UltimaTradeID, Cnta.DataAbertura
-                                FROM TradeHitBTC THit
-                                     JOIN MoedaEletronica MEle ON MEle.Simbolo = THit.Instrument
-                                     JOIN Conta Cnta ON Cnta.MoedaID = MEle.MoedaID
-                                     JOIN Instituicao Inst ON Inst.InstituicaoID = Cnta.InstituicaoID
-                                                          AND Inst.HitBTC = 1
-                                GROUP BY MEle.Simbolo, MEle.SimboloWebService, Cnta.DataAbertura) Base
-                          GROUP BY Base.Simbolo, Base.SimboloWebService
-                          ORDER BY Base.Simbolo;", conn))
+                                        SELECT MEle.Simbolo, MEle.SimboloWebService, MAX(THit.TradeID) UltimaTradeID, Cnta.DataAbertura
+                                        FROM TradeHitBTC THit
+                                             JOIN MoedaEletronica MEle ON MEle.Simbolo = THit.Instrument
+                                             JOIN Conta Cnta ON Cnta.MoedaID = MEle.MoedaID
+                                             JOIN Instituicao Inst ON Inst.InstituicaoID = Cnta.InstituicaoID
+                                                                  AND Inst.HitBTC = 1
+                                                                  AND Inst.Ativo = 1
+                                        GROUP BY MEle.Simbolo, MEle.SimboloWebService, Cnta.DataAbertura) Base
+                                  GROUP BY Base.Simbolo, Base.SimboloWebService
+                                  ORDER BY Base.Simbolo;", conn))
                     {
                         // Coloca a query no adaptador
                         da.SelectCommand = query;
@@ -154,7 +155,7 @@ namespace MoneyPro.Rotinas
 
             foreach (DataRow linha in listaSimbolos.Rows)
             {
-                string url = string.Format("https://api.hitbtc.com/api/2/history/trades?symbol={0}&sort=DESC&by=timestamp&limit=100", ((string)linha["SimboloWebService"]));
+                string url = string.Format("https://api.hitbtc.com/api/2/history/trades?symbol={0}&sort=DESC&by=timestamp&limit=100", (string)linha["SimboloWebService"]);
                 var requisicaoWeb = WebRequest.CreateHttp(url);
                 requisicaoWeb.Method = "GET";
 
@@ -186,7 +187,7 @@ namespace MoneyPro.Rotinas
                                 hit.Volume = trade.quantity * trade.price;
                                 hit.Fee = trade.fee;
                                 hit.Rebate = 0;
-                                hit.Total = (trade.side == "sell" ? 1 : -1) * trade.quantity * trade.price - trade.fee;
+                                hit.Total = ((trade.side == "sell" ? 1 : -1) * trade.quantity * trade.price) - trade.fee;
                                 hit.Principal = ((string)linha["Simbolo"]).Split('/').First();
                                 hit.Secundaria = ((string)linha["Simbolo"]).Split('/').Last();
 
@@ -243,7 +244,7 @@ namespace MoneyPro.Rotinas
 
             foreach (DataRow linha in listaSimbolos.Rows)
             {
-                string url = string.Format("https://api.hitbtc.com/api/2/public/ticker/{0}", ((string)linha["SimboloWebService"]));
+                string url = string.Format("https://api.hitbtc.com/api/2/public/ticker/{0}", (string)linha["SimboloWebService"]);
 
                 var requisicaoWeb = WebRequest.CreateHttp(url);
                 requisicaoWeb.Method = "GET";
@@ -275,7 +276,7 @@ namespace MoneyPro.Rotinas
 
             foreach (DataRow linha in listaSimbolos.Rows)
             {
-                string url = $"https://api.hitbtc.com/api/2/public/candles/{((string)linha["SimboloWebService"])}?period={periodo.ToString()}&sort=DESC&limit=30";
+                string url = $"https://api.hitbtc.com/api/2/public/candles/{(string)linha["SimboloWebService"]}?period={periodo.ToString()}&sort=DESC&limit=30";
 
                 var requisicaoWeb = WebRequest.CreateHttp(url);
                 requisicaoWeb.Method = "GET";
@@ -361,7 +362,7 @@ namespace MoneyPro.Rotinas
 
             foreach (DataRow linha in listaSimbolos.Rows)
             {
-                string url = $"https://api.hitbtc.com/api/2/public/candles/{((string)linha["SimboloWebService"])}?period={HitBTCTiposEnum.period.H1.ToString()}&sort=DESC&limit={periodos}";
+                string url = $"https://api.hitbtc.com/api/2/public/candles/{(string)linha["SimboloWebService"]}?period={HitBTCTiposEnum.period.H1.ToString()}&sort=DESC&limit={periodos}";
 
                 var webRequest = WebRequest.CreateHttp(url);
                 webRequest.Method = "GET";
@@ -423,10 +424,10 @@ namespace MoneyPro.Rotinas
             // Do um em diante é a média móvel exponencial
             for (int n = 1; n < difusor.Count; n++)
             {
-                difusor[n].PeriodoA = (difusor[n].Valor - difusor[n - 1].PeriodoA) * kA + difusor[n - 1].PeriodoA;
-                difusor[n].PeriodoB = (difusor[n].Valor - difusor[n - 1].PeriodoB) * kB + difusor[n - 1].PeriodoB;
-                difusor[n].PeriodoC = (difusor[n].Valor - difusor[n - 1].PeriodoC) * kC + difusor[n - 1].PeriodoC;
-                difusor[n].PeriodoD = (difusor[n].Valor - difusor[n - 1].PeriodoD) * kD + difusor[n - 1].PeriodoD;
+                difusor[n].PeriodoA = ((difusor[n].Valor - difusor[n - 1].PeriodoA) * kA) + difusor[n - 1].PeriodoA;
+                difusor[n].PeriodoB = ((difusor[n].Valor - difusor[n - 1].PeriodoB) * kB) + difusor[n - 1].PeriodoB;
+                difusor[n].PeriodoC = ((difusor[n].Valor - difusor[n - 1].PeriodoC) * kC) + difusor[n - 1].PeriodoC;
+                difusor[n].PeriodoD = ((difusor[n].Valor - difusor[n - 1].PeriodoD) * kD) + difusor[n - 1].PeriodoD;
             }
 
         }

@@ -183,15 +183,56 @@ namespace MoneyPro.Rotinas
             // Lê o arquivo CSV e o transforma numa lista
             var comCabecalho = File.ReadLines(arquivoCSV).Select(a => a.Split(';')).ToList();
             // Remove o cabeçalho da lista
-            if (comCabecalho[0].Length == 9)
+            if (comCabecalho[0].Length == 10)
+            {
+                comCabecalho.RemoveAt(0);
+
+                var cotacaoCVM = comCabecalho.Select(linha => new CotacaoCVM()
+                {
+                    // TP_FUNDO; CNPJ_FUNDO; ID_SUBCLASSE; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
+                    // FI; 00.017.024/0001-53; ; 2019-06-03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
+                    // FI; 00.017.024/0001-53; ; 2019-06-04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
+
+                    CotacaoCVMID = 0,
+                    TipoFundo = linha[0],
+                    CNPJ = linha[1],
+                    Data = DateTime.ParseExact(linha[3], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                    VrTotalCarteira = Decimal.Parse(linha[4], culture),
+                    VrCotacao = Decimal.Parse(linha[5], culture),
+                    VrPatrimonioLiquido = Decimal.Parse(linha[6], culture),
+                    VrCaptacaoDia = Decimal.Parse(linha[7], culture),
+                    VrResgateDia = Decimal.Parse(linha[8], culture),
+                    NroCotistas = int.Parse(linha[9], culture)
+                }
+                ).ToList();
+
+                CotacaoEletronicaBLL bll = new CotacaoEletronicaBLL();
+
+                DataTable listaCNPJFundosCVM = bll.ListarCNPJFundosCVM();
+                // Cria uma chave primária para a DataTable
+                DataColumn[] pk = new DataColumn[1];
+                pk[0] = listaCNPJFundosCVM.Columns["CodigoCVM"];
+
+                listaCNPJFundosCVM.PrimaryKey = pk;
+
+                foreach (var cotacao in cotacaoCVM)
+                {
+                    if (listaCNPJFundosCVM.Rows.Find(cotacao.CNPJ) != null)
+                    {
+                        bll.InserirCotacaoCVM(cotacao);
+                        Application.DoEvents();
+                    }
+                }
+            }
+            else if (comCabecalho[0].Length == 9)
             {
                 comCabecalho.RemoveAt(0);
 
                 var cotacaoCVM = comCabecalho.Select(a => new CotacaoCVM()
                 {
                     // TP_FUNDO; CNPJ_FUNDO; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
-                    // FI; 00.017.024 / 0001 - 53; 2019 - 06 - 03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
-                    // FI; 00.017.024 / 0001 - 53; 2019 - 06 - 04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
+                    // FI; 00.017.024/0001-53; 2019-06-03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
+                    // FI; 00.017.024/0001-53; 2019-06-04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
 
                     CotacaoCVMID = 0,
                     TipoFundo = a[0],
@@ -231,8 +272,8 @@ namespace MoneyPro.Rotinas
                 var cotacaoCVM = comCabecalho.Select(a => new CotacaoCVM()
                 {
                     // CNPJ_FUNDO; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
-                    // 00.017.024 / 0001 - 53; 2019 - 06 - 03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
-                    // 00.017.024 / 0001 - 53; 2019 - 06 - 04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
+                    // 00.017.024/0001-53; 2019-06-04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
+                    // 00.017.024/0001-53; 2019-06-03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
 
                     CotacaoCVMID = 0,
                     TipoFundo = "NAO INFORMADO",

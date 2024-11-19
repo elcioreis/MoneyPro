@@ -15,6 +15,7 @@ namespace MoneyPro
         private int IDMovimentoConta { get; set; }
         private object Origem { get; set; }
         private bool Venda { get; set; }
+        private bool Acao { get; set; }
 
         DataTable table = new DataTable();
         DataRow row = null;
@@ -589,15 +590,31 @@ namespace MoneyPro
             // Encontra o número do lançamento/parceiro 
             modelo.LancamentoID = Math.Abs(IDdoLancamento(IDUsuario, (string)investimentoIDComboBox.Text, false));
 
-            if (modelo.CrdDeb == "C")
+            if (Acao)
             {
-                modelo.Credito = row.Field<decimal>("VrBruto");
-                modelo.Debito = null;
+                if (modelo.CrdDeb == "C")
+                {
+                    modelo.Credito = row.Field<decimal>("VrBruto");
+                    modelo.Debito = null;
+                }
+                else
+                {
+                    modelo.Credito = null;
+                    modelo.Debito = row.Field<decimal>("VrBruto");
+                }
             }
             else
             {
-                modelo.Credito = null;
-                modelo.Debito = row.Field<decimal>("VrBruto");
+                if (modelo.CrdDeb == "C")
+                {
+                    modelo.Credito = row.Field<decimal>("VrBruto");
+                    modelo.Debito = null;
+                }
+                else
+                {
+                    modelo.Credito = null;
+                    modelo.Debito = row.Field<decimal>("VrBruto");
+                }
             }
 
             if (row["Conciliacao"] != DBNull.Value)
@@ -813,6 +830,7 @@ namespace MoneyPro
                 var id = ((ComboBox)sender).SelectedValue;
                 // Para saber se a transação é de compra ou venda ((D)ébito ou (C)rédito)
                 var CrdDeb = ((DataTable)transacaoBindingSource.DataSource).Rows.Find(id).Field<string>("CrdDeb");
+                Acao = ((DataTable)transacaoBindingSource.DataSource).Rows.Find(id).Field<bool>("Acao");
 
                 Venda = CrdDeb == "D";
 
