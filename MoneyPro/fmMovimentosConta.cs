@@ -676,7 +676,7 @@ namespace MoneyPro
                     ButtonEsconderPesquisa_Click(sender, null);
                 }
             }
-            else if (e.KeyCode == Keys.F4 && e.Modifiers == Keys.None)
+            else if (e.KeyCode == Keys.F4 && e.Modifiers == Keys.None && !buttonConciliacaoOn.Visible)
             {
                 // O F4 sem modificadores carrega a tela de fluxo de caixa da conta atual
                 ExibirFluxoEspecifico();
@@ -824,6 +824,12 @@ namespace MoneyPro
                 {
                     e.Handled = true;
                     // Ctrl + F11 -> marca de conciliado (marca ou desmarca)
+                    ProcessarConciliacao(TipoConciliacao.Conciliado);
+                }
+                else if (buttonConciliacaoOn.Visible && e.KeyCode == Keys.F4)
+                {
+                    e.Handled = true;
+                    // F4 em modo conciliação -> marca de conciliado (marca ou desmarca)
                     ProcessarConciliacao(TipoConciliacao.Conciliado);
                 }
                 else if ((e.Modifiers == Keys.Control && e.KeyCode == Keys.F12) || (e.KeyCode == Keys.F12 && buttonConciliacaoOn.Visible))

@@ -7,6 +7,11 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
     Implementação de cadastro de impostos/taxas por tipo de investimento
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
 
+## Versão 1.3.1.85
+	Com a conciliação ligada, pode usar o F4 para marcar como (C)onciliado
+	No fluxo de pagamento de cartão de crédito, todos eventos que não sejam (F)uturo devem entrar, inclusive os (A)gendados
+	- Alteração na procedure stpPagamentoCartoCredito
+
 ## Versão 1.3.1.84
 	Download de cotação de bitcoin leva em consideração se a instituição está ativa ou inativas
 
