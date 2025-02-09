@@ -68,6 +68,7 @@
             this.buttonListarMovimentacao = new System.Windows.Forms.Button();
             this.buttonVariacaoDiaria = new System.Windows.Forms.Button();
             this.contextMenuStripGraficosDisponiveis = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.valorDiarioAcumuladoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.percentualDiarioAcumuladoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.rendimentoDiarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +84,7 @@
             this.variacaoDezUltimosDiasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variacaoDiáriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variaçãoMensalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.valorDiarioAcumuladoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saldoInvestimentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.carteiraDataGridView)).BeginInit();
@@ -94,9 +95,9 @@
             // 
             // panelRodape
             // 
-            this.panelRodape.Location = new System.Drawing.Point(0, 450);
+            this.panelRodape.Location = new System.Drawing.Point(0, 441);
             this.panelRodape.Margin = new System.Windows.Forms.Padding(5);
-            this.panelRodape.Size = new System.Drawing.Size(812, 37);
+            this.panelRodape.Size = new System.Drawing.Size(812, 46);
             // 
             // buttonExcluir
             // 
@@ -122,7 +123,7 @@
             this.panelTopo.Controls.Add(this.button2);
             this.panelTopo.Controls.Add(this.buttonDetalhesInvestimento);
             this.panelTopo.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.panelTopo.Size = new System.Drawing.Size(812, 49);
+            this.panelTopo.Size = new System.Drawing.Size(812, 61);
             this.panelTopo.TabIndex = 1;
             this.panelTopo.Controls.SetChildIndex(this.labelTopo, 0);
             this.panelTopo.Controls.SetChildIndex(this.buttonDetalhesInvestimento, 0);
@@ -173,7 +174,7 @@
             this.Acao});
             this.carteiraDataGridView.DataSource = this.carteiraBindingSource;
             this.carteiraDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.carteiraDataGridView.Location = new System.Drawing.Point(0, 49);
+            this.carteiraDataGridView.Location = new System.Drawing.Point(0, 61);
             this.carteiraDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.carteiraDataGridView.Name = "carteiraDataGridView";
             this.carteiraDataGridView.ReadOnly = true;
@@ -182,7 +183,7 @@
             this.carteiraDataGridView.RowTemplate.Height = 21;
             this.carteiraDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.carteiraDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.carteiraDataGridView.Size = new System.Drawing.Size(812, 401);
+            this.carteiraDataGridView.Size = new System.Drawing.Size(812, 380);
             this.carteiraDataGridView.TabIndex = 0;
             this.carteiraDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.carteiraDataGridView_CellFormatting);
             // 
@@ -552,7 +553,14 @@
             this.composicaoDaCarteiraToolStripMenuItem,
             this.variacaoDasCotacoesToolStripMenuItem});
             this.contextMenuStripGraficosDisponiveis.Name = "contextMenuStripGraficos";
-            this.contextMenuStripGraficosDisponiveis.Size = new System.Drawing.Size(310, 242);
+            this.contextMenuStripGraficosDisponiveis.Size = new System.Drawing.Size(310, 214);
+            // 
+            // valorDiarioAcumuladoToolStripMenuItem
+            // 
+            this.valorDiarioAcumuladoToolStripMenuItem.Name = "valorDiarioAcumuladoToolStripMenuItem";
+            this.valorDiarioAcumuladoToolStripMenuItem.Size = new System.Drawing.Size(309, 24);
+            this.valorDiarioAcumuladoToolStripMenuItem.Text = "Valor Diário Acumulado";
+            this.valorDiarioAcumuladoToolStripMenuItem.Click += new System.EventHandler(this.valorDiarioAcumuladoToolStripMenuItem_Click);
             // 
             // percentualDiarioAcumuladoToolStripMenuItem
             // 
@@ -632,11 +640,12 @@
             // 
             this.contextMenuStripVariacoesDisponiveis.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStripVariacoesDisponiveis.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saldoInvestimentosToolStripMenuItem,
             this.variacaoDezUltimosDiasToolStripMenuItem,
             this.variacaoDiáriaToolStripMenuItem,
             this.variaçãoMensalToolStripMenuItem});
             this.contextMenuStripVariacoesDisponiveis.Name = "contextMenuStripVariacoesDisponiveis";
-            this.contextMenuStripVariacoesDisponiveis.Size = new System.Drawing.Size(299, 76);
+            this.contextMenuStripVariacoesDisponiveis.Size = new System.Drawing.Size(299, 128);
             // 
             // variacaoDezUltimosDiasToolStripMenuItem
             // 
@@ -662,12 +671,14 @@
             this.variaçãoMensalToolStripMenuItem.Text = "Variação Mensal";
             this.variaçãoMensalToolStripMenuItem.Click += new System.EventHandler(this.VariacaoMensalToolStripMenuItem_Click);
             // 
-            // valorDiarioAcumuladoToolStripMenuItem
+            // saldoInvestimentosToolStripMenuItem
             // 
-            this.valorDiarioAcumuladoToolStripMenuItem.Name = "valorDiarioAcumuladoToolStripMenuItem";
-            this.valorDiarioAcumuladoToolStripMenuItem.Size = new System.Drawing.Size(309, 24);
-            this.valorDiarioAcumuladoToolStripMenuItem.Text = "Valor Diário Acumulado";
-            this.valorDiarioAcumuladoToolStripMenuItem.Click += new System.EventHandler(this.valorDiarioAcumuladoToolStripMenuItem_Click);
+            this.saldoInvestimentosToolStripMenuItem.Name = "saldoInvestimentosToolStripMenuItem";
+            this.saldoInvestimentosToolStripMenuItem.ShortcutKeyDisplayString = " Ctrl-K + S";
+            this.saldoInvestimentosToolStripMenuItem.Size = new System.Drawing.Size(298, 24);
+            this.saldoInvestimentosToolStripMenuItem.Text = "Saldo Investimentos";
+            this.saldoInvestimentosToolStripMenuItem.ToolTipText = " Ctrl-K + S";
+            this.saldoInvestimentosToolStripMenuItem.Click += new System.EventHandler(this.saldoInvestimentosToolStripMenuItem_Click);
             // 
             // fmCarteira
             // 
@@ -741,5 +752,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Acao;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem valorDiarioAcumuladoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saldoInvestimentosToolStripMenuItem;
     }
 }

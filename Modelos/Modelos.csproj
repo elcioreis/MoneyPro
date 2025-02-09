@@ -99,6 +99,7 @@
     <Compile Include="MovimentoInvestimento.cs" />
     <Compile Include="MovimentoInvestimentoDespesa.cs" />
     <Compile Include="MovimentoContaPesquisa.cs" />
+    <Compile Include="MovimentoTODO.cs" />
     <Compile Include="OrcamentoDiario.cs" />
     <Compile Include="OrcamentoMensal.cs" />
     <Compile Include="PagamentoCartaoCredito.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="PrevisaoSaldoNegativo.cs" />
     <Compile Include="Risco.cs" />
     <Compile Include="SaldoFuturo.cs" />
+    <Compile Include="SaldoInvestimento.cs" />
     <Compile Include="TiposEnum.cs" />
     <Compile Include="TipoConta.cs" />
     <Compile Include="TipoInstituicao.cs" />

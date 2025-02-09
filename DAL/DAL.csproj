@@ -78,6 +78,7 @@
     <Compile Include="CotacaoHistoricaB3.cs" />
     <Compile Include="CotacaoMoedasDAL.cs" />
     <Compile Include="Dados.cs" />
+    <Compile Include="DataTableExtensions.cs" />
     <Compile Include="DetalhesMovimentacaoDAL.cs" />
     <Compile Include="GraficosDAL.cs" />
     <Compile Include="GrupoCategoriaDAL.cs" />

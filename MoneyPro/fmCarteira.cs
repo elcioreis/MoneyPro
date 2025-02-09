@@ -14,6 +14,7 @@ namespace MoneyPro
         private fmCarteiraVariacaoUltimosDiasUteis tabelaVariacaoDezDiasUteis;
         private fmCarteiraVariacaoDiaria tabelaVariacaoDiaria;
         private fmCarteiraVariacaoMensal tabelaVariacaoMensal;
+        private fmCarteiraSaldoInvestimentos tabelaSaldoInvestimentos;
         private fmCarteiraGraficoComparativo graficoComparativo;
         private fmCarteiraGraficoRendimentoMensal graficoRendimentoMensal;
         private fmCarteiraGraficoRendimentoDiario graficoRendimentoDiario;
@@ -308,6 +309,22 @@ namespace MoneyPro
             // Exibe o sub form
             tabelaVariacaoMensal.Show();
             tabelaVariacaoMensal.Focus();
+        }
+
+        private void ExibirSaldoInvestimentos()
+        {
+            // Cria uma instância do form de detalhes
+            tabelaSaldoInvestimentos = fmCarteiraSaldoInvestimentos.CreateInstance(this, IDUsuario);
+
+            // Ajusta a aparência do formulário para que ele se encaixe no lugar do formulário atual 
+            Geral.AjustaAparenciaSubForm(this, tabelaSaldoInvestimentos);
+
+            // Esconde o form atual
+            this.WindowState = FormWindowState.Minimized;
+
+            // Exibe o sub form
+            tabelaSaldoInvestimentos.Show();
+            tabelaSaldoInvestimentos.Focus();
         }
 
         #endregion Exibição de Tabelas
@@ -642,6 +659,11 @@ namespace MoneyPro
         private void VariacaoDezUltimosDiasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExibirVariacaoDezUltimosDias();
+        }
+
+        private void saldoInvestimentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExibirSaldoInvestimentos();
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DAL;
 using Modelos;
-using DAL;
+using System;
 using System.Data;
 
 namespace BLL
@@ -67,6 +67,12 @@ namespace BLL
         {
             PesquisaDAL dal = new PesquisaDAL();
             return dal.VariacaoMensalInvestimento(usuarioID, dataReferencia);
+        }
+
+        public DataTable SaldoInvestimento(int usuarioID, DateTime dataInicio, DateTime dataFim)
+        {
+            PesquisaDAL dal = new PesquisaDAL();
+            return dal.SaldoInvestimento(usuarioID, dataInicio, dataFim);
         }
 
         public DataTable ListarPagamentoCartaoCredito(int usuarioID, DateTime dataBase)

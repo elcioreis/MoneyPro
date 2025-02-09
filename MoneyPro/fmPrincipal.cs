@@ -736,6 +736,10 @@ namespace MoneyPro
                         ExibirFormCarteiraVariacaoDezDiasUteis();
                         e.Handled = true;
                         break;
+                    case Keys.S:
+                        ExibirFormCarteiraSaldoInvestimentos();
+                        e.Handled = true;
+                        break;
                     default:
                         break;
                 }
@@ -980,6 +984,20 @@ namespace MoneyPro
                 Cursor.Current = Cursors.WaitCursor;
                 fmCarteiraVariacaoUltimosDiasUteis fmCarteiraVariacaoDezDiasUteis = fmCarteiraVariacaoUltimosDiasUteis.CreateInstance(this, _userID);
                 FormataFormulario(fmCarteiraVariacaoDezDiasUteis);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        public void ExibirFormCarteiraSaldoInvestimentos()
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                fmCarteiraSaldoInvestimentos fmCarteiraSaldoInvestimentos = fmCarteiraSaldoInvestimentos.CreateInstance(this, _userID);
+                FormataFormulario(fmCarteiraSaldoInvestimentos);
             }
             finally
             {

@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace DAL
@@ -372,7 +373,7 @@ namespace DAL
                     da.Fill(table);
                 }
             }
-            // Retorn a tabela
+            // Retorna a tabela
             return table;
         }
 
@@ -1228,6 +1229,43 @@ namespace DAL
                     return true;
                 }
             }
+        }
+
+        public MovimentoTODO MovimentoTODO(int movimentoContaID)
+        {
+            StringBuilder sql = new StringBuilder();
+
+            sql.AppendLine("SELECT lct.Apelido Titulo, ");
+            sql.AppendLine("       mvc.Data, ");
+            sql.AppendLine("       mvc.Descricao Subtitulo, ");
+            sql.AppendLine("       cta.Apelido Origem, ");
+            sql.AppendLine("       mvc.CrdDeb, ");
+            sql.AppendLine("       abs(mvc.Valor) valor ");
+            sql.AppendLine("FROM MovimentoConta mvc ");
+            sql.AppendLine("     JOIN Conta cta ON cta.ContaID = mvc.ContaID ");
+            sql.AppendLine("     JOIN Lancamento lct ON lct.LancamentoID = mvc.LancamentoID ");
+            sql.AppendLine("WHERE mvc.MovimentoContaID = @MovimentoContaID ");
+
+            // Instancia uma tabela
+            DataTable table = new DataTable();
+            // Instancia uma conexão
+            using (SqlConnection conn = new SqlConnection(Dados.Conexao))
+            {
+                // Instancia um adaptador
+                using (SqlDataAdapter da = new SqlDataAdapter())
+                {
+                    // Instancia um comando
+                    SqlCommand query = new SqlCommand(sql.ToString(), conn);
+                    // Atribui os parâmetros
+                    query.Parameters.AddWithValue("@MovimentoContaID", movimentoContaID);
+                    // Coloca a query no adaptador
+                    da.SelectCommand = query;
+                    // Popula a tabela
+                    da.Fill(table);
+                }
+            }
+
+            return table.ToList<MovimentoTODO>().FirstOrDefault();
         }
     }
 }

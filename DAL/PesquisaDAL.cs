@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Modelos;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Modelos;
 
 namespace DAL
 {
@@ -132,6 +129,32 @@ namespace DAL
             SqlCommand comando = new SqlCommand("EXEC stpVariacaoMensalInvestimentos @UsuarioID, @DataReferencia;", conn);
             comando.Parameters.AddWithValue("@UsuarioID", usuarioID);
             comando.Parameters.AddWithValue("@DataReferencia", dataReferencia);
+
+            try
+            {
+                SqlDataReader reader = comando.ExecuteReader();
+                tabela.Load(reader);
+                return tabela;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public DataTable SaldoInvestimento(int usuarioID, DateTime dataInicio, DateTime dataFim)
+        {
+            DataTable tabela = new DataTable();
+
+            SqlConnection conn = new SqlConnection(Dados.Conexao);
+
+            if (conn.State == ConnectionState.Closed)
+                conn.Open();
+
+            SqlCommand comando = new SqlCommand("EXEC stpSaldoInvestimentos @UsuarioID, @DataInicio, @DataFim;", conn);
+            comando.Parameters.AddWithValue("@UsuarioID", usuarioID);
+            comando.Parameters.AddWithValue("@DataInicio", dataInicio);
+            comando.Parameters.AddWithValue("@DataFim", dataFim);
 
             try
             {
