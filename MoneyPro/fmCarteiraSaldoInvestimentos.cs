@@ -64,6 +64,7 @@ namespace MoneyPro
             this.Visible = false;
 
             buttonAno.Text = DateTime.Today.Year.ToString();
+            buttonMesAnterior.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1).ToString("MMM");
             buttonMes.Text = DateTime.Today.ToString("MMM");
 
             DataInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -268,6 +269,13 @@ namespace MoneyPro
         {
             DataInicio = new DateTime(DateTime.Now.Year, 1, 1);
             DataFim = DateTime.Today;
+            CarregarSaldoInvestimento(DataInicio, DataFim);
+        }
+
+        private void buttonMesAnterior_Click(object sender, EventArgs e)
+        {
+            DataFim = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
+            DataInicio = new DateTime(DataFim.Year, DataFim.Month, 1);
             CarregarSaldoInvestimento(DataInicio, DataFim);
         }
 

@@ -5,6 +5,7 @@
         public int Ordem { get; set; }
         public int TipoLinha { get; set; }
         public string Titulo { get; set; }
+        public string Consulta { get; set; }
         public decimal SaldoInicial { get; set; }
         public decimal Entradas { get; set; }
         public decimal Saidas { get; set; }

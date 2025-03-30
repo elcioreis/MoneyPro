@@ -29,19 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonFecharDetalhes = new System.Windows.Forms.Button();
             this.SaldoInvestimentosDataGridView = new System.Windows.Forms.DataGridView();
             this.saldoinicial_Ordem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saldoinicial_TipoLinha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saldoinicial_Titulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Consulta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saldoinicial_SaldoInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saldoinicial_Entradas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saldoinicial_Saidas = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +63,7 @@
             this.buttonSaldoInvestimentos = new System.Windows.Forms.Button();
             this.dateTimePickerFim = new System.Windows.Forms.DateTimePicker();
             this.buttonAno = new System.Windows.Forms.Button();
+            this.buttonMesAnterior = new System.Windows.Forms.Button();
             this.buttonMes = new System.Windows.Forms.Button();
             this.button1M = new System.Windows.Forms.Button();
             this.button3M = new System.Windows.Forms.Button();
@@ -84,6 +86,7 @@
             this.panelRodape.Controls.Add(this.button3M);
             this.panelRodape.Controls.Add(this.button1M);
             this.panelRodape.Controls.Add(this.buttonMes);
+            this.panelRodape.Controls.Add(this.buttonMesAnterior);
             this.panelRodape.Controls.Add(this.buttonAno);
             this.panelRodape.Controls.Add(this.flowLayoutPanelRotulo);
             this.panelRodape.Location = new System.Drawing.Point(0, 409);
@@ -93,6 +96,7 @@
             this.panelRodape.Controls.SetChildIndex(this.buttonExcluir, 0);
             this.panelRodape.Controls.SetChildIndex(this.flowLayoutPanelRotulo, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonAno, 0);
+            this.panelRodape.Controls.SetChildIndex(this.buttonMesAnterior, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonMes, 0);
             this.panelRodape.Controls.SetChildIndex(this.button1M, 0);
             this.panelRodape.Controls.SetChildIndex(this.button3M, 0);
@@ -158,6 +162,7 @@
             this.saldoinicial_Ordem,
             this.saldoinicial_TipoLinha,
             this.saldoinicial_Titulo,
+            this.Consulta,
             this.saldoinicial_SaldoInicial,
             this.saldoinicial_Entradas,
             this.saldoinicial_Saidas,
@@ -212,13 +217,22 @@
             this.saldoinicial_Titulo.Name = "saldoinicial_Titulo";
             this.saldoinicial_Titulo.ReadOnly = true;
             // 
+            // Consulta
+            // 
+            this.Consulta.DataPropertyName = "Consulta";
+            this.Consulta.HeaderText = "Consulta";
+            this.Consulta.MinimumWidth = 6;
+            this.Consulta.Name = "Consulta";
+            this.Consulta.ReadOnly = true;
+            this.Consulta.Width = 125;
+            // 
             // saldoinicial_SaldoInicial
             // 
             this.saldoinicial_SaldoInicial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_SaldoInicial.DataPropertyName = "SaldoInicial";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle17.Format = "N2";
-            this.saldoinicial_SaldoInicial.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "N2";
+            this.saldoinicial_SaldoInicial.DefaultCellStyle = dataGridViewCellStyle1;
             this.saldoinicial_SaldoInicial.HeaderText = "Saldo Inicial";
             this.saldoinicial_SaldoInicial.MinimumWidth = 6;
             this.saldoinicial_SaldoInicial.Name = "saldoinicial_SaldoInicial";
@@ -229,9 +243,9 @@
             // 
             this.saldoinicial_Entradas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_Entradas.DataPropertyName = "Entradas";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle18.Format = "N2";
-            this.saldoinicial_Entradas.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            this.saldoinicial_Entradas.DefaultCellStyle = dataGridViewCellStyle2;
             this.saldoinicial_Entradas.HeaderText = "Entradas";
             this.saldoinicial_Entradas.MinimumWidth = 6;
             this.saldoinicial_Entradas.Name = "saldoinicial_Entradas";
@@ -242,9 +256,9 @@
             // 
             this.saldoinicial_Saidas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_Saidas.DataPropertyName = "Saidas";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.Format = "N2";
-            this.saldoinicial_Saidas.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            this.saldoinicial_Saidas.DefaultCellStyle = dataGridViewCellStyle3;
             this.saldoinicial_Saidas.HeaderText = "Saídas";
             this.saldoinicial_Saidas.MinimumWidth = 6;
             this.saldoinicial_Saidas.Name = "saldoinicial_Saidas";
@@ -255,9 +269,9 @@
             // 
             this.saldoinicial_saldoFinal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_saldoFinal.DataPropertyName = "SaldoFinal";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.Format = "N2";
-            this.saldoinicial_saldoFinal.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            this.saldoinicial_saldoFinal.DefaultCellStyle = dataGridViewCellStyle4;
             this.saldoinicial_saldoFinal.HeaderText = "Saldo Final";
             this.saldoinicial_saldoFinal.MinimumWidth = 6;
             this.saldoinicial_saldoFinal.Name = "saldoinicial_saldoFinal";
@@ -268,9 +282,9 @@
             // 
             this.saldoinicial_proventos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_proventos.DataPropertyName = "Proventos";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle21.Format = "N2";
-            this.saldoinicial_proventos.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N2";
+            this.saldoinicial_proventos.DefaultCellStyle = dataGridViewCellStyle5;
             this.saldoinicial_proventos.HeaderText = "Proventos";
             this.saldoinicial_proventos.MinimumWidth = 6;
             this.saldoinicial_proventos.Name = "saldoinicial_proventos";
@@ -281,9 +295,9 @@
             // 
             this.saldoinicial_LucroPrejuizo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_LucroPrejuizo.DataPropertyName = "LucroPrejuizo";
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle22.Format = "N2";
-            this.saldoinicial_LucroPrejuizo.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N2";
+            this.saldoinicial_LucroPrejuizo.DefaultCellStyle = dataGridViewCellStyle6;
             this.saldoinicial_LucroPrejuizo.HeaderText = "Resultado";
             this.saldoinicial_LucroPrejuizo.MinimumWidth = 6;
             this.saldoinicial_LucroPrejuizo.Name = "saldoinicial_LucroPrejuizo";
@@ -294,9 +308,9 @@
             // 
             this.saldoinicial_LucroPrejuizoPerc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_LucroPrejuizoPerc.DataPropertyName = "LucroPrejuizoPerc";
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight;
-            dataGridViewCellStyle23.Format = "N4";
-            this.saldoinicial_LucroPrejuizoPerc.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight;
+            dataGridViewCellStyle7.Format = "N4";
+            this.saldoinicial_LucroPrejuizoPerc.DefaultCellStyle = dataGridViewCellStyle7;
             this.saldoinicial_LucroPrejuizoPerc.HeaderText = "Resultado %";
             this.saldoinicial_LucroPrejuizoPerc.MinimumWidth = 6;
             this.saldoinicial_LucroPrejuizoPerc.Name = "saldoinicial_LucroPrejuizoPerc";
@@ -307,9 +321,9 @@
             // 
             this.saldoinicial_PercTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.saldoinicial_PercTotal.DataPropertyName = "PercTotal";
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle24.Format = "N4";
-            this.saldoinicial_PercTotal.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N4";
+            this.saldoinicial_PercTotal.DefaultCellStyle = dataGridViewCellStyle8;
             this.saldoinicial_PercTotal.HeaderText = "Total %";
             this.saldoinicial_PercTotal.MinimumWidth = 6;
             this.saldoinicial_PercTotal.Name = "saldoinicial_PercTotal";
@@ -437,10 +451,21 @@
             this.buttonAno.UseVisualStyleBackColor = true;
             this.buttonAno.Click += new System.EventHandler(this.buttonAno_Click);
             // 
+            // buttonMesAnterior
+            // 
+            this.buttonMesAnterior.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonMesAnterior.Location = new System.Drawing.Point(75, 0);
+            this.buttonMesAnterior.Name = "buttonMesAnterior";
+            this.buttonMesAnterior.Size = new System.Drawing.Size(75, 33);
+            this.buttonMesAnterior.TabIndex = 15;
+            this.buttonMesAnterior.Text = "Anterior";
+            this.buttonMesAnterior.UseVisualStyleBackColor = true;
+            this.buttonMesAnterior.Click += new System.EventHandler(this.buttonMesAnterior_Click);
+            // 
             // buttonMes
             // 
             this.buttonMes.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonMes.Location = new System.Drawing.Point(75, 0);
+            this.buttonMes.Location = new System.Drawing.Point(150, 0);
             this.buttonMes.Name = "buttonMes";
             this.buttonMes.Size = new System.Drawing.Size(75, 33);
             this.buttonMes.TabIndex = 9;
@@ -451,7 +476,7 @@
             // button1M
             // 
             this.button1M.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button1M.Location = new System.Drawing.Point(150, 0);
+            this.button1M.Location = new System.Drawing.Point(225, 0);
             this.button1M.Name = "button1M";
             this.button1M.Size = new System.Drawing.Size(75, 33);
             this.button1M.TabIndex = 10;
@@ -462,7 +487,7 @@
             // button3M
             // 
             this.button3M.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button3M.Location = new System.Drawing.Point(225, 0);
+            this.button3M.Location = new System.Drawing.Point(300, 0);
             this.button3M.Name = "button3M";
             this.button3M.Size = new System.Drawing.Size(75, 33);
             this.button3M.TabIndex = 11;
@@ -473,7 +498,7 @@
             // button6M
             // 
             this.button6M.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button6M.Location = new System.Drawing.Point(300, 0);
+            this.button6M.Location = new System.Drawing.Point(375, 0);
             this.button6M.Name = "button6M";
             this.button6M.Size = new System.Drawing.Size(75, 33);
             this.button6M.TabIndex = 12;
@@ -484,7 +509,7 @@
             // button1A
             // 
             this.button1A.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button1A.Location = new System.Drawing.Point(375, 0);
+            this.button1A.Location = new System.Drawing.Point(450, 0);
             this.button1A.Name = "button1A";
             this.button1A.Size = new System.Drawing.Size(75, 33);
             this.button1A.TabIndex = 13;
@@ -495,7 +520,7 @@
             // buttonMaximo
             // 
             this.buttonMaximo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonMaximo.Location = new System.Drawing.Point(450, 0);
+            this.buttonMaximo.Location = new System.Drawing.Point(525, 0);
             this.buttonMaximo.Name = "buttonMaximo";
             this.buttonMaximo.Size = new System.Drawing.Size(75, 33);
             this.buttonMaximo.TabIndex = 14;
@@ -537,9 +562,17 @@
         private System.Windows.Forms.Label labelAte;
         private System.Windows.Forms.DateTimePicker dateTimePickerFim;
         private System.Windows.Forms.Button buttonSaldoInvestimentos;
+        private System.Windows.Forms.Button buttonMes;
+        private System.Windows.Forms.Button buttonAno;
+        private System.Windows.Forms.Button button1A;
+        private System.Windows.Forms.Button button6M;
+        private System.Windows.Forms.Button button3M;
+        private System.Windows.Forms.Button button1M;
+        private System.Windows.Forms.Button buttonMaximo;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_Ordem;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_TipoLinha;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_Titulo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Consulta;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_SaldoInicial;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_Entradas;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_Saidas;
@@ -550,12 +583,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_PercTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_RiscoID;
         private System.Windows.Forms.DataGridViewTextBoxColumn saldoinicial_Risco;
-        private System.Windows.Forms.Button buttonMes;
-        private System.Windows.Forms.Button buttonAno;
-        private System.Windows.Forms.Button button1A;
-        private System.Windows.Forms.Button button6M;
-        private System.Windows.Forms.Button button3M;
-        private System.Windows.Forms.Button button1M;
-        private System.Windows.Forms.Button buttonMaximo;
+        private System.Windows.Forms.Button buttonMesAnterior;
     }
 }
