@@ -17,12 +17,14 @@ namespace DAL
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
             SqlCommand query = new SqlCommand(
-                @"SELECT UsuarioID, InvestimentoID, Apelido, Conta, Tipo, RiscoID, Risco, QtCotas, VrCotacao, Data, Simbolo,
-                                VrAplicado, PercCarteira, QtCotasFmt, VrCotacaoFmt, VrAplicadoFmt, PercFmt, Detalhe, Fundo, Acao
-                         FROM vw_CarteiraFormatada
-                         WHERE UsuarioID = @UsuarioID AND ((COALESCE(VrAplicado, 0) > 0) OR (@ApenasComSaldo = 0))
-                         ORDER BY Detalhe DESC, Apelido ASC;", conn);
-
+                @"SELECT vwc.UsuarioID, vwc.InvestimentoID, vwc.Apelido, inv.Consulta,
+                                vwc.Conta, vwc.Tipo, vwc.RiscoID, vwc.Risco, vwc.QtCotas, vwc.VrCotacao, vwc.Data, vwc.Simbolo,
+                                vwc.VrAplicado, vwc.PercCarteira, vwc.QtCotasFmt, vwc.VrCotacaoFmt, vwc.VrAplicadoFmt, 
+                                vwc.PercFmt, vwc.Detalhe, vwc.Fundo, vwc.Acao
+                         FROM vw_CarteiraFormatada vwc
+                              LEFT JOIN Investimento inv on inv.InvestimentoID = vwc.InvestimentoID
+                         WHERE vwc.UsuarioID = 2 AND ((COALESCE(vwc.VrAplicado, 0) > 0) OR (@ApenasComSaldo = 0))
+                         ORDER BY vwc.Detalhe DESC, vwc.Apelido ASC;", conn);
             query.Parameters.AddWithValue("@UsuarioID", usuarioID);
             query.Parameters.AddWithValue("@ApenasComSaldo", apenasComSaldo);
 

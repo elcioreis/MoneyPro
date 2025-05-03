@@ -7,6 +7,7 @@ namespace Modelos
         public int UsuarioID { get; set; }
         public int InvestimentoID { get; set; }
         public string Apelido { get; set; }
+        public string Consulta { get; set; }
         public string Conta { get; set; }
         public string Tipo { get; set; }
         public int? RiscoID { get; set; }

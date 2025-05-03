@@ -7,6 +7,9 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
     Implementação de cadastro de impostos/taxas por tipo de investimento
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
 
+## Versão 1.4.0.88
+	Inclusão de código de consulta na carteira de investimentoss
+
 ## Versão 1.4.0.87
 	Inclusão de código de consulta em Saldo de Investimentoss
 

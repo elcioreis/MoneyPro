@@ -29,34 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.carteiraDataGridView = new System.Windows.Forms.DataGridView();
-            this.UsuarioID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Detalhe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InvestimentoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Apelido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Conta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RiscoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Risco = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QtCotas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QtCotasFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VrCotacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VrCotacaoFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Simbolo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VrAplicado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PercCarteira = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VrAplicadoFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PercFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fundo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Acao = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.carteiraBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.buttonDetalhesInvestimento = new System.Windows.Forms.Button();
@@ -81,10 +61,31 @@
             this.variacaoDasCotacoesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
             this.contextMenuStripVariacoesDisponiveis = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.saldoInvestimentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variacaoDezUltimosDiasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variacaoDiáriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variaçãoMensalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saldoInvestimentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UsuarioID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Detalhe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvestimentoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Apelido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Consulta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Conta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RiscoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Risco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QtCotas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QtCotasFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VrCotacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VrCotacaoFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Simbolo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VrAplicado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PercCarteira = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VrAplicadoFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PercFmt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fundo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Acao = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.carteiraDataGridView)).BeginInit();
@@ -146,8 +147,8 @@
             // 
             this.carteiraDataGridView.AllowUserToAddRows = false;
             this.carteiraDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Gainsboro;
-            this.carteiraDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.carteiraDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.carteiraDataGridView.AutoGenerateColumns = false;
             this.carteiraDataGridView.CausesValidation = false;
             this.carteiraDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -156,6 +157,7 @@
             this.Detalhe,
             this.InvestimentoID,
             this.Apelido,
+            this.Consulta,
             this.Conta,
             this.Tipo,
             this.RiscoID,
@@ -186,232 +188,6 @@
             this.carteiraDataGridView.Size = new System.Drawing.Size(812, 380);
             this.carteiraDataGridView.TabIndex = 0;
             this.carteiraDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.carteiraDataGridView_CellFormatting);
-            // 
-            // UsuarioID
-            // 
-            this.UsuarioID.DataPropertyName = "UsuarioID";
-            this.UsuarioID.HeaderText = "UsuarioID";
-            this.UsuarioID.MinimumWidth = 6;
-            this.UsuarioID.Name = "UsuarioID";
-            this.UsuarioID.ReadOnly = true;
-            this.UsuarioID.Visible = false;
-            this.UsuarioID.Width = 125;
-            // 
-            // Detalhe
-            // 
-            this.Detalhe.DataPropertyName = "Detalhe";
-            this.Detalhe.HeaderText = "Detalhe";
-            this.Detalhe.MinimumWidth = 6;
-            this.Detalhe.Name = "Detalhe";
-            this.Detalhe.ReadOnly = true;
-            this.Detalhe.Visible = false;
-            this.Detalhe.Width = 125;
-            // 
-            // InvestimentoID
-            // 
-            this.InvestimentoID.DataPropertyName = "InvestimentoID";
-            this.InvestimentoID.HeaderText = "InvestimentoID";
-            this.InvestimentoID.MinimumWidth = 6;
-            this.InvestimentoID.Name = "InvestimentoID";
-            this.InvestimentoID.ReadOnly = true;
-            this.InvestimentoID.Visible = false;
-            this.InvestimentoID.Width = 125;
-            // 
-            // Apelido
-            // 
-            this.Apelido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Apelido.DataPropertyName = "Apelido";
-            this.Apelido.HeaderText = "Investimento";
-            this.Apelido.MinimumWidth = 6;
-            this.Apelido.Name = "Apelido";
-            this.Apelido.ReadOnly = true;
-            this.Apelido.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Conta
-            // 
-            this.Conta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Conta.DataPropertyName = "Conta";
-            this.Conta.HeaderText = "Conta";
-            this.Conta.MinimumWidth = 6;
-            this.Conta.Name = "Conta";
-            this.Conta.ReadOnly = true;
-            this.Conta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Conta.Width = 48;
-            // 
-            // Tipo
-            // 
-            this.Tipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Tipo.DataPropertyName = "Tipo";
-            this.Tipo.FillWeight = 140F;
-            this.Tipo.HeaderText = "Tipo de Investimento";
-            this.Tipo.MinimumWidth = 50;
-            this.Tipo.Name = "Tipo";
-            this.Tipo.ReadOnly = true;
-            this.Tipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tipo.Width = 124;
-            // 
-            // RiscoID
-            // 
-            this.RiscoID.DataPropertyName = "RiscoID";
-            this.RiscoID.HeaderText = "RiscoID";
-            this.RiscoID.MinimumWidth = 6;
-            this.RiscoID.Name = "RiscoID";
-            this.RiscoID.ReadOnly = true;
-            this.RiscoID.Visible = false;
-            this.RiscoID.Width = 125;
-            // 
-            // Risco
-            // 
-            this.Risco.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Risco.DataPropertyName = "Risco";
-            this.Risco.FillWeight = 130F;
-            this.Risco.HeaderText = "Risco da Aplicação";
-            this.Risco.MinimumWidth = 6;
-            this.Risco.Name = "Risco";
-            this.Risco.ReadOnly = true;
-            this.Risco.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Risco.Width = 118;
-            // 
-            // QtCotas
-            // 
-            this.QtCotas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.QtCotas.DataPropertyName = "QtCotas";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N8";
-            this.QtCotas.DefaultCellStyle = dataGridViewCellStyle9;
-            this.QtCotas.FillWeight = 110F;
-            this.QtCotas.HeaderText = "Total de Cotas";
-            this.QtCotas.MinimumWidth = 100;
-            this.QtCotas.Name = "QtCotas";
-            this.QtCotas.ReadOnly = true;
-            this.QtCotas.Visible = false;
-            this.QtCotas.Width = 110;
-            // 
-            // QtCotasFmt
-            // 
-            this.QtCotasFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.QtCotasFmt.DataPropertyName = "QtCotasFmt";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.QtCotasFmt.DefaultCellStyle = dataGridViewCellStyle10;
-            this.QtCotasFmt.FillWeight = 110F;
-            this.QtCotasFmt.HeaderText = "Quantidade";
-            this.QtCotasFmt.MinimumWidth = 70;
-            this.QtCotasFmt.Name = "QtCotasFmt";
-            this.QtCotasFmt.ReadOnly = true;
-            this.QtCotasFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.QtCotasFmt.Width = 83;
-            // 
-            // VrCotacao
-            // 
-            this.VrCotacao.DataPropertyName = "VrCotacao";
-            this.VrCotacao.HeaderText = "VrCotacao";
-            this.VrCotacao.MinimumWidth = 6;
-            this.VrCotacao.Name = "VrCotacao";
-            this.VrCotacao.ReadOnly = true;
-            this.VrCotacao.Visible = false;
-            this.VrCotacao.Width = 125;
-            // 
-            // VrCotacaoFmt
-            // 
-            this.VrCotacaoFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.VrCotacaoFmt.DataPropertyName = "VrCotacaoFmt";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.VrCotacaoFmt.DefaultCellStyle = dataGridViewCellStyle11;
-            this.VrCotacaoFmt.HeaderText = "Cotação";
-            this.VrCotacaoFmt.MinimumWidth = 70;
-            this.VrCotacaoFmt.Name = "VrCotacaoFmt";
-            this.VrCotacaoFmt.ReadOnly = true;
-            this.VrCotacaoFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.VrCotacaoFmt.Width = 70;
-            // 
-            // Data
-            // 
-            this.Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Data.DataPropertyName = "Data";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Data.DefaultCellStyle = dataGridViewCellStyle12;
-            this.Data.FillWeight = 75F;
-            this.Data.HeaderText = "Data";
-            this.Data.MinimumWidth = 70;
-            this.Data.Name = "Data";
-            this.Data.ReadOnly = true;
-            this.Data.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Data.Width = 70;
-            // 
-            // Simbolo
-            // 
-            this.Simbolo.DataPropertyName = "Simbolo";
-            this.Simbolo.HeaderText = "Simbolo";
-            this.Simbolo.MinimumWidth = 6;
-            this.Simbolo.Name = "Simbolo";
-            this.Simbolo.ReadOnly = true;
-            this.Simbolo.Visible = false;
-            this.Simbolo.Width = 125;
-            // 
-            // VrAplicado
-            // 
-            this.VrAplicado.DataPropertyName = "VrAplicado";
-            this.VrAplicado.HeaderText = "VrAplicado";
-            this.VrAplicado.MinimumWidth = 6;
-            this.VrAplicado.Name = "VrAplicado";
-            this.VrAplicado.ReadOnly = true;
-            this.VrAplicado.Visible = false;
-            this.VrAplicado.Width = 125;
-            // 
-            // PercCarteira
-            // 
-            this.PercCarteira.DataPropertyName = "PercCarteira";
-            this.PercCarteira.HeaderText = "PercCarteira";
-            this.PercCarteira.MinimumWidth = 6;
-            this.PercCarteira.Name = "PercCarteira";
-            this.PercCarteira.ReadOnly = true;
-            this.PercCarteira.Visible = false;
-            this.PercCarteira.Width = 125;
-            // 
-            // VrAplicadoFmt
-            // 
-            this.VrAplicadoFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.VrAplicadoFmt.DataPropertyName = "VrAplicadoFmt";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.VrAplicadoFmt.DefaultCellStyle = dataGridViewCellStyle13;
-            this.VrAplicadoFmt.HeaderText = "Valor Aplicado";
-            this.VrAplicadoFmt.MinimumWidth = 105;
-            this.VrAplicadoFmt.Name = "VrAplicadoFmt";
-            this.VrAplicadoFmt.ReadOnly = true;
-            this.VrAplicadoFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.VrAplicadoFmt.Width = 105;
-            // 
-            // PercFmt
-            // 
-            this.PercFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.PercFmt.DataPropertyName = "PercFmt";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PercFmt.DefaultCellStyle = dataGridViewCellStyle14;
-            this.PercFmt.HeaderText = "% da Carteira";
-            this.PercFmt.MinimumWidth = 100;
-            this.PercFmt.Name = "PercFmt";
-            this.PercFmt.ReadOnly = true;
-            this.PercFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Fundo
-            // 
-            this.Fundo.DataPropertyName = "Fundo";
-            this.Fundo.HeaderText = "Fundo";
-            this.Fundo.MinimumWidth = 6;
-            this.Fundo.Name = "Fundo";
-            this.Fundo.ReadOnly = true;
-            this.Fundo.Visible = false;
-            this.Fundo.Width = 125;
-            // 
-            // Acao
-            // 
-            this.Acao.DataPropertyName = "Acao";
-            this.Acao.HeaderText = "Acao";
-            this.Acao.MinimumWidth = 6;
-            this.Acao.Name = "Acao";
-            this.Acao.ReadOnly = true;
-            this.Acao.Visible = false;
-            this.Acao.Width = 125;
             // 
             // carteiraBindingSource
             // 
@@ -645,7 +421,16 @@
             this.variacaoDiáriaToolStripMenuItem,
             this.variaçãoMensalToolStripMenuItem});
             this.contextMenuStripVariacoesDisponiveis.Name = "contextMenuStripVariacoesDisponiveis";
-            this.contextMenuStripVariacoesDisponiveis.Size = new System.Drawing.Size(299, 128);
+            this.contextMenuStripVariacoesDisponiveis.Size = new System.Drawing.Size(299, 100);
+            // 
+            // saldoInvestimentosToolStripMenuItem
+            // 
+            this.saldoInvestimentosToolStripMenuItem.Name = "saldoInvestimentosToolStripMenuItem";
+            this.saldoInvestimentosToolStripMenuItem.ShortcutKeyDisplayString = " Ctrl-K + S";
+            this.saldoInvestimentosToolStripMenuItem.Size = new System.Drawing.Size(298, 24);
+            this.saldoInvestimentosToolStripMenuItem.Text = "Saldo Investimentos";
+            this.saldoInvestimentosToolStripMenuItem.ToolTipText = " Ctrl-K + S";
+            this.saldoInvestimentosToolStripMenuItem.Click += new System.EventHandler(this.saldoInvestimentosToolStripMenuItem_Click);
             // 
             // variacaoDezUltimosDiasToolStripMenuItem
             // 
@@ -671,14 +456,242 @@
             this.variaçãoMensalToolStripMenuItem.Text = "Variação Mensal";
             this.variaçãoMensalToolStripMenuItem.Click += new System.EventHandler(this.VariacaoMensalToolStripMenuItem_Click);
             // 
-            // saldoInvestimentosToolStripMenuItem
+            // UsuarioID
             // 
-            this.saldoInvestimentosToolStripMenuItem.Name = "saldoInvestimentosToolStripMenuItem";
-            this.saldoInvestimentosToolStripMenuItem.ShortcutKeyDisplayString = " Ctrl-K + S";
-            this.saldoInvestimentosToolStripMenuItem.Size = new System.Drawing.Size(298, 24);
-            this.saldoInvestimentosToolStripMenuItem.Text = "Saldo Investimentos";
-            this.saldoInvestimentosToolStripMenuItem.ToolTipText = " Ctrl-K + S";
-            this.saldoInvestimentosToolStripMenuItem.Click += new System.EventHandler(this.saldoInvestimentosToolStripMenuItem_Click);
+            this.UsuarioID.DataPropertyName = "UsuarioID";
+            this.UsuarioID.HeaderText = "UsuarioID";
+            this.UsuarioID.MinimumWidth = 6;
+            this.UsuarioID.Name = "UsuarioID";
+            this.UsuarioID.ReadOnly = true;
+            this.UsuarioID.Visible = false;
+            this.UsuarioID.Width = 125;
+            // 
+            // Detalhe
+            // 
+            this.Detalhe.DataPropertyName = "Detalhe";
+            this.Detalhe.HeaderText = "Detalhe";
+            this.Detalhe.MinimumWidth = 6;
+            this.Detalhe.Name = "Detalhe";
+            this.Detalhe.ReadOnly = true;
+            this.Detalhe.Visible = false;
+            this.Detalhe.Width = 125;
+            // 
+            // InvestimentoID
+            // 
+            this.InvestimentoID.DataPropertyName = "InvestimentoID";
+            this.InvestimentoID.HeaderText = "InvestimentoID";
+            this.InvestimentoID.MinimumWidth = 6;
+            this.InvestimentoID.Name = "InvestimentoID";
+            this.InvestimentoID.ReadOnly = true;
+            this.InvestimentoID.Visible = false;
+            this.InvestimentoID.Width = 125;
+            // 
+            // Apelido
+            // 
+            this.Apelido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Apelido.DataPropertyName = "Apelido";
+            this.Apelido.HeaderText = "Investimento";
+            this.Apelido.MinimumWidth = 6;
+            this.Apelido.Name = "Apelido";
+            this.Apelido.ReadOnly = true;
+            this.Apelido.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Consulta
+            // 
+            this.Consulta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Consulta.DataPropertyName = "Consulta";
+            this.Consulta.HeaderText = "Consulta";
+            this.Consulta.MinimumWidth = 6;
+            this.Consulta.Name = "Consulta";
+            this.Consulta.ReadOnly = true;
+            this.Consulta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Consulta.Width = 65;
+            // 
+            // Conta
+            // 
+            this.Conta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Conta.DataPropertyName = "Conta";
+            this.Conta.HeaderText = "Conta";
+            this.Conta.MinimumWidth = 6;
+            this.Conta.Name = "Conta";
+            this.Conta.ReadOnly = true;
+            this.Conta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Conta.Width = 48;
+            // 
+            // Tipo
+            // 
+            this.Tipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Tipo.DataPropertyName = "Tipo";
+            this.Tipo.FillWeight = 140F;
+            this.Tipo.HeaderText = "Tipo de Investimento";
+            this.Tipo.MinimumWidth = 50;
+            this.Tipo.Name = "Tipo";
+            this.Tipo.ReadOnly = true;
+            this.Tipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tipo.Width = 124;
+            // 
+            // RiscoID
+            // 
+            this.RiscoID.DataPropertyName = "RiscoID";
+            this.RiscoID.HeaderText = "RiscoID";
+            this.RiscoID.MinimumWidth = 6;
+            this.RiscoID.Name = "RiscoID";
+            this.RiscoID.ReadOnly = true;
+            this.RiscoID.Visible = false;
+            this.RiscoID.Width = 125;
+            // 
+            // Risco
+            // 
+            this.Risco.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Risco.DataPropertyName = "Risco";
+            this.Risco.FillWeight = 130F;
+            this.Risco.HeaderText = "Risco da Aplicação";
+            this.Risco.MinimumWidth = 6;
+            this.Risco.Name = "Risco";
+            this.Risco.ReadOnly = true;
+            this.Risco.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Risco.Width = 118;
+            // 
+            // QtCotas
+            // 
+            this.QtCotas.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.QtCotas.DataPropertyName = "QtCotas";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N8";
+            this.QtCotas.DefaultCellStyle = dataGridViewCellStyle2;
+            this.QtCotas.FillWeight = 110F;
+            this.QtCotas.HeaderText = "Total de Cotas";
+            this.QtCotas.MinimumWidth = 100;
+            this.QtCotas.Name = "QtCotas";
+            this.QtCotas.ReadOnly = true;
+            this.QtCotas.Visible = false;
+            this.QtCotas.Width = 110;
+            // 
+            // QtCotasFmt
+            // 
+            this.QtCotasFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.QtCotasFmt.DataPropertyName = "QtCotasFmt";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.QtCotasFmt.DefaultCellStyle = dataGridViewCellStyle3;
+            this.QtCotasFmt.FillWeight = 110F;
+            this.QtCotasFmt.HeaderText = "Quantidade";
+            this.QtCotasFmt.MinimumWidth = 70;
+            this.QtCotasFmt.Name = "QtCotasFmt";
+            this.QtCotasFmt.ReadOnly = true;
+            this.QtCotasFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.QtCotasFmt.Width = 83;
+            // 
+            // VrCotacao
+            // 
+            this.VrCotacao.DataPropertyName = "VrCotacao";
+            this.VrCotacao.HeaderText = "VrCotacao";
+            this.VrCotacao.MinimumWidth = 6;
+            this.VrCotacao.Name = "VrCotacao";
+            this.VrCotacao.ReadOnly = true;
+            this.VrCotacao.Visible = false;
+            this.VrCotacao.Width = 125;
+            // 
+            // VrCotacaoFmt
+            // 
+            this.VrCotacaoFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.VrCotacaoFmt.DataPropertyName = "VrCotacaoFmt";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.VrCotacaoFmt.DefaultCellStyle = dataGridViewCellStyle4;
+            this.VrCotacaoFmt.HeaderText = "Cotação";
+            this.VrCotacaoFmt.MinimumWidth = 70;
+            this.VrCotacaoFmt.Name = "VrCotacaoFmt";
+            this.VrCotacaoFmt.ReadOnly = true;
+            this.VrCotacaoFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.VrCotacaoFmt.Width = 70;
+            // 
+            // Data
+            // 
+            this.Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Data.DataPropertyName = "Data";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Data.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Data.FillWeight = 75F;
+            this.Data.HeaderText = "Data";
+            this.Data.MinimumWidth = 70;
+            this.Data.Name = "Data";
+            this.Data.ReadOnly = true;
+            this.Data.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Data.Width = 70;
+            // 
+            // Simbolo
+            // 
+            this.Simbolo.DataPropertyName = "Simbolo";
+            this.Simbolo.HeaderText = "Simbolo";
+            this.Simbolo.MinimumWidth = 6;
+            this.Simbolo.Name = "Simbolo";
+            this.Simbolo.ReadOnly = true;
+            this.Simbolo.Visible = false;
+            this.Simbolo.Width = 125;
+            // 
+            // VrAplicado
+            // 
+            this.VrAplicado.DataPropertyName = "VrAplicado";
+            this.VrAplicado.HeaderText = "VrAplicado";
+            this.VrAplicado.MinimumWidth = 6;
+            this.VrAplicado.Name = "VrAplicado";
+            this.VrAplicado.ReadOnly = true;
+            this.VrAplicado.Visible = false;
+            this.VrAplicado.Width = 125;
+            // 
+            // PercCarteira
+            // 
+            this.PercCarteira.DataPropertyName = "PercCarteira";
+            this.PercCarteira.HeaderText = "PercCarteira";
+            this.PercCarteira.MinimumWidth = 6;
+            this.PercCarteira.Name = "PercCarteira";
+            this.PercCarteira.ReadOnly = true;
+            this.PercCarteira.Visible = false;
+            this.PercCarteira.Width = 125;
+            // 
+            // VrAplicadoFmt
+            // 
+            this.VrAplicadoFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.VrAplicadoFmt.DataPropertyName = "VrAplicadoFmt";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.VrAplicadoFmt.DefaultCellStyle = dataGridViewCellStyle6;
+            this.VrAplicadoFmt.HeaderText = "Valor Aplicado";
+            this.VrAplicadoFmt.MinimumWidth = 105;
+            this.VrAplicadoFmt.Name = "VrAplicadoFmt";
+            this.VrAplicadoFmt.ReadOnly = true;
+            this.VrAplicadoFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.VrAplicadoFmt.Width = 105;
+            // 
+            // PercFmt
+            // 
+            this.PercFmt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.PercFmt.DataPropertyName = "PercFmt";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PercFmt.DefaultCellStyle = dataGridViewCellStyle7;
+            this.PercFmt.HeaderText = "% da Carteira";
+            this.PercFmt.MinimumWidth = 100;
+            this.PercFmt.Name = "PercFmt";
+            this.PercFmt.ReadOnly = true;
+            this.PercFmt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Fundo
+            // 
+            this.Fundo.DataPropertyName = "Fundo";
+            this.Fundo.HeaderText = "Fundo";
+            this.Fundo.MinimumWidth = 6;
+            this.Fundo.Name = "Fundo";
+            this.Fundo.ReadOnly = true;
+            this.Fundo.Visible = false;
+            this.Fundo.Width = 125;
+            // 
+            // Acao
+            // 
+            this.Acao.DataPropertyName = "Acao";
+            this.Acao.HeaderText = "Acao";
+            this.Acao.MinimumWidth = 6;
+            this.Acao.Name = "Acao";
+            this.Acao.ReadOnly = true;
+            this.Acao.Visible = false;
+            this.Acao.Width = 125;
             // 
             // fmCarteira
             // 
@@ -730,10 +743,14 @@
         private System.Windows.Forms.ToolStripMenuItem variacaoDiáriaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem variaçãoMensalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem variacaoDezUltimosDiasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem valorDiarioAcumuladoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saldoInvestimentosToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn UsuarioID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Detalhe;
         private System.Windows.Forms.DataGridViewTextBoxColumn InvestimentoID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apelido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Consulta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Conta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn RiscoID;
@@ -750,8 +767,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PercFmt;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Fundo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Acao;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem valorDiarioAcumuladoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saldoInvestimentosToolStripMenuItem;
     }
 }
