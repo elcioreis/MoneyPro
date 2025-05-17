@@ -88,7 +88,7 @@ namespace MoneyPro
 
         private void CriarColunaTipoInvestimento(int usuarioID)
         {
-            // Cria uma nova colluna do tipo ComboBox
+            // Cria uma nova coluna do tipo ComboBox
             DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
             combo.Name = "TipoInvestimento";
             combo.DataPropertyName = "TipoInvestimentoID";
@@ -298,6 +298,7 @@ namespace MoneyPro
             row["Descricao"] = String.Empty;
             row["Consulta"] = String.Empty;
             row["Ativo"] = true;
+            row["BuyAndHold"] = false;
             row["Aplicacao"] = "D+0";
             row["Resgate"] = "D+0";
             row["Liquidacao"] = "D+0";
@@ -550,6 +551,23 @@ namespace MoneyPro
                             modelo.SaldoMinimo = 0;
 
                         modelo.Ativo = (bool)linha.Cells["Ativo"].Value;
+                        modelo.BuyAndHold = (bool)linha.Cells["BuyAndHold"].Value;
+
+                        int diaCom = 0;
+                        if (linha.Cells["DiaCom"].Value != DBNull.Value)
+                        {
+                            if (!Int32.TryParse(linha.Cells["DiaCom"].Value.ToString(), out diaCom))
+                                diaCom = 0;
+                        }
+                        else
+                        {
+                            diaCom = 0;
+                        }
+
+                        if (diaCom != 0)
+                            modelo.DiaCom = diaCom;
+                        else
+                            modelo.DiaCom = null;
 
                         InvestimentoBLL bll = new InvestimentoBLL();
 

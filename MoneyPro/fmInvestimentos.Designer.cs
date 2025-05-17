@@ -39,6 +39,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnTiposInvestimentos = new System.Windows.Forms.Button();
             this.btnInstituicao = new System.Windows.Forms.Button();
@@ -47,6 +48,7 @@
             this.btnTributacao = new System.Windows.Forms.Button();
             this.buttonGraficoComparativo = new System.Windows.Forms.Button();
             this.investimentoDataGridView = new System.Windows.Forms.DataGridView();
+            this.investimentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.InvestimentoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsuarioID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apelido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,8 +69,9 @@
             this.Liquidacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ultimo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BuyAndHold = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DiaCom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.investimentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.investimentoDataGridView)).BeginInit();
@@ -79,7 +82,7 @@
             // 
             this.panelRodape.Controls.Add(this.buttonTaxas);
             this.panelRodape.Location = new System.Drawing.Point(0, 377);
-            this.panelRodape.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelRodape.Margin = new System.Windows.Forms.Padding(5);
             this.panelRodape.Size = new System.Drawing.Size(1088, 37);
             this.panelRodape.TabIndex = 1;
             this.panelRodape.Controls.SetChildIndex(this.buttonIncluir, 0);
@@ -129,7 +132,7 @@
             this.btnTiposInvestimentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTiposInvestimentos.Image = global::MoneyPro.Properties.Resources.z16tipoInvestimento;
             this.btnTiposInvestimentos.Location = new System.Drawing.Point(925, 11);
-            this.btnTiposInvestimentos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTiposInvestimentos.Margin = new System.Windows.Forms.Padding(4);
             this.btnTiposInvestimentos.Name = "btnTiposInvestimentos";
             this.btnTiposInvestimentos.Size = new System.Drawing.Size(31, 28);
             this.btnTiposInvestimentos.TabIndex = 0;
@@ -144,7 +147,7 @@
             this.btnInstituicao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInstituicao.Image = global::MoneyPro.Properties.Resources.z16instituicao;
             this.btnInstituicao.Location = new System.Drawing.Point(964, 11);
-            this.btnInstituicao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnInstituicao.Margin = new System.Windows.Forms.Padding(4);
             this.btnInstituicao.Name = "btnInstituicao";
             this.btnInstituicao.Size = new System.Drawing.Size(31, 28);
             this.btnInstituicao.TabIndex = 1;
@@ -159,7 +162,7 @@
             this.btnMoedas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoedas.Image = global::MoneyPro.Properties.Resources.z16moedas;
             this.btnMoedas.Location = new System.Drawing.Point(1041, 11);
-            this.btnMoedas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMoedas.Margin = new System.Windows.Forms.Padding(4);
             this.btnMoedas.Name = "btnMoedas";
             this.btnMoedas.Size = new System.Drawing.Size(31, 28);
             this.btnMoedas.TabIndex = 3;
@@ -173,7 +176,7 @@
             this.buttonTaxas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonTaxas.Image = global::MoneyPro.Properties.Resources.z16taxas;
             this.buttonTaxas.Location = new System.Drawing.Point(81, 4);
-            this.buttonTaxas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonTaxas.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTaxas.Name = "buttonTaxas";
             this.buttonTaxas.Size = new System.Drawing.Size(31, 28);
             this.buttonTaxas.TabIndex = 2;
@@ -188,7 +191,7 @@
             this.btnTributacao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTributacao.Image = global::MoneyPro.Properties.Resources.z16tributacao;
             this.btnTributacao.Location = new System.Drawing.Point(1003, 11);
-            this.btnTributacao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTributacao.Margin = new System.Windows.Forms.Padding(4);
             this.btnTributacao.Name = "btnTributacao";
             this.btnTributacao.Size = new System.Drawing.Size(31, 28);
             this.btnTributacao.TabIndex = 2;
@@ -202,7 +205,7 @@
             this.buttonGraficoComparativo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGraficoComparativo.Image = global::MoneyPro.Properties.Resources.z16grafico2linhas;
             this.buttonGraficoComparativo.Location = new System.Drawing.Point(887, 11);
-            this.buttonGraficoComparativo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonGraficoComparativo.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGraficoComparativo.Name = "buttonGraficoComparativo";
             this.buttonGraficoComparativo.Size = new System.Drawing.Size(31, 28);
             this.buttonGraficoComparativo.TabIndex = 4;
@@ -239,11 +242,13 @@
             this.Liquidacao,
             this.DataInicio,
             this.Ultimo,
+            this.BuyAndHold,
+            this.DiaCom,
             this.Ativo});
             this.investimentoDataGridView.DataSource = this.investimentoBindingSource;
             this.investimentoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.investimentoDataGridView.Location = new System.Drawing.Point(0, 49);
-            this.investimentoDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.investimentoDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.investimentoDataGridView.Name = "investimentoDataGridView";
             this.investimentoDataGridView.RowHeadersVisible = false;
             this.investimentoDataGridView.RowHeadersWidth = 51;
@@ -254,6 +259,10 @@
             this.investimentoDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.investimentoDataGridView_EditingControlShowing);
             this.investimentoDataGridView.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.investimentoDataGridView_RowValidating);
             this.investimentoDataGridView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.investimentoDataGridView_KeyPress);
+            // 
+            // investimentoBindingSource
+            // 
+            this.investimentoBindingSource.DataSource = typeof(Modelos.Investimento);
             // 
             // InvestimentoID
             // 
@@ -330,7 +339,7 @@
             this.RiscoID.MinimumWidth = 70;
             this.RiscoID.Name = "RiscoID";
             this.RiscoID.Visible = false;
-            this.RiscoID.Width = 125;
+            this.RiscoID.Width = 84;
             // 
             // CodigoAnbima
             // 
@@ -365,12 +374,12 @@
             dataGridViewCellStyle3.Format = "N3";
             dataGridViewCellStyle3.NullValue = "0";
             this.TaxaAdministracao.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TaxaAdministracao.FillWeight = 60F;
-            this.TaxaAdministracao.HeaderText = "Taxa de Admin.";
-            this.TaxaAdministracao.MinimumWidth = 60;
+            this.TaxaAdministracao.FillWeight = 70F;
+            this.TaxaAdministracao.HeaderText = "Tx.Admin";
+            this.TaxaAdministracao.MinimumWidth = 70;
             this.TaxaAdministracao.Name = "TaxaAdministracao";
             this.TaxaAdministracao.ToolTipText = "Taxa de Administração";
-            this.TaxaAdministracao.Width = 60;
+            this.TaxaAdministracao.Width = 70;
             // 
             // TaxaPerformance
             // 
@@ -380,12 +389,12 @@
             dataGridViewCellStyle4.Format = "N3";
             dataGridViewCellStyle4.NullValue = "0";
             this.TaxaPerformance.DefaultCellStyle = dataGridViewCellStyle4;
-            this.TaxaPerformance.FillWeight = 60F;
-            this.TaxaPerformance.HeaderText = "Taxa de Perform.";
-            this.TaxaPerformance.MinimumWidth = 60;
+            this.TaxaPerformance.FillWeight = 70F;
+            this.TaxaPerformance.HeaderText = "Tx.Perform";
+            this.TaxaPerformance.MinimumWidth = 70;
             this.TaxaPerformance.Name = "TaxaPerformance";
             this.TaxaPerformance.ToolTipText = "Taxa de Performance";
-            this.TaxaPerformance.Width = 60;
+            this.TaxaPerformance.Width = 70;
             // 
             // InicialMinimo
             // 
@@ -490,6 +499,31 @@
             this.Ultimo.ToolTipText = "Última cotação disponível";
             this.Ultimo.Width = 74;
             // 
+            // BuyAndHold
+            // 
+            this.BuyAndHold.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BuyAndHold.DataPropertyName = "BuyAndHold";
+            this.BuyAndHold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BuyAndHold.HeaderText = "B&H";
+            this.BuyAndHold.MinimumWidth = 6;
+            this.BuyAndHold.Name = "BuyAndHold";
+            this.BuyAndHold.Width = 41;
+            // 
+            // DiaCom
+            // 
+            this.DiaCom.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.DiaCom.DataPropertyName = "DiaCom";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N0";
+            dataGridViewCellStyle11.NullValue = null;
+            this.DiaCom.DefaultCellStyle = dataGridViewCellStyle11;
+            this.DiaCom.HeaderText = "DiaCom";
+            this.DiaCom.MaxInputLength = 2;
+            this.DiaCom.MinimumWidth = 6;
+            this.DiaCom.Name = "DiaCom";
+            this.DiaCom.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DiaCom.Width = 62;
+            // 
             // Ativo
             // 
             this.Ativo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -499,10 +533,6 @@
             this.Ativo.MinimumWidth = 6;
             this.Ativo.Name = "Ativo";
             this.Ativo.Width = 43;
-            // 
-            // investimentoBindingSource
-            // 
-            this.investimentoBindingSource.DataSource = typeof(Modelos.Investimento);
             // 
             // fmInvestimentos
             // 
@@ -556,6 +586,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Liquidacao;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataInicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ultimo;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn BuyAndHold;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiaCom;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Ativo;
     }
 }

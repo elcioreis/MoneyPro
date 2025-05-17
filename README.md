@@ -6,6 +6,12 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
 ## Versões futuras
     Implementação de cadastro de impostos/taxas por tipo de investimento
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
+	Criar tela com saldo até o DiaCom, proventos recebidos e porcentagem para Ações e FII marcados como BuyAndHold
+
+## Versão 1.4.0.89
+	Desepesas de investimento podem ser marcadas como entrada e saída ao mesmo tempo
+	Correção de bug na tela de lançamentos ao esconder itens reconciliados e reposicionar o cursor
+	Inclusão de coluna BuyAndHold e DiaCom nos investimentos
 
 ## Versão 1.4.0.88
 	Inclusão de código de consulta na carteira de investimentoss

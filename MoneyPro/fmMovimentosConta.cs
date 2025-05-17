@@ -959,7 +959,16 @@ namespace MoneyPro
                 // Esconde a caixa de observações após a gravação
                 AlternaExibicaoCaixaObservacao(movimentoContaDataGridView.CurrentRow.Index, true);
 
-                movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[storedRow].Cells[storedCol];
+                if (storedRow >= 0 && storedRow < movimentoContaDataGridView.Rows.Count)
+                {
+                    // Se a linha armazenada estiver dentro do intervalo de linhas da grid
+                    movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[storedRow].Cells[storedCol];
+                }
+                else
+                {
+                    // Se a linha armazenada estiver fora do intervalo de linhas da grid
+                    movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[movimentoContaDataGridView.Rows.Count - 1].Cells[storedCol];
+                }
             }
         }
 

@@ -21,7 +21,7 @@ namespace DAL
                                                   Inv.InstituicaoID, Inv.MoedaID, Inv.RiscoID, Inv.Consulta, Inv.Ativo, Inv.DataInicio,
                                                   MAX(Cot.Data) Ultimo, Inv.Aplicacao, Inv.Resgate, Inv.Liquidacao, Inv.CodigoAnbima, 
                                                   Inv.TaxaAdministracao, Inv.TaxaPerformance, Inv.InicialMinimo, Inv.MovimentoMinimo, 
-                                                  Inv.SaldoMinimo
+                                                  Inv.SaldoMinimo, Inv.BuyAndHold, Inv.DiaCom
                                                 FROM Investimento Inv
                                                 LEFT JOIN InvestimentoCotacao Cot on Cot.InvestimentoID = Inv.InvestimentoID
                                                 WHERE UsuarioID = @UsuarioID
@@ -30,9 +30,8 @@ namespace DAL
                                                   Inv.InstituicaoID, Inv.MoedaID, Inv.RiscoID, Inv.Consulta, Inv.Ativo, Inv.DataInicio,
                                                   Inv.Aplicacao, Inv.Resgate, Inv.Liquidacao, Inv.CodigoAnbima, 
                                                   Inv.TaxaAdministracao, Inv.TaxaPerformance, Inv.InicialMinimo, Inv.MovimentoMinimo, 
-                                                  Inv.SaldoMinimo
+                                                  Inv.SaldoMinimo, Inv.BuyAndHold, Inv.DiaCom
                                                 ORDER BY Inv.Apelido ASC;", conn);
-
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@UsuarioID", usuarioID);
             // Coloca a query no adaptador
@@ -137,15 +136,14 @@ namespace DAL
                                         (UsuarioID, Apelido, Descricao, TipoInvestimentoID,
                                          InstituicaoID, MoedaID, RiscoID, Consulta, Ativo, DataInicio,
                                          Aplicacao, Resgate, Liquidacao, CodigoAnbima, 
-                                         TaxaAdministracao, TaxaPerformance,
-                                         InicialMinimo, MovimentoMinimo, SaldoMinimo)
+                                         TaxaAdministracao, TaxaPerformance, InicialMinimo, 
+                                         MovimentoMinimo, SaldoMinimo, BuyAndHold, DiaCom)
                                         VALUES
                                         (@UsuarioID, @Apelido, @Descricao, @TipoInvestimentoID,
                                          @InstituicaoID, @MoedaID, @RiscoID, @Consulta, @Ativo, @DataInicio,
                                          @Aplicacao, @Resgate, @Liquidacao, @CodigoAnbima, 
-                                         @TaxaAdministracao, @TaxaPerformance,
-                                         @InicialMinimo, @MovimentoMinimo, @SaldoMinimo);
-
+                                         @TaxaAdministracao, @TaxaPerformance, @InicialMinimo, 
+                                         @MovimentoMinimo, @SaldoMinimo, @BuyAndHold, @DiaCom);
                                         SELECT CAST(@@IDENTITY AS INT) AS NovoID;";
 
                     cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
@@ -167,6 +165,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@InicialMinimo", modelo.InicialMinimo);
                     cmd.Parameters.AddWithValue("@MovimentoMinimo", modelo.MovimentoMinimo);
                     cmd.Parameters.AddWithValue("@SaldoMinimo", modelo.SaldoMinimo);
+                    cmd.Parameters.AddWithValue("@BuyAndHold", modelo.BuyAndHold);
+                    cmd.Parameters.AddWithValue("@DiaCom", (object)modelo.DiaCom ?? DBNull.Value);
 
                     registro = (int)cmd.ExecuteScalar();
 
@@ -226,7 +226,9 @@ namespace DAL
                                         TaxaPerformance = @TaxaPerformance,
                                         InicialMinimo = @InicialMinimo,
                                         MovimentoMinimo = @MovimentoMinimo,
-                                        SaldoMinimo = @SaldoMinimo
+                                        SaldoMinimo = @SaldoMinimo,
+                                        BuyAndHold = @BuyAndHold,
+                                        DiaCom = @DiaCom
                                         WHERE InvestimentoID = @InvestimentoID;
 
                                         SELECT CAST(@@ERROR AS INT) AS Erro;";
@@ -250,6 +252,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@MovimentoMinimo", modelo.MovimentoMinimo);
                     cmd.Parameters.AddWithValue("@SaldoMinimo", modelo.SaldoMinimo);
                     cmd.Parameters.AddWithValue("@InvestimentoID", modelo.InvestimentoID);
+                    cmd.Parameters.AddWithValue("@BuyAndHold", modelo.BuyAndHold);
+                    cmd.Parameters.AddWithValue("@DiaCom", (object)modelo.DiaCom ?? DBNull.Value);
 
                     if ((int)cmd.ExecuteScalar() == 0)
                         registro = (int)modelo.TipoInvestimentoID;

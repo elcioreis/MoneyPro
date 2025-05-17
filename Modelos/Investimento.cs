@@ -26,5 +26,7 @@ namespace Modelos
         public decimal? MovimentoMinimo { get; set; }
         public decimal? SaldoMinimo { get; set; }
         public int? GrupoCategoriaID { get; set; }
+        public bool BuyAndHold { get; set; }
+        public int? DiaCom { get; set; }
     }
 }
