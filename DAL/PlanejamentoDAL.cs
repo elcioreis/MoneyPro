@@ -250,7 +250,7 @@ namespace DAL
                     try
                     {
                         planejamentoID = (int?)cmd.ExecuteScalar();
-                        return (planejamentoID != null);
+                        return planejamentoID != null;
                     }
                     catch (Exception)
                     {
@@ -341,7 +341,14 @@ namespace DAL
 
                 cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
                 cmd.Parameters.AddWithValue("@ContaID", modelo.ContaID);
-                cmd.Parameters.AddWithValue("@Data", modelo.DtInicial);
+                if (modelo.CrdDeb == "C")
+                {
+                    cmd.Parameters.AddWithValue("@Data", modelo.DtInicial);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Data", modelo.DtInicial.AddMinutes(1));
+                }
                 cmd.Parameters.AddWithValue("@Numero", DBNull.Value);
                 cmd.Parameters.AddWithValue("@LancamentoID", modelo.LancamentoID);
                 cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);
@@ -401,7 +408,6 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
                     // Conta ID é o número da conta ligada à categoria
                     cmd.Parameters.AddWithValue("@ContaID", transferenciaPara);
-                    cmd.Parameters.AddWithValue("@Data", modelo.DtInicial);
                     cmd.Parameters.AddWithValue("@Numero", DBNull.Value);
                     cmd.Parameters.AddWithValue("@LancamentoID", modelo.LancamentoID);
                     cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);
@@ -411,14 +417,19 @@ namespace DAL
 
                     // Se a origem é um débito, o destino será um crédito e vice-versa.
                     if (modelo.CrdDeb == "D")
+                    {
                         cmd.Parameters.AddWithValue("@CrdDeb", "C");
+                        cmd.Parameters.AddWithValue("@Data", modelo.DtInicial);
+                    }
                     else
+                    {
                         cmd.Parameters.AddWithValue("@CrdDeb", "D");
+                        cmd.Parameters.AddWithValue("@Data", modelo.DtInicial.AddMinutes(1));
+                    }
 
                     // Os campos crédito e débito têm as propriedades do modelo invertido para a contra partida
                     cmd.Parameters.AddWithValue("@Credito", (object)Debito ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Debito", (object)Credito ?? DBNull.Value);
-
                     cmd.Parameters.AddWithValue("@Conciliacao", Conciliacao);
                     cmd.Parameters.AddWithValue("@PilhaMovimentoContaID", DBNull.Value);
                     // DoMovimentoContaID recebe o número do registro criado no primeiro insert dessa mesma rotina.
@@ -452,7 +463,7 @@ namespace DAL
                 cmd.CommandText = "UPDATE Planejamento SET " +
                                   "Valor = @Valor, " +
                                   // Somente se for ativo muda a data
-                                  (string)((ativo) ? "DtInicial = @DtInicial, " : "") +
+                                  (string)(ativo ? "DtInicial = @DtInicial, " : "") +
                                   "Processados = Processados + 1, " +
                                   "Ativo = @Ativo " +
                                   "WHERE PlanejamentoID = @PlanejamentoID;";
@@ -481,7 +492,7 @@ namespace DAL
                 conn.Dispose();
             }
 
-            return (registro > 0);
+            return registro > 0;
         }
 
         public DateTime ProximoEventoPlanejamento(int planejamentoID, int parcela)

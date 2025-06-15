@@ -1332,28 +1332,31 @@ namespace MoneyPro
         {
             if (movimentoContaDataGridView.IsCurrentRowDirty)
             {
-                bool conciliado;
+                bool conciliado = false;
 
-                switch ((TipoConciliacao)((string)movimentoContaDataGridView.CurrentRow.Cells["Conciliacao"].Value)[0])
+                if (movimentoContaDataGridView.CurrentRow.Cells["Conciliacao"].Value != null)
                 {
-                    case TipoConciliacao.NaoConciliado:
-                        conciliado = false;
-                        break;
-                    case TipoConciliacao.Agendado:
-                        conciliado = false;
-                        break;
-                    case TipoConciliacao.Futuro:
-                        conciliado = false;
-                        break;
-                    case TipoConciliacao.Conciliado:
-                        conciliado = true;
-                        break;
-                    case TipoConciliacao.Reconciliado:
-                        conciliado = true;
-                        break;
-                    default:
-                        conciliado = false;
-                        break;
+                    switch ((TipoConciliacao)((string)movimentoContaDataGridView.CurrentRow.Cells["Conciliacao"].Value)[0])
+                    {
+                        case TipoConciliacao.NaoConciliado:
+                            conciliado = false;
+                            break;
+                        case TipoConciliacao.Agendado:
+                            conciliado = false;
+                            break;
+                        case TipoConciliacao.Futuro:
+                            conciliado = false;
+                            break;
+                        case TipoConciliacao.Conciliado:
+                            conciliado = true;
+                            break;
+                        case TipoConciliacao.Reconciliado:
+                            conciliado = true;
+                            break;
+                        default:
+                            conciliado = false;
+                            break;
+                    }
                 }
 
                 // Se estiver em conciliação não poderá executar a validação da linha

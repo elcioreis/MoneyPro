@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using BLL;
 using static Modelos.Tipo;
 
 namespace MoneyPro
@@ -36,7 +36,6 @@ namespace MoneyPro
             {
                 return dtUltimaAtualizacao;
             }
-
             set
             {
                 dtUltimaAtualizacao = value;
@@ -192,7 +191,7 @@ namespace MoneyPro
                             {
                                 if (mes > 1)
                                 {
-                                    string nomeReferencia = "variacao_Var" + (mes - 1).ToString("00") + (mes).ToString("00");
+                                    string nomeReferencia = "variacao_Var" + (mes - 1).ToString("00") + mes.ToString("00");
                                     short referencia = (short)variacaoMensalInvestimentosDataGridView.Rows[e.RowIndex].Cells[nomeReferencia].Value;
 
                                     switch (referencia)
@@ -300,7 +299,7 @@ namespace MoneyPro
                             {
                                 if (mes > 1)
                                 {
-                                    string nomeReferencia = "variacao_Var" + (mes - 1).ToString("00") + (mes).ToString("00");
+                                    string nomeReferencia = "variacao_Var" + (mes - 1).ToString("00") + mes.ToString("00");
                                     short referencia = (short)variacaoMensalInvestimentosDataGridView.Rows[e.RowIndex].Cells[nomeReferencia].Value;
 
                                     switch (referencia)
@@ -376,7 +375,7 @@ namespace MoneyPro
                             {
                                 if (mes > 1)
                                 {
-                                    string nomeReferencia = "variacao_Var" + (mes - 1).ToString("00") + (mes).ToString("00");
+                                    string nomeReferencia = "variacao_Var" + (mes - 1).ToString("00") + mes.ToString("00");
                                     short referencia = (short)variacaoMensalInvestimentosDataGridView.Rows[e.RowIndex].Cells[nomeReferencia].Value;
 
                                     switch (referencia)

@@ -8,6 +8,10 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
 	Criar tela com saldo até o DiaCom, proventos recebidos e porcentagem para Ações e FII marcados como BuyAndHold
 
+## Versão 1.4.1.90
+	Ao exibir o mês corrente no saldo de investimentos, exibe sempre até o último dia do mês, para exibir também os proventos futuros.
+	Ao lançar movimentos de débito, sempre adiciona 1 minuto para que todos os créditos sejam exibidos antes dos débitos
+
 ## Versão 1.4.0.89
 	Desepesas de investimento podem ser marcadas como entrada e saída ao mesmo tempo
 	Correção de bug na tela de lançamentos ao esconder itens reconciliados e reposicionar o cursor

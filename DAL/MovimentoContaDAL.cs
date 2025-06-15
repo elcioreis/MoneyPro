@@ -575,7 +575,15 @@ namespace DAL
 
                 cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
                 cmd.Parameters.AddWithValue("@ContaID", modelo.ContaID);
-                cmd.Parameters.AddWithValue("@Data", modelo.Data);
+                if (modelo.CrdDeb == "C")
+                {
+                    cmd.Parameters.AddWithValue("@Data", modelo.Data);
+                }
+                else
+                {
+                    // Se o movimento for de débito, adiciona 1 segundo para evitar problemas de duplicidade de data
+                    cmd.Parameters.AddWithValue("@Data", modelo.Data?.AddMinutes(1));
+                }
                 cmd.Parameters.AddWithValue("@Numero", (object)modelo.Numero ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@LancamentoID", modelo.LancamentoID);
                 cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);
@@ -620,7 +628,15 @@ namespace DAL
 
                 cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
                 cmd.Parameters.AddWithValue("@ContaID", modelo.ContaID);
-                cmd.Parameters.AddWithValue("@Data", modelo.Data);
+                if (modelo.CrdDeb == "C")
+                {
+                    // Se o movimento for de crédito, a contra-partida será débito, então adiciona 1 segundo para evitar problemas de duplicidade de data
+                    cmd.Parameters.AddWithValue("@Data", modelo.Data?.AddMinutes(1));
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Data", modelo.Data);
+                }
                 cmd.Parameters.AddWithValue("@Numero", (object)modelo.Numero ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@LancamentoID", modelo.LancamentoID);
                 cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);

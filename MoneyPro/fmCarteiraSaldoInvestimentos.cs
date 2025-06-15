@@ -68,7 +68,7 @@ namespace MoneyPro
             buttonMes.Text = DateTime.Today.ToString("MMM");
 
             DataInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            DataFim = DateTime.Today;
+            DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
             DtUltimaAtualizacao = Geral.UltimaAtualizacaoInvestimentos();
             CarregarSaldoInvestimento(DataInicio, DataFim);
             SaldoInvestimentosDataGridView.Focus();
@@ -268,7 +268,7 @@ namespace MoneyPro
         private void buttonAno_Click(object sender, EventArgs e)
         {
             DataInicio = new DateTime(DateTime.Now.Year, 1, 1);
-            DataFim = DateTime.Today;
+            DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
             CarregarSaldoInvestimento(DataInicio, DataFim);
         }
 
@@ -282,7 +282,7 @@ namespace MoneyPro
         private void buttonMes_Click(object sender, EventArgs e)
         {
             DataInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            DataFim = DateTime.Today;
+            DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
             CarregarSaldoInvestimento(DataInicio, DataFim);
         }
 
@@ -317,7 +317,7 @@ namespace MoneyPro
         private void buttonMaximo_Click(object sender, EventArgs e)
         {
             DataInicio = Geral.PrimeiroDiaMovimento(IDUsuario);
-            DataFim = DateTime.Today;
+            DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
             CarregarSaldoInvestimento(DataInicio, DataFim);
         }
     }
