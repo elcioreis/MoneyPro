@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Modelos;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -187,24 +188,60 @@ namespace MoneyPro.Rotinas
             {
                 comCabecalho.RemoveAt(0);
 
-                var cotacaoCVM = comCabecalho.Select(linha => new CotacaoCVM()
-                {
-                    // TP_FUNDO; CNPJ_FUNDO; ID_SUBCLASSE; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
-                    // FI; 00.017.024/0001-53; ; 2019-06-03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
-                    // FI; 00.017.024/0001-53; ; 2019-06-04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
+                List<CotacaoCVM> cotacaoCVM = new List<CotacaoCVM>();
 
-                    CotacaoCVMID = 0,
-                    TipoFundo = linha[0],
-                    CNPJ = linha[1],
-                    Data = DateTime.ParseExact(linha[3], "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                    VrTotalCarteira = Decimal.Parse(linha[4], culture),
-                    VrCotacao = Decimal.Parse(linha[5], culture),
-                    VrPatrimonioLiquido = Decimal.Parse(linha[6], culture),
-                    VrCaptacaoDia = Decimal.Parse(linha[7], culture),
-                    VrResgateDia = Decimal.Parse(linha[8], culture),
-                    NroCotistas = int.Parse(linha[9], culture)
+                string cnpj = string.Empty;
+                try
+                {
+                    foreach (var linha in comCabecalho)
+                    {
+                        // TP_FUNDO; CNPJ_FUNDO; ID_SUBCLASSE; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
+                        // FI; 00.017.024/0001-53; ; 2019-06-03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
+                        // FI; 00.017.024/0001-53; ; 2019-06-04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
+
+                        cnpj = linha[1];
+
+                        cotacaoCVM.Add(new CotacaoCVM()
+                        {
+                            CotacaoCVMID = 0,
+                            TipoFundo = linha[0],
+                            CNPJ = linha[1],
+                            Data = DateTime.ParseExact(linha[3], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            VrTotalCarteira = !string.IsNullOrEmpty(linha[4]) ? Decimal.Parse(linha[4], culture) : 0,
+                            VrCotacao = Decimal.Parse(linha[5], culture),
+                            VrPatrimonioLiquido = Decimal.Parse(linha[6], culture),
+                            VrCaptacaoDia = Decimal.Parse(linha[7], culture),
+                            VrResgateDia = Decimal.Parse(linha[8], culture),
+                            NroCotistas = int.Parse(linha[9], culture)
+                        });
+                    }
                 }
-                ).ToList();
+                catch (Exception ex)
+                {
+                    Origem.IncluirProcessamento("Erro ao processar o arquivo CSV: " + ex.Message);
+                    Origem.IncluirProcessamento("CNPJ com erro: " + cnpj);
+                    Origem.Problemas = true;
+                    return;
+                }
+
+                //var cotacaoCVM = comCabecalho.Select(linha => new CotacaoCVM()
+                //{
+                //    // TP_FUNDO; CNPJ_FUNDO; ID_SUBCLASSE; DT_COMPTC; VL_TOTAL; VL_QUOTA; VL_PATRIM_LIQ; CAPTC_DIA; RESG_DIA; NR_COTST
+                //    // FI; 00.017.024/0001-53; ; 2019-06-03; 1136577.69; 26.918181500000; 1128817.89; 0.00; 0.00; 1
+                //    // FI; 00.017.024/0001-53; ; 2019-06-04; 1136857.45; 26.923462900000; 1129039.37; 0.00; 0.00; 1
+
+                //    CotacaoCVMID = 0,
+                //    TipoFundo = linha[0],
+                //    CNPJ = linha[1],
+                //    Data = DateTime.ParseExact(linha[3], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                //    VrTotalCarteira = Decimal.Parse(linha[4], culture),
+                //    VrCotacao = Decimal.Parse(linha[5], culture),
+                //    VrPatrimonioLiquido = Decimal.Parse(linha[6], culture),
+                //    VrCaptacaoDia = Decimal.Parse(linha[7], culture),
+                //    VrResgateDia = Decimal.Parse(linha[8], culture),
+                //    NroCotistas = int.Parse(linha[9], culture)
+                //}
+                //).ToList();
 
                 CotacaoEletronicaBLL bll = new CotacaoEletronicaBLL();
 

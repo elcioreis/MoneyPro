@@ -339,11 +339,12 @@ namespace MoneyPro
                 IncluirProcessamento("Erro ao atualizar cotações da CVM (argumentos):");
                 IncluirProcessamento(string.Format(" - {0}", e));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //IncluirProcessamento(ex.InnerException.ToString());
                 IncluirProcessamento("Erro ao atualizar cotações da CVM:");
                 IncluirProcessamento(string.Format(" - {0}", e));
+                IncluirProcessamento(ex.Message);
             }
 
             try
