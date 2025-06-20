@@ -268,7 +268,7 @@ namespace MoneyPro
         private void buttonAno_Click(object sender, EventArgs e)
         {
             DataInicio = new DateTime(DateTime.Now.Year, 1, 1);
-            DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
+            DataFim = new DateTime(DateTime.Today.Year, 12, 31);
             CarregarSaldoInvestimento(DataInicio, DataFim);
         }
 
