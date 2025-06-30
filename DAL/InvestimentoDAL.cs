@@ -344,7 +344,8 @@ namespace DAL
                     query.CommandText = @"SELECT VrCotacao, CotacaoDaCVM
                                           FROM InvestimentoCotacao
                                           WHERE InvestimentoID = @InvestimentoID
-                                          AND Data = @Data;";
+                                          AND Data = @Data
+                                          ORDER BY CotacaoDaCVM DESC;";
 
                     // Define os parâmetros necessários
                     query.Parameters.AddWithValue("@InvestimentoID", investimentoID);
@@ -359,7 +360,7 @@ namespace DAL
                             dr.Read();
                             // Somente o primeiro registro interessa
                             valorCotacao = dr.GetDecimal(0);
-                            return dr.GetBoolean(1);
+                            return dr.GetByte(1) == 1;
                         }
                         else
                         {
