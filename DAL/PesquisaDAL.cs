@@ -155,6 +155,7 @@ namespace DAL
             comando.Parameters.AddWithValue("@UsuarioID", usuarioID);
             comando.Parameters.AddWithValue("@DataInicio", dataInicio);
             comando.Parameters.AddWithValue("@DataFim", dataFim);
+            comando.CommandTimeout = 240;
 
             try
             {

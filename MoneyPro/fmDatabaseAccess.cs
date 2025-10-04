@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MoneyPro
@@ -73,7 +69,8 @@ namespace MoneyPro
                 //User ID=SA;
                 //Password=senhaqualquer;
                 //Application Name=MoneyPro;
-                //MultipleActiveResultSets=True
+                //MultipleActiveResultSets=True;
+                //Connect Timeout=60;
 
                 // Respeitar a ordem
                 // DataSource > Initial Catalog > UserID > Password > Aplicação
@@ -178,14 +175,16 @@ namespace MoneyPro
             //User ID=SA;
             //Password=senhaqualquer;
             //Application Name=MoneyPro;
-            //MultipleActiveResultSets=True
+            //MultipleActiveResultSets=True;
+            //Connect Timeout=60;
 
             conexao.Append("Data Source=" + txtDataSource.Text.Trim() + ";");
             conexao.Append("Initial Catalog=" + txtInitialCatalog.Text.Trim() + ";");
             conexao.Append("User ID=" + txtUserID.Text.Trim() + ";");
             conexao.Append("Password=" + txtPassword.Text.Trim() + ";");
             conexao.Append("Application Name=" + txtAplicacao.Text.Trim() + ";");
-            conexao.AppendLine("MultipleActiveResultSets=True");
+            conexao.Append("MultipleActiveResultSets=True;");
+            conexao.Append("Connect Timeout=60;");
 
             if (txtNome.Text == (string)txtNome.Tag)
             {
@@ -225,12 +224,12 @@ namespace MoneyPro
                 string acesso = lbxAcessos.Text;
                 string msg = "Deseja excluir o acesso " + acesso + "?";
 
-                DialogResult dr = MessageBox.Show(msg, 
-                                                  "Confirma", 
-                                                  MessageBoxButtons.YesNo, 
-                                                  MessageBoxIcon.Question, 
+                DialogResult dr = MessageBox.Show(msg,
+                                                  "Confirma",
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Question,
                                                   MessageBoxDefaultButton.Button2);
-                    
+
                 if (dr == DialogResult.Yes)
                 {
                     // Exclui o item
@@ -241,7 +240,7 @@ namespace MoneyPro
                     lbxAcessos.Items.RemoveAt(lbxAcessos.SelectedIndex);
 
                     LimpaCamposTexto(true);
-                }                
+                }
             }
         }
     }

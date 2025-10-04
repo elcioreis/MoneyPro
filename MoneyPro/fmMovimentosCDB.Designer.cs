@@ -317,6 +317,7 @@
             this.Controls.Add(this.panelMovimento);
             this.Name = "fmMovimentosCDB";
             this.Text = "MoneyPro";
+            this.Shown += new System.EventHandler(this.fmMovimentosCDB_Shown);
             this.Controls.SetChildIndex(this.panelTopo, 0);
             this.Controls.SetChildIndex(this.panelRodape, 0);
             this.Controls.SetChildIndex(this.panelMovimento, 0);
