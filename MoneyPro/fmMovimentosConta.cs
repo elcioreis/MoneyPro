@@ -1,6 +1,4 @@
 ﻿using BLL;
-using Microsoft.Graph.Models;
-using Microsoft.Identity.Client;
 using Modelos;
 using System;
 using System.Collections.Generic;
@@ -8,9 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Modelos.Tipo;
 
@@ -871,69 +867,6 @@ namespace MoneyPro
             }
         }
 
-        private async Task EnviarParaTodo(int movimentoContaID)
-        {
-            // TODO Este método não funciona, não consigo fazer autenticação no Microsoft Entra
-            string[] Scopes = { "user.read" };
-
-            MovimentoTODO todo = new MovimentoContaBLL().MovimentoTODO(movimentoContaID);
-
-            StringBuilder anotacao = new StringBuilder();
-            anotacao.AppendLine($"<b>{todo.Subtitulo}</b>");
-            anotacao.AppendLine(todo.Origem);
-
-            if (todo.CrdDeb == "C")
-                anotacao.AppendLine($"Valor a receber: <span style=\"color: green;\">{todo.valor.ToString("#0.00", new CultureInfo("pt-BR"))}</span>");
-            else
-                anotacao.AppendLine($"Valor a pagar: $<span style=\"color: red;\">{todo.valor.ToString("#0.00", new CultureInfo("pt-BR"))}</span>");
-
-            anotacao.AppendLine("<br><br><sub>By MoneyPro</sub>");
-
-            var requestBody = new TodoTask
-            {
-                Title = todo.Titulo,
-                DueDateTime = new DateTimeTimeZone
-                {
-                    DateTime = todo.Data.ToString("yyyy-MM-dd"),
-                    TimeZone = "UTC"
-                },
-                IsReminderOn = true,
-                ReminderDateTime = new DateTimeTimeZone
-                {
-                    DateTime = todo.Data.AddHours(11).ToString("yyyy-MM-dd HH:mm:ss"),
-                    TimeZone = "UTC"
-                },
-                Categories = new List<string>
-                {
-                    "Important"
-                },
-                Body = new ItemBody
-                {
-                    Content = anotacao.ToString(),
-                    ContentType = BodyType.Html
-                }
-            };
-
-            try
-            {
-                IPublicClientApplication publicClientApp = PublicClientApplicationBuilder.Create("dd35d433-f807-44e5-b493-c9070c984b6a")
-                    .WithRedirectUri("https://login.live.com/oauth20_desktop.srf")
-                    .WithAuthority(AzureCloudInstance.AzurePublic, "be29e748-5689-443e-90e8-2b7b1646dfdf")
-                .Build();
-
-                var authResult = await publicClientApp.AcquireTokenInteractive(Scopes).ExecuteAsync();
-
-                if (authResult != null)
-                {
-                    MessageBox.Show(text: authResult.AccessToken);
-                }
-            }
-            catch (MsalUiRequiredException ex)
-            {
-                MessageBox.Show(text: ex.Message);
-            }
-        }
-
         private void InformarSaldoAtualCDB()
         {
             // O usuário informa o saldo atual do CDB e a rotina calculará o valor do crédito
@@ -1483,7 +1416,16 @@ namespace MoneyPro
                                     // Esconde a caixa de observações após a gravação
                                     AlternaExibicaoCaixaObservacao(movimentoContaDataGridView.CurrentRow.Index, true);
 
-                                    movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[storedRow].Cells[storedCol];
+
+                                    // Trata quando há exibição do resumo e a entrada muda a quantidade de linhas exibidas.
+                                    if (movimentoContaDataGridView.Rows.Count >= storedRow)
+                                    {
+                                        movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[storedRow].Cells[storedCol];
+                                    }
+                                    else
+                                    {
+                                        movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[movimentoContaDataGridView.Rows.Count - 1].Cells[storedCol];
+                                    }
 
 #if DEBUG
                                     MessageBox.Show("Gravação da linha executada.");

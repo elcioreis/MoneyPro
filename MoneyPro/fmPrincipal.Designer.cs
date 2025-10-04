@@ -184,7 +184,7 @@
             // 
             this.toolStripStatusLabel1.IsLink = true;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(296, 24);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(472, 24);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // statusSomatoria
@@ -1026,8 +1026,7 @@
             // 
             // timerAtualizarRolContas
             // 
-            this.timerAtualizarRolContas.Enabled = true;
-            this.timerAtualizarRolContas.Interval = 500;
+            this.timerAtualizarRolContas.Interval = 10000;
             // 
             // FmPrincipal
             // 

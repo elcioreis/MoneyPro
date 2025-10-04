@@ -1,11 +1,6 @@
 ﻿using BLL;
 using Modelos;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -40,8 +35,6 @@ namespace MoneyPro
             ConsultarTexto(IDConta, numero);
             CarregarLancamentoPadraoCDB(IDUsuario);
             CarregarCategoriaPadraoCDB(IDUsuario);
-
-            descricaoTextBox.Focus();
         }
 
         private void CarregarLancamentoPadraoCDB(int idUsuario)
@@ -129,7 +122,7 @@ namespace MoneyPro
             NovoSaldo.Tag = NovoValor;
 
             diferencaTextBox.Text = (NovoValor - (decimal)saldoAtualTextBox.Tag).ToString(FormatoDecimal);
-            diferencaTextBox.Tag = (NovoValor - (decimal)saldoAtualTextBox.Tag);
+            diferencaTextBox.Tag = NovoValor - (decimal)saldoAtualTextBox.Tag;
         }
 
         private void buttonGravar_Click(object sender, EventArgs e)
@@ -173,6 +166,11 @@ namespace MoneyPro
             {
                 int registro = bll.Gravar(modelo);
             }
+        }
+
+        private void fmMovimentosCDB_Shown(object sender, EventArgs e)
+        {
+            novoSaldoTextBox.Focus();
         }
     }
 }

@@ -43,8 +43,10 @@ namespace DAL
                                                               Data ASC, MovimentoContaID;", conn);
                 // Atribui os parâmetros
                 query.Parameters.AddWithValue("@ContaID", contaID);
+                query.CommandTimeout = 240;
                 // Coloca a query no adaptador
                 da.SelectCommand = query;
+
                 // Popula a tabela
                 da.Fill(table);
             }
@@ -59,6 +61,7 @@ namespace DAL
             DataTable table = new DataTable();
             // Instancia uma conexão
             SqlConnection conn = new SqlConnection(Dados.Conexao);
+
             // Instancia um adaptador
             using (SqlDataAdapter da = new SqlDataAdapter())
             {
@@ -108,9 +111,11 @@ namespace DAL
                 // Atribui os parâmetros
                 query.Parameters.AddWithValue("@ContaID", contaID);
                 query.Parameters.AddWithValue("@DataMinima", dataMinima);
+                query.CommandTimeout = 240;
 
                 // Coloca a query no adaptador
                 da.SelectCommand = query;
+
                 // Popula a tabela
                 da.Fill(table);
             }
@@ -127,22 +132,24 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, vmMC.Descricao,
-                                                       vmMC.LancamentoID, Lnct.Apelido Lancamento,
-                                                       vmMC.CategoriaID, Ctgr.Apelido Categoria,
-                                                       vmMC.GrupoCategoriaID, Grpo.Apelido GrupoCategoria,
-                                                       vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, vmMC.Conciliacao,
-                                                       vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
-                                                       vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, 
-                                                       vmMC.VrBruto, vmMC.VrLiquido, vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, 
-                                                       vmMC.IdentificacaoOFX
-                                                FROM vw_MovimentacaoConta vmMC
-                                                INNER JOIN Categoria Ctgr ON Ctgr.CategoriaID = vmMC.CategoriaID
-                                                INNER JOIN Lancamento Lnct ON Lnct.LancamentoID = vmMC.LancamentoID
-                                                LEFT JOIN GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = vmMC.GrupoCategoriaID
-                                                WHERE vmMC.ContaID = @ContaID
-                                                AND vmMC.Data >= @DataMinima
-                                                ORDER BY vmMC.Data ASC, CASE WHEN vmMC.Valor >= 0 THEN 1 ELSE 2 END ASC;", conn);
+            SqlCommand query = new SqlCommand(@"
+                                              SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, cast(vmMC.Data as date) Data, 
+                                                     vmMC.Numero, vmMC.Descricao,
+                                                     vmMC.LancamentoID, Lnct.Apelido Lancamento,
+                                                     vmMC.CategoriaID, Ctgr.Apelido Categoria,
+                                                     vmMC.GrupoCategoriaID, Grpo.Apelido GrupoCategoria,
+                                                     vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, vmMC.Conciliacao,
+                                                     vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
+                                                     vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, 
+                                                     vmMC.VrBruto, vmMC.VrLiquido, vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, 
+                                                     vmMC.IdentificacaoOFX
+                                              FROM vw_MovimentacaoConta vmMC
+                                              INNER JOIN Categoria Ctgr ON Ctgr.CategoriaID = vmMC.CategoriaID
+                                              INNER JOIN Lancamento Lnct ON Lnct.LancamentoID = vmMC.LancamentoID
+                                              LEFT JOIN GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = vmMC.GrupoCategoriaID
+                                              WHERE vmMC.ContaID = @ContaID
+                                              AND vmMC.Data >= @DataMinima
+                                              ORDER BY vmMC.Data ASC, CASE WHEN vmMC.Valor >= 0 THEN 1 ELSE 2 END ASC;", conn);
 
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@ContaID", contaID);
