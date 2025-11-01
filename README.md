@@ -9,8 +9,8 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
 	Criar tela com saldo até o DiaCom, proventos recebidos e porcentagem para Ações e FII marcados como BuyAndHold
 
 ## Versão 1.4.2.95
-	Correção em bug que faz a tela encolher por alguns segundos e travar a operação durante esse tempos
-	Correção de bug quando há exibição de resumo e o lançamento faz a quantidade de linhas da grade diminuirsss
+	Remoção de pacotes inúteis do NuGet
+	Correção na tela de lançamentos resumidos ao inlcuir item que faz diminuir quantidade de linhas já reconciliadas
 
 ## Versão 1.4.2.94
     Definição de timeout na string de conexão com o banco de dados (connection timeout=60)
