@@ -16,5 +16,6 @@
         public decimal PercTotal { get; set; }
         public int RiscoID { get; set; }
         public string Risco { get; set; }
+        public decimal? QtCotas { get; set; }
     }
 }

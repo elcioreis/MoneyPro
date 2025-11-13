@@ -955,7 +955,7 @@ namespace MoneyPro
                     cmd.Connection = conn;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = @"SELECT dbo.fncUltimaAtualizacaoInvestimentos() AS Ultima;";
-
+                    cmd.CommandTimeout = 240;
                     return (DateTime)cmd.ExecuteScalar();
                 }
             }

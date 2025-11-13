@@ -8,6 +8,9 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
 	Criar tela com saldo até o DiaCom, proventos recebidos e porcentagem para Ações e FII marcados como BuyAndHold
 
+## Versão 1.4.2.96
+	Inclusão da quantidade de cotas na tela de variação de investimentos
+
 ## Versão 1.4.2.95
 	Remoção de pacotes inúteis do NuGet
 	Correção na tela de lançamentos resumidos ao inlcuir item que faz diminuir quantidade de linhas já reconciliadas
