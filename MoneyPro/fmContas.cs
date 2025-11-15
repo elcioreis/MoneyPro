@@ -447,7 +447,7 @@ namespace MoneyPro
                         // Passou pela validação, tentará gravar
                         int registro = bll.Gravar(conta);
                         CarregarContas(IDUsuario, (this.Origem as FmPrincipal).Configuracoes.Contas_ExibeAtivas);
-                        Origem.CarregarRolContas();
+                        Origem.CarregarRolContasAsync();
                     }
                     else
                     {

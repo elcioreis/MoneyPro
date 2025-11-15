@@ -153,7 +153,7 @@ namespace MoneyPro
                     // Recarrega o grid de lançamentos
                     (FormOrigem as fmMovimentosConta).CarregarMovimentosContas(IDConta);
 
-                    Principal.CarregarRolContas();
+                    Principal.CarregarRolContasAsync();
 
                     this.Close();
                 }

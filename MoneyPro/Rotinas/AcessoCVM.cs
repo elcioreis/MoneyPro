@@ -6,7 +6,6 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -298,32 +297,21 @@ namespace MoneyPro.Rotinas
             }
         }
 
-        private string Pasta()
-        {
-            // Pasta para colocar os arquivos baixados
-            StringBuilder pasta = new StringBuilder(Path.GetTempPath() + "MoneyPro");
 
-            if (!Directory.Exists(pasta.ToString()))
-            {
-                Directory.CreateDirectory(pasta.ToString());
-            }
-
-            return pasta.ToString();
-        }
 
         public Boolean ExisteArquivo(DateTime data)
         {
-            string pasta = Pasta();
+            string pasta = Geral.PastaTemporariaMoneyPro();
 
             // Receberá os nomes dos arquivos baixados
             String arquivoZIP = pasta + "\\MoneyPro" + data.ToString("yyMMdd") + "CVM.zip";
 
-            return (File.Exists(arquivoZIP));
+            return File.Exists(arquivoZIP);
         }
 
         public string NomeArquivoZip(DateTime data)
         {
-            string pasta = Pasta();
+            string pasta = Geral.PastaTemporariaMoneyPro();
 
             // Receberá os nomes dos arquivos baixados
             return pasta + "\\MoneyPro" + data.ToString("yyMMdd") + "CVM.zip";
@@ -332,7 +320,7 @@ namespace MoneyPro.Rotinas
 
         public string GravarArquivo(string url, DateTime data)
         {
-            string pasta = Pasta();
+            string pasta = Geral.PastaTemporariaMoneyPro();
 
             // Receberá os nomes dos arquivos baixados
             String arquivoZIP = pasta + "\\MoneyPro" + data.ToString("yyMMdd") + "CVM.zip";
@@ -392,7 +380,7 @@ namespace MoneyPro.Rotinas
 
         internal bool AbrirArquivoZip(string arquivoZip, DateTime data, out string arquivoXML)
         {
-            string pasta = Pasta();
+            string pasta = Geral.PastaTemporariaMoneyPro();
 
             string arquivoXMLold = pasta + "\\" +
                                    data.Year.ToString() +

@@ -655,7 +655,7 @@ namespace MoneyPro
                 {
                     bll.Excluir(movimentoID);
                     CarregarMovimentosContas(IDConta);
-                    Origem.CarregarRolContas();
+                    Origem.CarregarRolContasAsync();
                 }
             }
         }
@@ -887,7 +887,7 @@ namespace MoneyPro
                 var storedCol = movimentoContaDataGridView.CurrentCell.ColumnIndex;
 
                 CarregarMovimentosContas(IDConta);
-                Origem.CarregarRolContas();
+                Origem.CarregarRolContasAsync();
 
                 // Esconde a caixa de observações após a gravação
                 AlternaExibicaoCaixaObservacao(movimentoContaDataGridView.CurrentRow.Index, true);
@@ -1411,7 +1411,7 @@ namespace MoneyPro
 
                                     int registro = bll.Gravar(modelo);
                                     CarregarMovimentosContas(IDConta);
-                                    Origem.CarregarRolContas();
+                                    Origem.CarregarRolContasAsync();
 
                                     // Esconde a caixa de observações após a gravação
                                     AlternaExibicaoCaixaObservacao(movimentoContaDataGridView.CurrentRow.Index, true);
@@ -1889,7 +1889,7 @@ namespace MoneyPro
             IncluirMovimentoInvestimento();
 
             CarregarMovimentosContas(IDConta);
-            Origem.CarregarRolContas();
+            Origem.CarregarRolContasAsync();
         }
 
         private void IncluirMovimentoInvestimento()
@@ -1957,7 +1957,7 @@ namespace MoneyPro
                     form.ShowDialog();
 
                     CarregarMovimentosContas(IDConta);
-                    Origem.CarregarRolContas();
+                    Origem.CarregarRolContasAsync();
                 }
             }
         }
@@ -2489,7 +2489,7 @@ namespace MoneyPro
             ContaBLL bll = new ContaBLL();
             bll.AlternarExibicaoResumo(IDConta, ExibeResumo);
 
-            Origem.CarregarRolContas();
+            Origem.CarregarRolContasAsync();
 
             CarregarMovimentosContas(IDConta, true);
         }
@@ -2507,7 +2507,7 @@ namespace MoneyPro
                 }
                 else if (buttonConciliacaoOn.Visible)
                 {
-                    // Se estiver em mode de conciliação nada poderá ser alterado. 
+                    // Se estiver em modo de conciliação nada poderá ser alterado. 
                     // (o botão para delisgar o modo fica visível somente qdo em conciliação)
                     e.Cancel = true;
                 }
@@ -2584,7 +2584,7 @@ namespace MoneyPro
                 }
                 CarregaLancamentos(IDUsuario);
                 CarregarMovimentosContas(IDConta);
-                Origem.CarregarRolContas();
+                Origem.CarregarRolContasAsync();
             }
             catch
             {
@@ -2870,7 +2870,7 @@ namespace MoneyPro
             IncluirMovimentoCambio();
 
             CarregarMovimentosContas(IDConta);
-            Origem.CarregarRolContas();
+            Origem.CarregarRolContasAsync();
         }
 
         private void IncluirMovimentoCambio()

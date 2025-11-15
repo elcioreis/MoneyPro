@@ -120,7 +120,7 @@ namespace MoneyPro
                         planejamentoDataGridView.CurrentCell = planejamentoDataGridView.Rows[0].Cells[col];
 
                         if (Origem is FmPrincipal)
-                            (Origem as FmPrincipal).CarregarRolContas();
+                            (Origem as FmPrincipal).CarregarRolContasAsync();
                     }
                 }
             }

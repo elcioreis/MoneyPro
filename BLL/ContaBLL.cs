@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL;
 using Modelos;
-using DAL;
+using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BLL
@@ -27,7 +24,7 @@ namespace BLL
 
         public DataTable ListarContas(int UsuarioID, Boolean TodasContas)
         {
-            ContaDAL dal = new ContaDAL();           
+            ContaDAL dal = new ContaDAL();
             return dal.ListarContas(UsuarioID, TodasContas);
         }
 
@@ -35,6 +32,11 @@ namespace BLL
         {
             ContaDAL dal = new ContaDAL();
             return dal.RolContas(usuarioID);
+        }
+
+        public async Task<DataTable> RolContasAsync(int usuarioID)
+        {
+            return await new ContaDAL().RolContasAsync(usuarioID);
         }
 
         public bool Validar(Conta modelo)

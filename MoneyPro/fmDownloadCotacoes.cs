@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -59,9 +60,26 @@ namespace MoneyPro
             // Pega a pasta de downloads, que sempre fica abaixo da pasta do usuário corrente
             string pastaDownload = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\Downloads";
             // Procura todos arquivos de cotação histórica diária da Bolsa de Valores de São Paulo (B3) que seguem o padrão
-            // COTAHIST_Dddmmaaaa.txt onde ddmmaaaa é o dia da cotação histórica
+            // COTAHIST_Dddmmaaaa.ZIP onde ddmmaaaa é o dia da cotação histórica
+
+            string pasta = Geral.PastaTemporariaMoneyPro();
+
+            var arquivosZIP = Directory
+                .GetFiles(pastaDownload, "COTAHIST_*.ZIP")
+                .Select(fn => new FileInfo(fn))
+                .OrderBy(f => f.Name);
+
+            foreach (var arquivoZIP in arquivosZIP)
+            {
+                int ponto = arquivoZIP.Name.IndexOf('.');
+                string fileName = $"{pasta}\\{arquivoZIP.Name.Substring(0, ponto)}.TXT";
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+                ZipFile.ExtractToDirectory(arquivoZIP.FullName, pasta);
+            }
+
             var arquivos = Directory
-                .GetFiles(pastaDownload, "COTAHIST_*.txt")
+                .GetFiles(pasta, "COTAHIST_*.txt")
                 .Select(fn => new FileInfo(fn))
                 .OrderBy(f => f.Name);
 
@@ -74,14 +92,12 @@ namespace MoneyPro
                     IncluirProcessamento($"Processando arquivo {arquivo}");
                     if (ProcessarArquivoB3(arquivos.ElementAt(i).FullName, acoes))
                     {
-                        int ponto = arquivos.ElementAt(i).FullName.IndexOf('.');
-                        string oldFileName = arquivos.ElementAt(i).FullName;
-                        string newFileName = arquivos.ElementAt(i).FullName.Substring(0, ponto) + ".ok";
+                        //int ponto = arquivos.ElementAt(i).FullName.IndexOf('.');
+                        //string userdFileName = arquivos.ElementAt(i).FullName;
+                        //string newFileName = arquivos.ElementAt(i).FullName.Substring(0, ponto) + ".ok";
 
-                        if (File.Exists(newFileName))
-                            File.Delete(newFileName);
-
-                        File.Move(oldFileName, newFileName);
+                        if (File.Exists(arquivos.ElementAt(i).FullName))
+                            File.Delete(arquivos.ElementAt(i).FullName);
                     }
                 }
             }
@@ -135,13 +151,11 @@ namespace MoneyPro
                                 DisMes = Convert.ToDecimal(line.Substring(242, 3))
                             };
 
-                            //rows.Find()
                             var acaoProcurada = rows.Find(x => x.Field<String>("Consulta") == CotacaoB3.CodNeg);
 
                             if (acaoProcurada != null)
                             {
                                 bll.AtualizarCotacaoB3(CotacaoB3, acaoProcurada.Field<int>("InvestimentoID"));
-                                //Console.WriteLine($"Achei {CotacaoB3.CodNeg}");
                             }
                         }
                     }
@@ -156,106 +170,7 @@ namespace MoneyPro
             }
         }
 
-        //private DataTable CriarDataTableAcoes()
-        //{
-        //    var dtbAcoes = new DataTable();
-        //    dtbAcoes.Columns.Add("InvestimentoID", typeof(int));
-        //    dtbAcoes.Columns.Add("Apelido", typeof(string));
-        //    dtbAcoes.Columns.Add("Descricao", typeof(string));
-        //    dtbAcoes.Columns.Add("Consulta", typeof(string));
 
-        //    return dtbAcoes;
-        //}
-
-        //private AcaoCotacao CarregaCotacao(string codigoPapel)
-        //{
-        //    NumberStyles style = NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint;
-        //    CultureInfo culture = CultureInfo.CreateSpecificCulture("pt-BR");
-
-        //    AcaoCotacao modelo = new AcaoCotacao();
-
-        //    string url = @"http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=" + codigoPapel;
-
-        //    string xml;
-        //    try
-        //    {
-        //        using (var webClient = new WebClient())
-        //        {
-        //            xml = webClient.DownloadString(url);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        xml = String.Empty;
-        //        modelo.InvestimentoID = -1;
-        //        modelo.Codigo = codigoPapel;
-        //    }
-
-        //    if (xml != String.Empty)
-        //    {
-        //        XDocument xDoc = XDocument.Parse(xml);
-
-        //        foreach (XElement item in xDoc.Root.Nodes())
-        //        {
-        //            if (item.NodeType == XmlNodeType.Element)
-        //            {
-        //                modelo.Codigo = item.Attribute("Codigo").Value;
-        //                modelo.Nome = item.Attribute("Nome").Value;
-        //                modelo.Ibovespa = item.Attribute("Ibovespa").Value;
-
-        //                DateTime data;
-
-        //                if (!DateTime.TryParseExact(item.Attribute("Data").Value, "dd/MM/yyyyHH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out data))
-        //                {
-        //                    if (!DateTime.TryParseExact(item.Attribute("Data").Value, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out data))
-        //                    {
-        //                        data = DateTime.Parse("01/01/1900");
-        //                    }
-        //                }
-        //                modelo.Data = data;
-
-        //                decimal valor;
-
-        //                if (!Decimal.TryParse(item.Attribute("Abertura").Value, style, culture, out valor))
-        //                {
-        //                    valor = 0;
-        //                }
-        //                modelo.Abertura = valor;
-
-        //                if (!Decimal.TryParse(item.Attribute("Minimo").Value, style, culture, out valor))
-        //                {
-        //                    valor = 0;
-        //                }
-        //                modelo.Minimo = valor;
-
-        //                if (!Decimal.TryParse(item.Attribute("Maximo").Value, style, culture, out valor))
-        //                {
-        //                    valor = 0;
-        //                }
-        //                modelo.Maximo = valor;
-
-        //                if (!Decimal.TryParse(item.Attribute("Medio").Value, style, culture, out valor))
-        //                {
-        //                    valor = 0;
-        //                }
-        //                modelo.Medio = valor;
-
-        //                if (!Decimal.TryParse(item.Attribute("Ultimo").Value, style, culture, out valor))
-        //                {
-        //                    valor = 0;
-        //                }
-        //                modelo.Ultimo = valor;
-
-        //                if (!Decimal.TryParse(item.Attribute("Oscilacao").Value, style, culture, out valor))
-        //                {
-        //                    valor = 0;
-        //                }
-        //                modelo.Oscilacao = valor;
-        //            }
-        //        }
-        //    }
-        //    return modelo;
-        //}
 
         #endregion Cotacoes Bovespa
 
@@ -395,7 +310,7 @@ namespace MoneyPro
             }
 
             // Faz com que o rol de contas à esquerda da tela seja atualizado
-            Origem.CarregarRolContas();
+            Origem.CarregarRolContasAsync();
 
             // Finaliza o cronômetro
             stopWatch.Stop();
@@ -463,7 +378,7 @@ namespace MoneyPro
             string mensagem = string.Format("Variação acumulada de investimentos calculada em {0:00}:{1:00}:{2:00}.", ts.Hours, ts.Minutes, ts.Seconds);
             IncluirProcessamento(mensagem);
 
-            Origem.CarregarRolContas();
+            Origem.CarregarRolContasAsync();
         }
 
         private void buttonInterromper_Click(object sender, EventArgs e)

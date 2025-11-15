@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -16,15 +17,14 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT ContaID, UsuarioID, InstituicaoID, TipoContaID, MoedaID, Apelido,
-                                                       Descricao, DataAbertura, SaldoInicial, Limite, Decimais, UsaHora, 
-                                                       OFX, CSV, TipoArquivo, Ativo, ExibirProjecao
-                                                FROM Conta
-                                                WHERE UsuarioID = @UsuarioID " +
-
-                                               (!TodasContas ? " AND Ativo = 1 " : "") +
-
-                                               "ORDER BY Apelido ASC;", conn);
+            SqlCommand query = new SqlCommand(@"
+                                              SELECT ContaID, UsuarioID, InstituicaoID, TipoContaID, MoedaID, Apelido,
+                                                     Descricao, DataAbertura, SaldoInicial, Limite, Decimais, UsaHora, 
+                                                     OFX, CSV, TipoArquivo, Ativo, ExibirProjecao
+                                              FROM Conta
+                                              WHERE UsuarioID = @UsuarioID " +
+                                              (!TodasContas ? " AND Ativo = 1 " : "") +
+                                             "ORDER BY Apelido ASC;", conn);
 
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@UsuarioID", UsuarioID);
@@ -45,13 +45,14 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT Ordem, Detalhe, Grupo, COALESCE(UsuarioID, @UsuarioID) AS UsuarioID, 
-                                                       ContaID, Conta, GrupoContaID, MoedaID, TipoContaID, Moeda, Valor,
-                                                       ValorFormatado, Banco, Poupanca, Cartao, Investimento, CDB,
-                                                       ExibirResumo, Decimais, UsaHora, OFX, CSV
-                                                FROM vw_ListaContas_V04
-                                                WHERE COALESCE(UsuarioID, @UsuarioID) = @UsuarioID
-                                                ORDER BY Ordem ASC, Detalhe ASC, Conta ASC;", conn);
+            SqlCommand query = new SqlCommand(@"
+                                              SELECT Ordem, Detalhe, Grupo, COALESCE(UsuarioID, @UsuarioID) AS UsuarioID, 
+                                                     ContaID, Conta, GrupoContaID, MoedaID, TipoContaID, Moeda, Valor,
+                                                     ValorFormatado, Banco, Poupanca, Cartao, Investimento, CDB,
+                                                     ExibirResumo, Decimais, UsaHora, OFX, CSV
+                                              FROM vw_ListaContas_V05
+                                              WHERE COALESCE(UsuarioID, @UsuarioID) = @UsuarioID
+                                              ORDER BY Ordem ASC, Detalhe ASC, Conta ASC;", conn);
 
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@UsuarioID", usuarioID);
@@ -62,6 +63,38 @@ namespace DAL
             // Popula a tabela
             da.Fill(table);
             // Retorn a tabela
+            return table;
+        }
+
+        public async Task<DataTable> RolContasAsync(int usuarioID)
+        {
+            string query = @"SELECT Ordem, Detalhe, Grupo, COALESCE(UsuarioID, @UsuarioID) AS UsuarioID, 
+                                    ContaID, Conta, GrupoContaID, MoedaID, TipoContaID, Moeda, Valor,
+                                    ValorFormatado, Banco, Poupanca, Cartao, Investimento, CDB,
+                                    ExibirResumo, Decimais, UsaHora, OFX, CSV
+                             FROM vw_ListaContas_V05
+                             WHERE COALESCE(UsuarioID, @UsuarioID) = @UsuarioID
+                             ORDER BY Ordem ASC, Detalhe ASC, Conta ASC;";
+
+            // Instancia uma tabela
+            DataTable table = new DataTable();
+            // Instancia uma conexão
+            using (SqlConnection conn = new SqlConnection(Dados.Conexao))
+            {
+                await conn.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    // Atribui os parâmetros
+                    command.Parameters.AddWithValue("@UsuarioID", usuarioID);
+                    // Define timeout maior
+                    command.CommandTimeout = 60;
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        table.Load(reader);
+                    }
+                }
+            }
             return table;
         }
 

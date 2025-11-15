@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Modelos;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -113,7 +114,7 @@ namespace MoneyPro
                     Configuracoes = bll.CarregarConfiguracaoPrincipal();
                 }
 
-                CarregarRolContas();
+                CarregarRolContasSincrono();
 
                 Geral.UserID = value;
             }
@@ -132,20 +133,9 @@ namespace MoneyPro
             }
         }
 
-        public void CarregarRolContas()
+        public void CarregarRolContasSincrono()
         {
-            int lin = -1;
-            int offset = -1;
-
-            if (rolContasDataGridView.RowCount > 0)
-            {
-                // Armazena o índice para recolocar na mesma posição
-                lin = rolContasDataGridView.CurrentRow.Index;
-                offset = rolContasDataGridView.FirstDisplayedScrollingRowIndex;
-            }
-
-            ContaBLL conta = new ContaBLL();
-            rolContasDataGridView.DataSource = conta.RolContas(_userID);
+            rolContasDataGridView.DataSource = new ContaBLL().RolContas(_userID);
 
             foreach (DataGridViewColumn col in rolContasDataGridView.Columns)
             {
@@ -166,22 +156,69 @@ namespace MoneyPro
                 }
             }
 
-            if (lin >= 0)
+            toolStripButtonPrevisaoSaldoNegativo.Visible = Geral.ContasQueFicaraoNegativas(_userID, Configuracoes.DiasPrevisaoSaldoNegativo) > 0;
+        }
+
+        public async void CarregarRolContasAsync()
+        {
+            groupBoxContas.ForeColor = Color.ForestGreen;
+            try
             {
-                if (offset > 0 && offset < rolContasDataGridView.RowCount)
+                int lin = -1;
+                int offset = -1;
+
+                if (rolContasDataGridView.RowCount > 0)
                 {
-                    rolContasDataGridView.FirstDisplayedScrollingRowIndex = offset;
+                    // Armazena o índice para recolocar na mesma posição
+                    lin = rolContasDataGridView.CurrentRow.Index;
+                    offset = rolContasDataGridView.FirstDisplayedScrollingRowIndex;
                 }
 
-                int col = Geral.PrimeiraColunaVisivel(rolContasDataGridView);
-
-                if (col >= 0)
+                using (DataTable rolContas = await new ContaBLL().RolContasAsync(_userID))
                 {
-                    rolContasDataGridView.CurrentCell = rolContasDataGridView.Rows[lin].Cells[col];
+                    rolContasDataGridView.DataSource = rolContas;
+
+                    foreach (DataGridViewColumn col in rolContasDataGridView.Columns)
+                    {
+                        if (col.Name == "Conta")
+                        {
+                            col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                            col.Visible = true;
+                        }
+                        else if (col.Name == "ValorFormatado")
+                        {
+                            col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                            col.Visible = true;
+                        }
+                        else
+                        {
+                            col.Visible = false;
+                        }
+                    }
+
+                    if (lin >= 0)
+                    {
+                        if (offset > 0 && offset < rolContasDataGridView.RowCount)
+                        {
+                            rolContasDataGridView.FirstDisplayedScrollingRowIndex = offset;
+                        }
+
+                        int col = Geral.PrimeiraColunaVisivel(rolContasDataGridView);
+
+                        if (col >= 0)
+                        {
+                            rolContasDataGridView.CurrentCell = rolContasDataGridView.Rows[lin].Cells[col];
+                        }
+                    }
+
+                    toolStripButtonPrevisaoSaldoNegativo.Visible = Geral.ContasQueFicaraoNegativas(_userID, Configuracoes.DiasPrevisaoSaldoNegativo) > 0;
                 }
             }
-
-            toolStripButtonPrevisaoSaldoNegativo.Visible = Geral.ContasQueFicaraoNegativas(_userID, Configuracoes.DiasPrevisaoSaldoNegativo) > 0;
+            finally
+            {
+                groupBoxContas.ForeColor = SystemColors.ControlText;
+            }
         }
 
         public string Usuario
@@ -812,7 +849,7 @@ namespace MoneyPro
 
         private void FmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult resp = MessageBox.Show("Deseja fechar o MoneyPro?", Geral.Sistema(true), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult resp = MessageBox.Show(this, "Deseja fechar o MoneyPro?", Geral.Sistema(true), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             e.Cancel = resp == DialogResult.No;
         }
 
@@ -902,7 +939,7 @@ namespace MoneyPro
                     }
                 }
 
-                CarregarRolContas();
+                CarregarRolContasAsync();
             }
             finally
             {
@@ -1150,7 +1187,7 @@ namespace MoneyPro
             // TimerAtualizarRolContas_Tick para esse Timer, que, ao executar, já o remove para que não seja 
             // executado novamente até que o BackgroundWorker termine...  Ad infinitum
             timerAtualizarRolContas.Tick -= TimerAtualizarRolContas_Tick;
-            CarregarRolContas();
+            CarregarRolContasAsync();
         }
 
         private void ToolStripStatusMensagem_TextChanged(object sender, EventArgs e)

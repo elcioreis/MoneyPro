@@ -1056,9 +1056,21 @@ namespace MoneyPro
             }
         }
 
-
         // A rotina abaixo, que é apenas uma chamada à dll do windows, verifica se há conexão de rede ativa.
         [System.Runtime.InteropServices.DllImport("wininet.dll")]
         internal static extern bool InternetGetConnectedState(out int Description, int ReservedValue);
+
+        internal static string PastaTemporariaMoneyPro()
+        {
+            // Pasta para colocar os arquivos baixados
+            StringBuilder pasta = new StringBuilder(Path.GetTempPath() + "MoneyPro");
+
+            if (!Directory.Exists(pasta.ToString()))
+            {
+                Directory.CreateDirectory(pasta.ToString());
+            }
+
+            return pasta.ToString();
+        }
     }
 }
