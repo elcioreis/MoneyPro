@@ -69,8 +69,9 @@ namespace Modelos
         private bool _usaHora = false;
         private bool _exibirProjecao = false;
         private bool _CSV = false;
-        private string _TipoArquivo;
-
+        private string _tipoArquivo;
+        private bool _previaCartao = false;
+        private int? _diaConta;
 
         public int ContaID
         {
@@ -176,8 +177,20 @@ namespace Modelos
 
         public string TipoArquivo
         {
-            get { return _TipoArquivo; }
-            set { _TipoArquivo = value; }
+            get { return _tipoArquivo; }
+            set { _tipoArquivo = value; }
+        }
+
+        public bool PreviaCartao
+        { 
+            get { return _previaCartao; }
+            set { _previaCartao = value; }
+        }
+
+        public int? DiaVencimento
+        {
+            get { return _diaConta; }
+            set { _diaConta = value; }
         }
 
     }//end Conta

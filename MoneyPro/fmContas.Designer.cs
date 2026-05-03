@@ -36,6 +36,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnMoedas = new System.Windows.Forms.Button();
             this.btnTipoConta = new System.Windows.Forms.Button();
@@ -60,6 +61,8 @@
             this.CSV = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.TipoArquivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExibirProjecao = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.PreviaCartao = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DiaVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
@@ -102,7 +105,7 @@
             // labelTopo
             // 
             this.labelTopo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.labelTopo.Size = new System.Drawing.Size(277, 32);
+            this.labelTopo.Size = new System.Drawing.Size(276, 32);
             this.labelTopo.Text = "Cadastro de Contas";
             // 
             // toolTip
@@ -214,6 +217,8 @@
             this.CSV,
             this.TipoArquivo,
             this.ExibirProjecao,
+            this.PreviaCartao,
+            this.DiaVencimento,
             this.Ativo});
             this.contaDataGridView.DataSource = this.contaBindingSource;
             this.contaDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -277,7 +282,7 @@
             this.DataAbertura.HeaderText = "Abertura";
             this.DataAbertura.MinimumWidth = 6;
             this.DataAbertura.Name = "DataAbertura";
-            this.DataAbertura.Width = 92;
+            this.DataAbertura.Width = 87;
             // 
             // InstituicaoID
             // 
@@ -313,7 +318,7 @@
             this.SaldoInicial.HeaderText = "Saldo Inicial";
             this.SaldoInicial.MinimumWidth = 75;
             this.SaldoInicial.Name = "SaldoInicial";
-            this.SaldoInicial.Width = 112;
+            this.SaldoInicial.Width = 109;
             // 
             // Limite
             // 
@@ -361,7 +366,7 @@
             this.UsaHora.MinimumWidth = 6;
             this.UsaHora.Name = "UsaHora";
             this.UsaHora.ToolTipText = "Usa transações com hora, minuto e segundo.";
-            this.UsaHora.Width = 45;
+            this.UsaHora.Width = 43;
             // 
             // OFX
             // 
@@ -372,7 +377,7 @@
             this.OFX.MinimumWidth = 6;
             this.OFX.Name = "OFX";
             this.OFX.ToolTipText = "Utiliza arquivo OFX para conciliação";
-            this.OFX.Width = 42;
+            this.OFX.Width = 39;
             // 
             // CSV
             // 
@@ -383,7 +388,7 @@
             this.CSV.MinimumWidth = 6;
             this.CSV.Name = "CSV";
             this.CSV.ToolTipText = "Utiliza arquivo CSV para conciliação";
-            this.CSV.Width = 41;
+            this.CSV.Width = 40;
             // 
             // TipoArquivo
             // 
@@ -395,7 +400,7 @@
             this.TipoArquivo.Name = "TipoArquivo";
             this.TipoArquivo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TipoArquivo.ToolTipText = "Origem Arquivo CSV";
-            this.TipoArquivo.Width = 101;
+            this.TipoArquivo.Width = 96;
             // 
             // ExibirProjecao
             // 
@@ -405,7 +410,31 @@
             this.ExibirProjecao.HeaderText = "Projeção";
             this.ExibirProjecao.MinimumWidth = 6;
             this.ExibirProjecao.Name = "ExibirProjecao";
-            this.ExibirProjecao.Width = 70;
+            this.ExibirProjecao.Width = 68;
+            // 
+            // PreviaCartao
+            // 
+            this.PreviaCartao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.PreviaCartao.DataPropertyName = "PreviaCartao";
+            this.PreviaCartao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PreviaCartao.HeaderText = "Previa Cartão";
+            this.PreviaCartao.MinimumWidth = 6;
+            this.PreviaCartao.Name = "PreviaCartao";
+            this.PreviaCartao.Width = 86;
+            // 
+            // DiaVencimento
+            // 
+            this.DiaVencimento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.DiaVencimento.DataPropertyName = "DiaVencimento";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "#0";
+            this.DiaVencimento.DefaultCellStyle = dataGridViewCellStyle8;
+            this.DiaVencimento.HeaderText = "Vencimento";
+            this.DiaVencimento.MinimumWidth = 75;
+            this.DiaVencimento.Name = "DiaVencimento";
+            this.DiaVencimento.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DiaVencimento.ToolTipText = "Dia de vencimento";
+            this.DiaVencimento.Width = 84;
             // 
             // Ativo
             // 
@@ -415,7 +444,7 @@
             this.Ativo.HeaderText = "Ativo";
             this.Ativo.MinimumWidth = 6;
             this.Ativo.Name = "Ativo";
-            this.Ativo.Width = 45;
+            this.Ativo.Width = 43;
             // 
             // fmContas
             // 
@@ -463,6 +492,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn CSV;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoArquivo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ExibirProjecao;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn PreviaCartao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiaVencimento;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Ativo;
     }
 }

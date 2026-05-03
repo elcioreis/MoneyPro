@@ -524,7 +524,7 @@ namespace MoneyPro
                 // Recarrega as categorias no form de origem pois o investimento pode ter gerado uma nova categoria
                 (FormOrigem as fmMovimentosConta).CarregaLancamentos(IDUsuario);
                 // Recarrega o grid de lançamentos
-                (FormOrigem as fmMovimentosConta).CarregarMovimentosContas(IDConta);
+                (FormOrigem as fmMovimentosConta).CarregarMovimentosContas(IDConta, false);
                 this.Close();
             }
         }

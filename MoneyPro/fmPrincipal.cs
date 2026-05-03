@@ -424,10 +424,11 @@ namespace MoneyPro
                     bool exibirResumo = (bool)rolContasDataGridView.CurrentRow.Cells["ExibirResumo"].Value;
                     int decimais = (int)rolContasDataGridView.CurrentRow.Cells["Decimais"].Value;
                     bool usaHora = (bool)rolContasDataGridView.CurrentRow.Cells["UsaHora"].Value;
+                    bool previaCartao = (bool)rolContasDataGridView.CurrentRow.Cells["PreviaCartao"].Value;
 
                     FechaTodos();
 
-                    fmMovimentosConta movimentoConta = fmMovimentosConta.CreateInstance(this, contaID, contaNome, decimais, usaHora, exibirResumo);
+                    fmMovimentosConta movimentoConta = fmMovimentosConta.CreateInstance(this, contaID, contaNome, decimais, usaHora, exibirResumo, previaCartao);
 
                     if ((bool)rolContasDataGridView.CurrentRow.Cells["Banco"].Value)
                     {
@@ -1209,14 +1210,21 @@ namespace MoneyPro
                         // Coleta o Ticker do HitBTC para registrar o valor das moedas
                         acessoHitBTC.CarregarTicker();
                     }
-                    toolStripStatusMensagem.Text = string.Empty;
-                    toolStripStatusMensagem.ToolTipText = string.Empty;
+
+                    this.BeginInvoke((MethodInvoker)(() =>
+                    {
+                        toolStripStatusMensagem.Text = string.Empty;
+                        toolStripStatusMensagem.ToolTipText = string.Empty;
+                    }));
                 }
             }
             catch (Exception ex)
             {
-                toolStripStatusMensagem.Text = "Erro na Carga de Trades";
-                toolStripStatusMensagem.ToolTipText = ex.Message;
+                this.BeginInvoke((MethodInvoker)(() =>
+                {
+                    toolStripStatusMensagem.Text = "Erro na Carga de Trades";
+                    toolStripStatusMensagem.ToolTipText = ex.Message;
+                }));
             }
         }
 

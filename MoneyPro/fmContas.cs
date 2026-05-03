@@ -341,6 +341,8 @@ namespace MoneyPro
             row["UsaHora"] = false;
             row["Ativo"] = true;
             row["ExibirProjecao"] = false;
+            row["PreviaCartao"] = false;
+            row["DiaVencimento"] = DBNull.Value;
 
             table.Rows.Add(row);
 
@@ -430,6 +432,7 @@ namespace MoneyPro
                     conta.Decimais = (int)linha.Cells["Decimais"].Value;
                     conta.UsaHora = (bool)linha.Cells["UsaHora"].Value;
                     conta.ExibirProjecao = (bool)linha.Cells["ExibirProjecao"].Value;
+                    conta.PreviaCartao = (bool)linha.Cells["PreviaCartao"].Value;
 
                     if (linha.Cells["TipoArquivo"].Value != DBNull.Value)
                     {
@@ -438,6 +441,23 @@ namespace MoneyPro
                     else
                     {
                         conta.TipoArquivo = null;
+                    }
+
+                    if (linha.Cells["DiaVencimento"].Value == DBNull.Value)
+                    { 
+                        conta.DiaVencimento = null;
+                    }
+                    else if (!int.TryParse(linha.Cells["DiaVencimento"].Value.ToString(), out int diaVencimento))
+                    {
+                        conta.DiaVencimento = null;
+                    }
+                    else if (1 <= ((int?)linha.Cells["DiaVencimento"].Value ?? 0) && ((int?)linha.Cells["DiaVencimento"].Value ?? 0) <= 31)
+                    {
+                        conta.DiaVencimento = (int)linha.Cells["DiaVencimento"].Value;
+                    }
+                    else
+                    {
+                        conta.DiaVencimento = null;
                     }
 
                     ContaBLL bll = new ContaBLL();

@@ -53,6 +53,7 @@
             NaoConciliado = ' ',
             Agendado = 'A',
             Futuro = 'F',
+            Previsao = 'P',
             Conciliado = 'C',
             Reconciliado = 'R'
         }

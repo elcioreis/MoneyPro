@@ -45,6 +45,12 @@ namespace BLL
             return dal.ListarMovimentosContaResumo(contaID, filtro);
         }
 
+        public DataTable ListarMovimentosContaPagtoCartaoResumo(int contaID, string filtro)
+        {
+            MovimentoContaDAL dal = new MovimentoContaDAL();
+            return dal.ListarMovimentosContaPagtoCartaoResumo(contaID, filtro);
+        }
+
         public DataTable ListarNaoConciliados(int contaID, DateTime dataInicial)
         {
             MovimentoContaDAL dal = new MovimentoContaDAL();

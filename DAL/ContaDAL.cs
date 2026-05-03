@@ -20,7 +20,7 @@ namespace DAL
             SqlCommand query = new SqlCommand(@"
                                               SELECT ContaID, UsuarioID, InstituicaoID, TipoContaID, MoedaID, Apelido,
                                                      Descricao, DataAbertura, SaldoInicial, Limite, Decimais, UsaHora, 
-                                                     OFX, CSV, TipoArquivo, Ativo, ExibirProjecao
+                                                     OFX, CSV, TipoArquivo, Ativo, ExibirProjecao, PreviaCartao, DiaVencimento
                                               FROM Conta
                                               WHERE UsuarioID = @UsuarioID " +
                                               (!TodasContas ? " AND Ativo = 1 " : "") +
@@ -49,8 +49,8 @@ namespace DAL
                                               SELECT Ordem, Detalhe, Grupo, COALESCE(UsuarioID, @UsuarioID) AS UsuarioID, 
                                                      ContaID, Conta, GrupoContaID, MoedaID, TipoContaID, Moeda, Valor,
                                                      ValorFormatado, Banco, Poupanca, Cartao, Investimento, CDB,
-                                                     ExibirResumo, Decimais, UsaHora, OFX, CSV
-                                              FROM vw_ListaContas_V05
+                                                     ExibirResumo, Decimais, UsaHora, OFX, CSV, PreviaCartao, DiaVencimento
+                                              FROM vw_ListaContas
                                               WHERE COALESCE(UsuarioID, @UsuarioID) = @UsuarioID
                                               ORDER BY Ordem ASC, Detalhe ASC, Conta ASC;", conn);
 
@@ -71,8 +71,8 @@ namespace DAL
             string query = @"SELECT Ordem, Detalhe, Grupo, COALESCE(UsuarioID, @UsuarioID) AS UsuarioID, 
                                     ContaID, Conta, GrupoContaID, MoedaID, TipoContaID, Moeda, Valor,
                                     ValorFormatado, Banco, Poupanca, Cartao, Investimento, CDB,
-                                    ExibirResumo, Decimais, UsaHora, OFX, CSV
-                             FROM vw_ListaContas_V05
+                                    ExibirResumo, Decimais, UsaHora, OFX, CSV, PreviaCartao, DiaVencimento
+                             FROM vw_ListaContas
                              WHERE COALESCE(UsuarioID, @UsuarioID) = @UsuarioID
                              ORDER BY Ordem ASC, Detalhe ASC, Conta ASC;";
 
@@ -138,13 +138,13 @@ namespace DAL
             SqlCommand cmd = new SqlCommand(@"INSERT INTO Conta
                                               (UsuarioID, InstituicaoID, TipoContaID, MoedaID, Apelido, Descricao,
                                                DataAbertura, SaldoInicial, Limite, OFX, Ativo, Decimais, UsaHora,
-                                               CSV, TipoArquivo)
+                                               CSV, TipoArquivo, PreviaCartao, DiaVencimento, DiaVencimento)
                                               VALUES
                                               (@UsuarioID, @InstituicaoID, @TipoContaID, @MoedaID, @Apelido, @Descricao,
                                                @DataAbertura, @SaldoInicial, @Limite, @OFX, @Ativo, @Decimais, @UsaHora,
-                                               @CSV, @TipoArquivo); " +
-                                            // Retorna o ID da Conta
-                                            "SELECT CAST(@@IDENTITY AS INT) AS ContaID;", conn);
+                                               @CSV, @TipoArquivo, @PreviaCartao, @DiaVencimento, @DiaVencimento); " +
+                                             // Retorna o ID da Conta
+                                             "SELECT CAST(@@IDENTITY AS INT) AS ContaID;", conn);
 
             cmd.Parameters.AddWithValue("@UsuarioID", modelo.UsuarioID);
             cmd.Parameters.AddWithValue("@InstituicaoID", modelo.InstituicaoID);
@@ -161,6 +161,8 @@ namespace DAL
             cmd.Parameters.AddWithValue("@UsaHora", modelo.UsaHora);
             cmd.Parameters.AddWithValue("@CSV", modelo.CSV);
             cmd.Parameters.AddWithValue("@TipoArquivo", (object)modelo.TipoArquivo ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@PreviaCartao", modelo.PreviaCartao);
+            cmd.Parameters.AddWithValue("@DiaVencimento", modelo.DiaVencimento);
 
             conn.Open();
             try
@@ -184,7 +186,7 @@ namespace DAL
         {
             SqlConnection conn = new SqlConnection(Dados.Conexao);
 
-            // A instituição não poderá ser transferida para outro 
+            // A conta não poderá ser transferida para outro 
             // usuário, por isso o campo UsuarioID nunca é atualizado
 
             //  A tabela Conta possui uma trigger para alteração
@@ -204,9 +206,10 @@ namespace DAL
                                                   Ativo = @Ativo,
                                                   ExibirProjecao = @ExibirProjecao,
                                                   CSV = @CSV,
-                                                  TipoArquivo = @TipoArquivo
+                                                  TipoArquivo = @TipoArquivo,
+                                                  PreviaCartao = @PreviaCartao,
+                                                  DiaVencimento = @DiaVencimento
                                               WHERE ContaID = @ContaID;
-
                                               SELECT CAST(@@ERROR AS INT) AS Erro;", conn);
 
             cmd.Parameters.AddWithValue("@InstituicaoID", modelo.InstituicaoID);
@@ -225,6 +228,8 @@ namespace DAL
             cmd.Parameters.AddWithValue("@ExibirProjecao", modelo.ExibirProjecao);
             cmd.Parameters.AddWithValue("@CSV", modelo.CSV);
             cmd.Parameters.AddWithValue("@TipoArquivo", (object)modelo.TipoArquivo ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@PreviaCartao", modelo.PreviaCartao);
+            cmd.Parameters.AddWithValue("@DiaVencimento", (object)modelo.DiaVencimento ?? DBNull.Value);
 
             try
             {

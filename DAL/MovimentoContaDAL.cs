@@ -123,6 +123,85 @@ namespace DAL
             return table;
         }
 
+        public DataTable ListarMovimentosContaPagtoCartaoResumo(int contaID, string filtro)
+        {
+            DateTime dataMinima = PrimeiroDiaNaoReconciliado(contaID);
+            // Instancia uma tabela
+            DataTable table = new DataTable();
+            // Instancia uma conexão
+            SqlConnection conn = new SqlConnection(Dados.Conexao);
+
+            // Instancia um adaptador
+            using (SqlDataAdapter da = new SqlDataAdapter())
+            {
+                // A ordem da query abaixo deve ser sempre a mesma ordem da procedure que calcula o balanço da conta:
+                // 1) stpAtualizaBalancoConta para todos os movimentos da conta
+                // 2) stpAtualizaBalancoContaPeriodo para os movimentos da conta a partir de uma determinada data
+
+                // Instancia um comando
+                SqlCommand query = new SqlCommand(
+                    @"SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao,  
+                             vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, 
+                             vmMC.Conciliacao, vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
+                             vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, 
+                             vmMC.VrLiquido, vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, vmMC.IdentificacaoOFX, 
+                             vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, vmMC.PlanejamentoID,
+                             CASE WHEN vmMC.Conciliacao IN ('A','F','P') THEN 1 ELSE 0 END Conc,
+                             MObs.Observacao
+                      FROM vw_MovimentacaoContaPagamentoCartao vmMC  
+                      LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID
+                      WHERE vmMC.ContaID = @ContaID  
+                      AND   vmMC.Data >= @DataMinima " +
+
+                    filtro + "  " +
+
+                    @"UNION ALL  
+
+                      SELECT -9999, vmMC.UsuarioID, vmMC.ContaID, DATEADD(Day, -1, @DataMinima) Data, NULL, NULL,  
+                             'Reconciliados até ' + CONVERT(VARCHAR(10), DATEADD(Day, -1, @DataMinima), 103) Descricao,  
+                             Ctgr.CategoriaID, NULL, NULL,  
+                             SUM(vmMC.Credito) Credito, SUM(vmMC.Debito) Debito,  
+                             NULL Valor, SUM(vmMC.Valor) Balanco, vmMC.Conciliacao,  
+                             NULL, 0 DoMovimentoContaID, CAST(1 AS BIT) Sistema, NULL, NULL, NULL, NULL,  
+                             NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0 Legenda, NULL, NULL, 0 Passo, 
+                             COUNT(*) MovimentosAgrupados, 0 PlanejamentoID,
+                             -1 Conc, NULL Observacao
+                      FROM vw_MovimentacaoContaPagamentoCartao vmMC  
+                           JOIN Categoria Ctgr ON Ctgr.ContaID = vmMC.ContaID  
+                      WHERE vmMC.ContaID = @ContaID  
+                      AND   vmMC.Data < @DataMinima " +
+
+                    filtro + "  " +
+
+                    @"GROUP BY vmMC.UsuarioID, vmMC.ContaID, vmMC.Conciliacao, Ctgr.CategoriaID  
+                      ORDER BY CASE WHEN Conciliacao IN ('A','F','P') THEN 1 ELSE 0 END ASC, 
+                               Data ASC, MovimentoContaID;", conn);
+
+                // Atribui os parâmetros
+                query.Parameters.AddWithValue("@ContaID", contaID);
+                query.Parameters.AddWithValue("@DataMinima", dataMinima);
+                query.CommandTimeout = 240;
+
+                // Coloca a query no adaptador
+                da.SelectCommand = query;
+
+                // Popula a tabela
+                da.Fill(table);
+            }
+
+            decimal soma = (decimal)table.Rows[0]["Balanco"];
+
+            foreach(DataRow linha in table.AsEnumerable().Where(r => r.Field<int>("MovimentoContaID") > -9999))
+            {
+                soma += linha["Credito"] == DBNull.Value ? 0 : (decimal)linha["Credito"];
+                soma -= linha["Debito"] == DBNull.Value ? 0 : (decimal)linha["Debito"]; 
+                linha["Balanco"] = soma;
+            }
+
+            // Retorn a tabela
+            return table;
+        }
+
         public DataTable ListarNaoConciliados(int contaID, DateTime dataMinima)
         {
             // Instancia uma tabela

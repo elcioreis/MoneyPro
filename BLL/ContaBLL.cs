@@ -91,7 +91,6 @@ namespace BLL
                 msg = "A descrição deve ser preenchida.";
             }
 
-
             if (!String.IsNullOrEmpty(msg))
             {
                 // Se exibir qualquer mensagem na tela, não será considerado válido

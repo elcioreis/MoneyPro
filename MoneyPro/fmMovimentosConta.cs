@@ -44,12 +44,13 @@ namespace MoneyPro
         private readonly bool usaHora = false;
         private bool arquivoTXT = false;
         private bool csv = false;
+        private bool _previaCartao = false;
 
         #region Singleton
 
         private static fmMovimentosConta _singleton;
 
-        private fmMovimentosConta(FmPrincipal origem, int contaID, string contaNome, int decimais, bool usaHora, bool exibeResumo)
+        private fmMovimentosConta(FmPrincipal origem, int contaID, string contaNome, int decimais, bool usaHora, bool exibeResumo, bool previaCartao)
         {
             InitializeComponent();
 
@@ -65,6 +66,8 @@ namespace MoneyPro
             this.decimais = decimais;
             this.usaHora = usaHora;
             this.ExibeResumo = exibeResumo;
+
+            _previaCartao = previaCartao;
 
             LimpaArraySelecionados(selecaoLancamentoID);
             LimpaArraySelecionados(selecaoCategoriaID);
@@ -84,14 +87,14 @@ namespace MoneyPro
             movimentoContaDataGridView.Columns["Data"].HeaderCell.ContextMenuStrip = contextMenuStripData;
             movimentoContaDataGridView.Columns["Valor"].HeaderCell.ContextMenuStrip = contextMenuStripValor;
             movimentoContaDataGridView.Columns["Valor"].ContextMenuStrip = contextMenuStripValor;
-            CarregaDados(contaID);
+            CarregaDados(contaID, _previaCartao);
         }
 
-        public static fmMovimentosConta CreateInstance(FmPrincipal origem, int contaID, string contaNome, int decimais, bool usaHora, bool exibirResumo)
+        public static fmMovimentosConta CreateInstance(FmPrincipal origem, int contaID, string contaNome, int decimais, bool usaHora, bool exibirResumo, bool previaCartao)
         {
             if (_singleton == null)
             {
-                _singleton = new fmMovimentosConta(origem, contaID, contaNome, decimais, usaHora, exibirResumo);
+                _singleton = new fmMovimentosConta(origem, contaID, contaNome, decimais, usaHora, exibirResumo, previaCartao);
             }
             return _singleton;
         }
@@ -222,13 +225,13 @@ namespace MoneyPro
             }
         }
 
-        private void CarregaDados(int contaID)
+        private void CarregaDados(int contaID, bool previaCartao)
         {
             CriaColunaLancamento();
             CriaColunaCategoria();
             CriaColunaGrupoCategoria();
             CriaColunaLegenda();
-            CarregarMovimentosContas(contaID);
+            CarregarMovimentosContas(contaID, false, previaCartao);
 
             // Formata o cabeçalho coluna Observação
             movimentoContaDataGridView.Columns["Observacao"].HeaderCell.Style.Font = new Font("WebDings", 9.00F, FontStyle.Regular);
@@ -399,7 +402,7 @@ namespace MoneyPro
             combo.DataSource = bll.Listar(IDUsuario);
         }
 
-        public void CarregarMovimentosContas(int contaID, bool ultimaLinha = false)
+        public void CarregarMovimentosContas(int contaID, bool ultimaLinha, bool previaCartao = false)
         {
             try
             {
@@ -426,15 +429,31 @@ namespace MoneyPro
 
                     MovimentoContaBLL mvtoConta = new MovimentoContaBLL();
 
-                    if (ExibeResumo)
+                    if (!_previaCartao)
                     {
-                        // Se o botão minimiza estiver visível é porque a opção atual é maximizado
-                        movimentoContaBindingSource.DataSource = mvtoConta.ListarMovimentosContaResumo(contaID, filtro);
+                        if (ExibeResumo)
+                        {
+                            // Se o botão minimiza estiver visível é porque a opção atual é maximizado
+                            movimentoContaBindingSource.DataSource = mvtoConta.ListarMovimentosContaResumo(contaID, filtro);
+                        }
+                        else
+                        {
+                            // Se o botão minimiza não estiver visível é porque a opção atual é minimizado
+                            movimentoContaBindingSource.DataSource = mvtoConta.ListarMovimentosConta(contaID, filtro);
+                        }
                     }
                     else
                     {
-                        // Se o botão minimiza não estiver visível é porque a opção atual é minimizado
-                        movimentoContaBindingSource.DataSource = mvtoConta.ListarMovimentosConta(contaID, filtro);
+                        if (ExibeResumo)
+                        {
+                            // Se o botão minimiza estiver visível é porque a opção atual é maximizado
+                            movimentoContaBindingSource.DataSource = mvtoConta.ListarMovimentosContaPagtoCartaoResumo(contaID, filtro);
+                        }
+                        else
+                        {
+                            // Se o botão minimiza não estiver visível é porque a opção atual é minimizado
+                            movimentoContaBindingSource.DataSource = mvtoConta.ListarMovimentosConta(contaID, filtro);
+                        }
                     }
 
                     if (offset >= 0 && !ultimaLinha && offset < movimentoContaDataGridView.RowCount)
@@ -598,18 +617,18 @@ namespace MoneyPro
                     return;
                 }
                 else
-                if (movimentoContaDataGridView.CurrentRow.Cells["PlanejamentoID"].Value != DBNull.Value &&
-                    !bll.UltimoDaPilhaDePlanejamento((int)movimentoContaDataGridView.CurrentRow.Cells["MovimentoContaID"].Value))
-                {
-                    // Se o movimento é proveniente de um planejamento (PlanejamentoID != null) e
-                    // se o movimento não é o último da pilha de planejamentos --> apresenta mensagem e aborta a exclusão.
+                    if (movimentoContaDataGridView.CurrentRow.Cells["PlanejamentoID"].Value != DBNull.Value &&
+                        !bll.UltimoDaPilhaDePlanejamento((int)movimentoContaDataGridView.CurrentRow.Cells["MovimentoContaID"].Value))
+                    {
+                        // Se o movimento é proveniente de um planejamento (PlanejamentoID != null) e
+                        // se o movimento não é o último da pilha de planejamentos --> apresenta mensagem e aborta a exclusão.
 
-                    MessageBox.Show("Somente o último movimento proveniente\nde planejamento pode ser excluído.",
-                                    "Erro",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                    return;
-                }
+                        MessageBox.Show("Somente o último movimento proveniente\nde planejamento pode ser excluído.",
+                                        "Erro",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                        return;
+                    }
 
                 string msg;
                 int movimentoID;
@@ -654,7 +673,7 @@ namespace MoneyPro
                 if (dr == DialogResult.Yes)
                 {
                     bll.Excluir(movimentoID);
-                    CarregarMovimentosContas(IDConta);
+                    CarregarMovimentosContas(IDConta, false);
                     Origem.CarregarRolContasAsync();
                 }
             }
@@ -886,7 +905,7 @@ namespace MoneyPro
                 var storedRow = movimentoContaDataGridView.CurrentRow.Index;
                 var storedCol = movimentoContaDataGridView.CurrentCell.ColumnIndex;
 
-                CarregarMovimentosContas(IDConta);
+                CarregarMovimentosContas(IDConta, false);
                 Origem.CarregarRolContasAsync();
 
                 // Esconde a caixa de observações após a gravação
@@ -1067,9 +1086,17 @@ namespace MoneyPro
                     // Conciliado = "A" - lançamento futuro agendado na instituição
                     // Conciliado = "F" - lançamento futuro
 
-                    if (conciliado != " " && conciliado != "F" && conciliado != "A")
+                    if (conciliado == "C" || conciliado == "R")
                     {
                         MessageBox.Show("Movimentos conciliados não podem ser alterados.",
+                            "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        // Bloqueia a alteração
+                        e.Handled = true;
+                        return;
+                    }
+                    else if (conciliado == "P")
+                    {
+                        MessageBox.Show("Movimentos de previsão não podem ser alterados.",
                             "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         // Bloqueia a alteração
                         e.Handled = true;
@@ -1410,7 +1437,7 @@ namespace MoneyPro
                                     var storedCol = movimentoContaDataGridView.CurrentCell.ColumnIndex;
 
                                     int registro = bll.Gravar(modelo);
-                                    CarregarMovimentosContas(IDConta);
+                                    CarregarMovimentosContas(IDConta, false);
                                     Origem.CarregarRolContasAsync();
 
                                     // Esconde a caixa de observações após a gravação
@@ -1426,10 +1453,6 @@ namespace MoneyPro
                                     {
                                         movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[movimentoContaDataGridView.Rows.Count - 1].Cells[storedCol];
                                     }
-
-#if DEBUG
-                                    MessageBox.Show("Gravação da linha executada.");
-#endif
                                 }
                                 else
                                 {
@@ -1460,7 +1483,8 @@ namespace MoneyPro
                         // Ou se foi marcado como lançamentos agendado ou futuros
 
                         futuro = futuro || (string)movimentoContaDataGridView.Rows[e.RowIndex].Cells["Conciliacao"].Value == "A"     // Agendado
-                                        || (string)movimentoContaDataGridView.Rows[e.RowIndex].Cells["Conciliacao"].Value == "F";    // Futuro
+                                        || (string)movimentoContaDataGridView.Rows[e.RowIndex].Cells["Conciliacao"].Value == "F"     // Futuro
+                                        || (string)movimentoContaDataGridView.Rows[e.RowIndex].Cells["Conciliacao"].Value == "P";    // Previsão
 
                         if (futuro)
                         {
@@ -1499,6 +1523,18 @@ namespace MoneyPro
                     {
                         // Somente as totalizações do resumo de conta corrente apresenta MovimentoContaID = -9999 
                         e.CellStyle.BackColor = Color.Khaki;
+                    }
+                    else if ((int)movimentoContaDataGridView.Rows[e.RowIndex].Cells["MovimentoContaID"].Value == -1)
+                    {
+                        // Previsão de pagamento de cartão de crédito
+                        if ((e.RowIndex % 2) == 0)
+                        {
+                            e.CellStyle.BackColor = Color.Bisque;
+                        }
+                        else
+                        {
+                            e.CellStyle.BackColor = Color.SandyBrown;
+                        }
                     }
 
                     if (movimentoContaDataGridView.Columns[e.ColumnIndex].Name.Equals("Observacao"))
@@ -1624,6 +1660,11 @@ namespace MoneyPro
                                 e.CellStyle.ForeColor = Color.Black;
                                 e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
                                 celula.ToolTipText = "Futuro";
+                                break;
+                            case TipoConciliacao.Previsao:
+                                e.CellStyle.ForeColor = Color.Red;
+                                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                                celula.ToolTipText = "Previsão";
                                 break;
                             case TipoConciliacao.Conciliado:
                                 e.CellStyle.ForeColor = Color.Blue;
@@ -1888,7 +1929,7 @@ namespace MoneyPro
         {
             IncluirMovimentoInvestimento();
 
-            CarregarMovimentosContas(IDConta);
+            CarregarMovimentosContas(IDConta, false);
             Origem.CarregarRolContasAsync();
         }
 
@@ -1956,7 +1997,7 @@ namespace MoneyPro
                     fmMovimentosInvestimento form = new fmMovimentosInvestimento(this, IDUsuario, IDConta, movimentoContaID);
                     form.ShowDialog();
 
-                    CarregarMovimentosContas(IDConta);
+                    CarregarMovimentosContas(IDConta, false);
                     Origem.CarregarRolContasAsync();
                 }
             }
@@ -2070,7 +2111,7 @@ namespace MoneyPro
 
             if (i > 0)
             {
-                CarregarMovimentosContas(this.IDConta);
+                CarregarMovimentosContas(this.IDConta, false);
             }
         }
 
@@ -2212,7 +2253,7 @@ namespace MoneyPro
         private void cancelarFiltroPeloGrupoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LimpaArraySelecionados(selecaoGrupoCategoriaID);
-            CarregarMovimentosContas(this.IDConta);
+            CarregarMovimentosContas(this.IDConta, false);
         }
 
         #endregion Trata filtro por grupo de categoria
@@ -2240,7 +2281,7 @@ namespace MoneyPro
         private void cancelarFiltroPelaCategoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LimpaArraySelecionados(selecaoCategoriaID);
-            CarregarMovimentosContas(this.IDConta);
+            CarregarMovimentosContas(this.IDConta, false);
         }
 
         #endregion Trata filtro por categoria
@@ -2267,7 +2308,7 @@ namespace MoneyPro
         private void cancelarFiltroPeloLancamentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LimpaArraySelecionados(selecaoLancamentoID);
-            CarregarMovimentosContas(this.IDConta);
+            CarregarMovimentosContas(this.IDConta, false);
         }
 
         #endregion Trata filtro por lançamento
@@ -2324,7 +2365,7 @@ namespace MoneyPro
             if (selecaoData[0].CompareTo(selecaoData[1]) <= 0)
             {
                 contextMenuStripData.Tag = "1";
-                CarregarMovimentosContas(this.IDConta);
+                CarregarMovimentosContas(this.IDConta, false);
             }
         }
 
@@ -2332,7 +2373,7 @@ namespace MoneyPro
         {
             movimentoContaDataGridView.Columns["Data"].HeaderCell.Style.BackColor = SystemColors.Control;
             contextMenuStripData.Tag = "0";
-            CarregarMovimentosContas(this.IDConta);
+            CarregarMovimentosContas(this.IDConta, false);
         }
 
         #endregion Trata filtro por data
@@ -2542,8 +2583,11 @@ namespace MoneyPro
                                 case 4:
                                     msg = "Este movimento é uma despesa de investimento, somente a descrição pode ser alterada.";
                                     break;
+                                case 5:
+                                    msg = "Este movimento é uma previsão baseada nos lançamentos do cartão de crédito e não pode ser alterado.";
+                                    break;
                                 default:
-                                    msg = "Este moviment não pode ser alterado, porém o código do bloqueio não é conhecido.";
+                                    msg = "Este movimento não pode ser alterado, porém o código do bloqueio não é conhecido.";
                                     break;
                             }
 
@@ -2583,7 +2627,7 @@ namespace MoneyPro
                         break;
                 }
                 CarregaLancamentos(IDUsuario);
-                CarregarMovimentosContas(IDConta);
+                CarregarMovimentosContas(IDConta, false);
                 Origem.CarregarRolContasAsync();
             }
             catch
@@ -2869,7 +2913,7 @@ namespace MoneyPro
         {
             IncluirMovimentoCambio();
 
-            CarregarMovimentosContas(IDConta);
+            CarregarMovimentosContas(IDConta, false);
             Origem.CarregarRolContasAsync();
         }
 
@@ -2962,7 +3006,7 @@ namespace MoneyPro
             }
 
             // Ao esconder a barra de pesquisas volta a exibir o grid normal.
-            CarregarMovimentosContas(IDConta);
+            CarregarMovimentosContas(IDConta, false);
 
             movimentoContaDataGridView.Focus();
         }
