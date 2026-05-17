@@ -161,7 +161,7 @@ namespace MoneyPro
 
         public async void CarregarRolContasAsync()
         {
-            groupBoxContas.ForeColor = Color.ForestGreen;
+            groupBoxContas.ForeColor = Color.DimGray;
             try
             {
                 int lin = -1;

@@ -2,6 +2,7 @@
 using Modelos;
 using System;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -73,6 +74,11 @@ namespace BLL
         {
             PesquisaDAL dal = new PesquisaDAL();
             return dal.SaldoInvestimento(usuarioID, dataInicio, dataFim);
+        }
+
+        public async Task<DataTable> SaldoInvestimentoAsync(int usuarioID, DateTime dataInicio, DateTime dataFim)
+        {
+            return await new PesquisaDAL().SaldoInvestimentoAsync(usuarioID, dataInicio, dataFim);
         }
 
         public DataTable ListarPagamentoCartaoCredito(int usuarioID, DateTime dataBase)

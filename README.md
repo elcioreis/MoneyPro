@@ -8,6 +8,9 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
 	Criar tela com saldo até o DiaCom, proventos recebidos e porcentagem para Ações e FII marcados como BuyAndHold
 
+## Versão 1.5.0.99
+	A carga de saldo da carteira de investimento passa a ser asyncrona
+
 ## Versão 1.5.0.98
 	Alteração no cadastro de contas para incluir flag para carregar prévia de pagamento de cartões de crédito
 	Álteração no cadastro de contas para incluir dia de pagamento do cartão de crédito

@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DAL
 {
@@ -166,6 +168,39 @@ namespace DAL
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public async Task<DataTable> SaldoInvestimentoAsync(int usuarioID, DateTime dataInicio, DateTime dataFim)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            DataTable tabela = new DataTable();
+
+            SqlConnection conn = new SqlConnection(Dados.Conexao);
+
+            if (conn.State == ConnectionState.Closed)
+                await conn.OpenAsync();
+
+            SqlCommand comando = new SqlCommand("EXEC stpSaldoInvestimentos @UsuarioID, @DataInicio, @DataFim;", conn);
+            comando.Parameters.AddWithValue("@UsuarioID", usuarioID);
+            comando.Parameters.AddWithValue("@DataInicio", dataInicio);
+            comando.Parameters.AddWithValue("@DataFim", dataFim);
+            comando.CommandTimeout = 240;
+
+            try
+            {
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
+                tabela.Load(reader);
+                return tabela;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
             }
         }
 

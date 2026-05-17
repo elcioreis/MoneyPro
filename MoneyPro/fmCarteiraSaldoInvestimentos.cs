@@ -1,6 +1,7 @@
 ﻿using BLL;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Modelos.Tipo;
 
@@ -70,8 +71,7 @@ namespace MoneyPro
             DataInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
             DtUltimaAtualizacao = Geral.UltimaAtualizacaoInvestimentos();
-            CarregarSaldoInvestimento(DataInicio, DataFim);
-            SaldoInvestimentosDataGridView.Focus();
+            _ = CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         public static fmCarteiraSaldoInvestimentos CreateInstance(Form origem, int usuarioID)
@@ -97,16 +97,21 @@ namespace MoneyPro
             Close();
         }
 
-        private void CarregarSaldoInvestimento(DateTime dataInicio, DateTime dataFim)
+        private async Task CarregarSaldoInvestimentoAsync(DateTime dataInicio, DateTime dataFim)
         {
-            // Muda o cursor para ampulheta
-            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                // Muda o cursor para ampulheta
+                this.Cursor = Cursors.WaitCursor;
 
-            PesquisaBLL bll = new PesquisaBLL();
-            SaldoInvestimentosDataGridView.DataSource = bll.SaldoInvestimento(this.IDUsuario, dataInicio, dataFim);
-
-            // Restaura o cursor padrão
-            Cursor.Current = Cursors.Default;
+                SaldoInvestimentosDataGridView.DataSource = await new PesquisaBLL().SaldoInvestimentoAsync(this.IDUsuario, dataInicio, dataFim);
+            }
+            finally
+            {
+                SaldoInvestimentosDataGridView.Focus();
+                // Restaura o cursor padrão
+                this.Cursor = Cursors.Default;
+            }
         }
 
         private void SaldoInvestimentosDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -262,63 +267,63 @@ namespace MoneyPro
         {
             DataInicio = dateTimePickerInicio.Value;
             DataFim = dateTimePickerFim.Value;
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void buttonAno_Click(object sender, EventArgs e)
         {
             DataInicio = new DateTime(DateTime.Now.Year, 1, 1);
             DataFim = new DateTime(DateTime.Today.Year, 12, 31);
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void buttonMesAnterior_Click(object sender, EventArgs e)
         {
             DataFim = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
             DataInicio = new DateTime(DataFim.Year, DataFim.Month, 1);
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void buttonMes_Click(object sender, EventArgs e)
         {
             DataInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void button1M_Click(object sender, EventArgs e)
         {
             DataInicio = DateTime.Today.AddMonths(-1).AddDays(1);
             DataFim = DateTime.Today;
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void button3M_Click(object sender, EventArgs e)
         {
             DataInicio = DateTime.Today.AddMonths(-3).AddDays(1);
             DataFim = DateTime.Today;
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void button6M_Click(object sender, EventArgs e)
         {
             DataInicio = DateTime.Today.AddMonths(-6).AddDays(1);
             DataFim = DateTime.Today;
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void button1A_Click(object sender, EventArgs e)
         {
             DataInicio = DateTime.Today.AddYears(-1).AddDays(1);
             DataFim = DateTime.Today;
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
 
         private void buttonMaximo_Click(object sender, EventArgs e)
         {
             DataInicio = Geral.PrimeiroDiaMovimento(IDUsuario);
             DataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
-            CarregarSaldoInvestimento(DataInicio, DataFim);
+            _=CarregarSaldoInvestimentoAsync(DataInicio, DataFim);
         }
     }
 
