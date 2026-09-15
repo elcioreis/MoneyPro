@@ -36,6 +36,7 @@ namespace MoneyPro.Rotinas
         private readonly DateTime UltimaAtualizacaoM02_M03;
         private readonly DateTime UltimaAtualizacaoM04_M11;
         private readonly Boolean AtualizarTudo;
+        private readonly int MesesAtualizacao;
 
         public AcessoCVM_Lote(fmDownloadCotacoes origem)
         {
@@ -51,6 +52,7 @@ namespace MoneyPro.Rotinas
             AtualizarTudo = linha.Field<Boolean>("AtualizarTudo");
             UltimaAtualizacaoM02_M03 = linha.Field<DateTime>("AtualizacaoM02_M03");
             UltimaAtualizacaoM04_M11 = linha.Field<DateTime>("AtualizacaoM04_M11");
+            MesesAtualizacao = linha.Field<int>("MesesAtualizacao");
         }
 
         internal int AtualizarCotacoesCVM_Lote(bool SomenteUltimoLote)
@@ -67,6 +69,7 @@ namespace MoneyPro.Rotinas
             Origem.IncluirProcessamento("Buscando cotações de fundos de investimento na CVM.");
 
             short i = 0;
+            short meses = (short)MesesAtualizacao;
 
             if (SomenteUltimoLote)
             {
@@ -87,7 +90,7 @@ namespace MoneyPro.Rotinas
 
                 // Lotes com mais de 11 meses não são mais atualizados
 
-                while (limiteInferior <= limiteSuperior)
+                while (limiteInferior <= limiteSuperior && meses-- >= 0)
                 {
                     limiteSuperior = ProcessaLote(limiteSuperior, i++, atualizarM02_M03, atualizarM04_M11);
                 }

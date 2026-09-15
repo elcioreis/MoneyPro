@@ -20,12 +20,13 @@ namespace DAL
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
             SqlCommand query = new SqlCommand(@"SELECT MoneyProID, BaseProducao, CMV_NomeSistemaCliente, CMV_CPFResponsavelSC,
-                                                       CMV_NomeResponsavelSC, CMV_IdentificacaoSC, CMV_SenhaSC, DtInicioUtilizacao,
-                                                       SiteCVM, SiteCVM_Lote, AtualizarTudo, 
-                                                       COALESCE(AtualizacaoM02_M03, CONVERT(DATE, '01/01/2017',  103)) AtualizacaoM02_M03,
-                                                       COALESCE(AtualizacaoM04_M11, CONVERT(DATE, '01/01/2017',  103)) AtualizacaoM04_M11
-                                                FROM MoneyPro
-                                                WHERE MoneyProID = (SELECT MAX(MoneyProID) FROM MoneyPro);", conn);
+                                                              CMV_NomeResponsavelSC, CMV_IdentificacaoSC, CMV_SenhaSC, DtInicioUtilizacao,
+                                                              SiteCVM, SiteCVM_Lote, AtualizarTudo, 
+                                                              COALESCE(AtualizacaoM02_M03, CONVERT(DATE, '01/01/2025',  103)) AtualizacaoM02_M03,
+                                                              COALESCE(AtualizacaoM04_M11, CONVERT(DATE, '01/01/2025',  103)) AtualizacaoM04_M11,
+                                                              MesesAtualizacao
+                                                       FROM MoneyPro
+                                                       WHERE MoneyProID = (SELECT MAX(MoneyProID) FROM MoneyPro);", conn);
 
             // Coloca a query no adaptador
             da.SelectCommand = query;

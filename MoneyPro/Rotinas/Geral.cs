@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.ServiceProcess;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -1071,6 +1072,116 @@ namespace MoneyPro
             }
 
             return pasta.ToString();
+        }
+
+        public static bool IsSqlServiceRunning(string instanceName = "MSSQLSERVER")
+        {
+            // Se for uma instância nomeada (ex: SQLEXPRESS), o nome do serviço será "MSSQL$SQLEXPRESS"
+            string serviceName = instanceName == "MSSQLSERVER" ? instanceName : $"MSSQL${instanceName}";
+
+            try
+            {
+                using (ServiceController sc = new ServiceController(serviceName))
+                {
+                    return sc.Status == ServiceControllerStatus.Running;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                // O serviço informado não existe nesta máquina
+                return false;
+            }
+        }
+
+        // Verifica se existe há uma instância de sql server ativa e acessível
+        public static bool IsSqlServerActive(string connectionString)
+        {
+            // Define um timeout curto (ex: 5 segundos) para não travar a aplicação
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString);
+            builder.ConnectTimeout = 5;
+
+            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    return true; // Conexão bem-sucedida, a instância está ativa!
+                }
+                catch (SqlException)
+                {
+                    return false; // Falha ao conectar, a instância pode estar inativa ou inacessível
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+        }
+
+        // Tenta iniiar a instância local do sql server
+        public static bool StartSqlService(string instanceName = "MSSQLSERVER")
+        {
+            // Se for a instância padrão é "MSSQLSERVER", se for nomeada (ex: SQLEXPRESS) fica "MSSQL$SQLEXPRESS"
+            string serviceName = instanceName == "MSSQLSERVER" ? instanceName : $"MSSQL${instanceName}";
+
+            try
+            {
+                using (ServiceController sc = new ServiceController(serviceName))
+                {
+                    // Verifica se o serviço já não está rodando
+                    if (sc.Status == ServiceControllerStatus.Stopped)
+                    {
+                        Console.WriteLine($"Iniciando o serviço {serviceName}...");
+                        sc.Start();
+
+                        // Aguarda até 30 segundos para o serviço mudar para o status Running
+                        sc.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(30));
+                        return true;
+                    }
+                    else if (sc.Status == ServiceControllerStatus.Running)
+                    {
+                        // Já estava ativo
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                // O serviço não existe no computador local
+                throw new Exception($"O serviço {serviceName} não foi encontrado nesta máquina.");
+            }
+            catch (Exception ex)
+            {
+                // Erro de permissão (geralmente por falta de privilégios de Administrador)
+                throw new Exception($"Erro ao tentar iniciar o serviço. Certifique-se de executar como Administrador. Detalhes: {ex.Message}");
+            }
+        }
+
+        public static void StopSqlService(string instanceName = "MSSQLSERVER")
+        {
+            // Se for a instância padrão é "MSSQLSERVER", se for nomeada (ex: SQLEXPRESS) fica "MSSQL$SQLEXPRESS"
+            string serviceName = instanceName == "MSSQLSERVER" ? instanceName : $"MSSQL${instanceName}";
+            try
+            {
+                using (ServiceController sc = new ServiceController(serviceName))
+                {
+                    // Verifica se o serviço já não está parado
+                    if (sc.Status == ServiceControllerStatus.Running)
+                    {
+                        Console.WriteLine($"Parando o serviço {serviceName}...");
+                        sc.Stop();
+                        // Aguarda até 30 segundos para o serviço mudar para o status Stopped
+                        sc.WaitForStatus(ServiceControllerStatus.Stopped, TimeSpan.FromSeconds(30));
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

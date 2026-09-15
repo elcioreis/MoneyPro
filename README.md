@@ -8,6 +8,16 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
 	Criar tela com saldo até o DiaCom, proventos recebidos e porcentagem para Ações e FII marcados como BuyAndHold
 
+## Versão 1.5.1.102
+	Verifica se o banco de dados está no ar; se não estiver, tenta levantar o banco de dados.
+
+## Versão 1.5.0.101
+	Correção de bug na tela de lançamento de movimentação que impede de escolher o novo parceiro
+	Utilização de ctrl + shift + N para incluir novo lançamento com a data do último lançamento
+
+## Versão 1.5.0.100
+	Colocação de campo MoneyPro.MesesAtualizacao para limitar a quantidade de meses de atualização de cotações de investimentos
+
 ## Versão 1.5.0.99
 	A carga de saldo da carteira de investimento passa a ser asyncrona
 

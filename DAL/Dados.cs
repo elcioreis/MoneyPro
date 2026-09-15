@@ -11,6 +11,7 @@ namespace DAL
         #region Conexão Banco de dados
 
         private static string _conexao = String.Empty;
+        private static bool _localIniciado = false;
 
         public static string Conexao
         {
@@ -23,7 +24,19 @@ namespace DAL
             {
                 _conexao = CriptografaConexao(value);
             }
+        }
 
+        public static bool Iniciado
+        {
+            get
+            {
+                return _localIniciado;
+            }
+
+            set
+            {
+                _localIniciado = value;
+            }
         }
 
         public static string CriptografaConexao(string plano)

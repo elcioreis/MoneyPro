@@ -1,8 +1,10 @@
 ﻿using BLL;
+using DAL;
 using Modelos;
 using System;
 using System.Data;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace MoneyPro
@@ -851,7 +853,19 @@ namespace MoneyPro
         private void FmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult resp = MessageBox.Show(this, "Deseja fechar o MoneyPro?", Geral.Sistema(true), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            e.Cancel = resp == DialogResult.No;
+
+            if (resp == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                if (Dados.Iniciado)
+                {
+                    Geral.StopSqlService();
+                }
+                e.Cancel = false;
+            }
         }
 
         private void PictureBoxCVM_Click(object sender, EventArgs e)
@@ -1211,11 +1225,28 @@ namespace MoneyPro
                         acessoHitBTC.CarregarTicker();
                     }
 
-                    this.BeginInvoke((MethodInvoker)(() =>
+                    //this.BeginInvoke((MethodInvoker)(() =>
+                    //{
+                    //    toolStripStatusMensagem.Text = string.Empty;
+                    //    toolStripStatusMensagem.ToolTipText = string.Empty;
+                    //}));
+
+                    try
                     {
-                        toolStripStatusMensagem.Text = string.Empty;
-                        toolStripStatusMensagem.ToolTipText = string.Empty;
-                    }));
+                        this.BeginInvoke((MethodInvoker)(() =>
+                        {
+                            toolStripStatusMensagem.Text = string.Empty;
+                            toolStripStatusMensagem.ToolTipText = string.Empty;
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        this.BeginInvoke((MethodInvoker)(() =>
+                        {
+                            toolStripStatusMensagem.Text = "Erro na Carga de Trades";
+                            toolStripStatusMensagem.ToolTipText = ex.Message;
+                        }));
+                    }
                 }
             }
             catch (Exception ex)

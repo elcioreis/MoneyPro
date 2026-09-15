@@ -41,6 +41,7 @@ namespace MoneyPro.Rotinas
         private string CMV_SenhaSC { get; set; }
         private DateTime InicioUtilizacao { get; set; }
         private string SiteCVM { get; set; }
+        private int CMV_MesesAtualizacao { get; set; }
 
         public AcessoCVM(fmDownloadCotacoes origem)
         {
@@ -56,6 +57,7 @@ namespace MoneyPro.Rotinas
             CMV_NomeResponsavelSC = linha.Field<string>("CMV_NomeResponsavelSC");
             CMV_IdentificacaoSC = linha.Field<int>("CMV_IdentificacaoSC");
             CMV_SenhaSC = linha.Field<string>("CMV_SenhaSC");
+            CMV_MesesAtualizacao = linha.Field<int>("MesesAtualizacao");
             InicioUtilizacao = linha.Field<DateTime>("DtInicioUtilizacao");
             SiteCVM = linha.Field<string>("SiteCVM");
 
@@ -68,7 +70,7 @@ namespace MoneyPro.Rotinas
 
             DialogResult dr = DialogResult.Yes;
 
-            int N = 10;
+            int periodos = CMV_MesesAtualizacao;
             int sucesso = 0;
             DateTime limiteInferior = PegarDataLimiteInferior();
             DateTime limiteSuperior = PegarDataLimiteCotacao();
@@ -92,8 +94,7 @@ namespace MoneyPro.Rotinas
 
             form.IncluirProcessamento("Buscando cotações de fundos de investimento na CVM.");
 
-            // Somente é permitido pegar 10 cotações por dia.
-            while (limiteInferior <= limiteSuperior && !parar && N > 0 && dr != DialogResult.No)
+            while (limiteInferior <= limiteSuperior && !parar && periodos > 0 && dr != DialogResult.No)
             {
                 // Se não for sábado nem domingo
                 if (limiteSuperior.DayOfWeek != DayOfWeek.Saturday && limiteSuperior.DayOfWeek != DayOfWeek.Sunday && !parar)
@@ -154,7 +155,7 @@ namespace MoneyPro.Rotinas
                                         }
 
                                         // Diminui em um os downloads possíveis.
-                                        N--;
+                                        periodos--;
 
                                         if (cotacao.FaltaCotacao(limiteSuperior))
                                         {
@@ -171,7 +172,6 @@ namespace MoneyPro.Rotinas
                                     {
                                         form.IncluirProcessamento(String.Format("Não foi possível download da cotação de {0}.", limiteSuperior.ToString("dd/MM/yyyy")));
                                     }
-
                                 }
                                 else
                                 {
@@ -296,8 +296,6 @@ namespace MoneyPro.Rotinas
                 return String.Empty;
             }
         }
-
-
 
         public Boolean ExisteArquivo(DateTime data)
         {

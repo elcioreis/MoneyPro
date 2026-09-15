@@ -18,6 +18,8 @@ namespace MoneyPro
         // futuros do mês de verde e dos meses seguintes de azul
         private DateTime DataMovimento;
 
+        private DateTime? UltimaDataInserida = null;
+
         private fmMovimentosContaFluxo fmMovimentosContaFluxoEspecifico;
         MovimentoContaPesquisa mcPesquisa = new MovimentoContaPesquisa();
 
@@ -536,7 +538,7 @@ namespace MoneyPro
 
         private void buttonIncluir_Click(object sender, EventArgs e)
         {
-            IncluirMovimentoConta();
+            IncluirMovimentoConta(false);
         }
 
         private void buttonExcluir_Click(object sender, EventArgs e)
@@ -544,7 +546,7 @@ namespace MoneyPro
             ExcluirMovimentoConta();
         }
 
-        private void IncluirMovimentoConta()
+        private void IncluirMovimentoConta(bool repeteUltimaData)
         {
             // Se a linha atual não for nula
             if (movimentoContaDataGridView.CurrentRow != null)
@@ -569,13 +571,20 @@ namespace MoneyPro
             row["UsuarioID"] = IDUsuario;
             row["ContaID"] = IDConta;
             row["MovimentoContaID"] = MovimentoContaBLL.ProximoID;
-            if (!usaHora)
+            if (!repeteUltimaData)
             {
-                row["Data"] = DateTime.Today;
+                if (!usaHora)
+                {
+                    row["Data"] = DateTime.Today;
+                }
+                else
+                {
+                    row["Data"] = DateTime.Now;
+                }
             }
-            else
+            else if (UltimaDataInserida != null)
             {
-                row["Data"] = DateTime.Now;
+                row["Data"] = UltimaDataInserida;
             }
             row["CrdDeb"] = " ";       // Será mudado conforme for preenchido os valores de débito ou crédito.
             row["Conciliacao"] = " ";  // Não conciliado
@@ -719,12 +728,17 @@ namespace MoneyPro
                 else if (e.Modifiers == Keys.None && e.KeyCode == Keys.Insert)
                 {
                     // Se teclado insert chama rotina de inclusão.
-                    IncluirMovimentoConta();
+                    IncluirMovimentoConta(false);
                 }
                 else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.N)
                 {
                     // Se teclado ctrl + N chama a rotina de inclusão
-                    IncluirMovimentoConta();
+                    IncluirMovimentoConta(false);
+                }
+                else if ((e.Modifiers & (Keys.Control | Keys.Shift)) == (Keys.Control | Keys.Shift) && e.KeyCode == Keys.N)
+                {
+                    // Se teclado ctrl + shift + N chama a rotina de inclusão
+                    IncluirMovimentoConta(UltimaDataInserida != null);
                 }
                 else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Insert)
                 {
@@ -1339,9 +1353,13 @@ namespace MoneyPro
                                 modelo.ContaID = (int)linha.Cells["ContaID"].Value;
 
                                 if (linha.Cells["Data"].Value != DBNull.Value)
+                                {
                                     modelo.Data = (DateTime)linha.Cells["Data"].Value;
+                                }
                                 else
+                                {
                                     modelo.Data = null;
+                                }
 
                                 if (linha.Cells["Numero"].Value != DBNull.Value)
                                     modelo.Numero = (string)linha.Cells["Numero"].Value;
@@ -1437,6 +1455,7 @@ namespace MoneyPro
                                     var storedCol = movimentoContaDataGridView.CurrentCell.ColumnIndex;
 
                                     int registro = bll.Gravar(modelo);
+                                    UltimaDataInserida = modelo.Data;
                                     CarregarMovimentosContas(IDConta, false);
                                     Origem.CarregarRolContasAsync();
 
@@ -1740,7 +1759,7 @@ namespace MoneyPro
 
         private void movimentoContaDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            if (movimentoContaDataGridView.IsCurrentCellDirty && e.FormattedValue != null)
+            if ((movimentoContaDataGridView.IsCurrentCellDirty || movimentoContaDataGridView.IsCurrentRowDirty) && e.FormattedValue != null)
             {
                 if ((int)movimentoContaDataGridView.CurrentRow.Cells["MovimentoContaID"].Value != -9999)
                 {

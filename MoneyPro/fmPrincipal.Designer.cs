@@ -184,7 +184,7 @@
             // 
             this.toolStripStatusLabel1.IsLink = true;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(472, 24);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(335, 24);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // statusSomatoria

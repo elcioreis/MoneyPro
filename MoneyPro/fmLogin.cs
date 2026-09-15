@@ -86,11 +86,36 @@ namespace MoneyPro
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
+            bool EmExecucao = false;
             if (comboAcesso.SelectedIndex >= 0)
             {
                 string item = (string)comboAcesso.SelectedItem;
+
                 // Armazena a string de conexão na propriedade estática, assim todas conexões poderão usar.
                 Dados.Conexao = _acessos[item];
+
+                // Verifica se o SQL Server está rodando localmente
+                if (Geral.IsSqlServiceRunning())
+                {
+                    EmExecucao = true;
+                }
+
+                if (!EmExecucao)
+                {
+                    if (Geral.StartSqlService())
+                    {
+                        Dados.Iniciado = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possível iniciar o serviço do SQL Server localmente.",
+                                        "Erro",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                        this.DialogResult = DialogResult.None;
+                        return;
+                    }
+                }
 
                 int userID = Geral.NumeroUsuario(txtUsuario.Text, Geral.CriptografaSenha(txtSenha.Text));
 
