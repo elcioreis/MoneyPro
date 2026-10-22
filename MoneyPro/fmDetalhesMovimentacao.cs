@@ -18,20 +18,20 @@ namespace MoneyPro
 
         private static fmDetalhesMovimentacao _singleton;
 
-        private fmDetalhesMovimentacao(Form origem, string titulo, int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID)
+        private fmDetalhesMovimentacao(Form origem, string titulo, int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID, int? veiculoID)
         {
             InitializeComponent();
             this.Origem = origem;
             labelTopo.Text = titulo;
 
-            CarregarDetalhesMovimentacao(usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID);
+            CarregarDetalhesMovimentacao(usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID, veiculoID);
         }
 
-        public static fmDetalhesMovimentacao CreateInstance(Form origem, string titulo, int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID)
+        public static fmDetalhesMovimentacao CreateInstance(Form origem, string titulo, int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID, int? veiculoID)
         {
             if (_singleton == null)
             {
-                _singleton = new fmDetalhesMovimentacao(origem, titulo, usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID);
+                _singleton = new fmDetalhesMovimentacao(origem, titulo, usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID, veiculoID);
             }
             return _singleton;
         }
@@ -44,10 +44,10 @@ namespace MoneyPro
 
         #endregion Singleton
 
-        private void CarregarDetalhesMovimentacao(int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID)
+        private void CarregarDetalhesMovimentacao(int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID, int? veiculoID)
         {
             DetalhesMovimentacaoBLL bll = new DetalhesMovimentacaoBLL();
-            detalhesMovimentacaoBindingSource.DataSource = bll.Listar(usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID);
+            detalhesMovimentacaoBindingSource.DataSource = bll.Listar(usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID, veiculoID);
         }
 
         private void fmDetalhes_FormClosed(object sender, FormClosedEventArgs e)

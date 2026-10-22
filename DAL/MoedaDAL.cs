@@ -18,10 +18,11 @@ namespace DAL
             // Instancia uma tabela
             DataTable tabela = new DataTable();
             // Instacia um Data Adapter com a query abaixo, usando a conexão informada no login
-            SqlDataAdapter da = new SqlDataAdapter(@"SELECT MoedaID, Apelido, Simbolo, Padrao, Virtual, PadraoVirtual, 
-                                                            MercadoBitCoin, CodigoMoedaBancoCentral, Observacao, Eletronica
-                                                     FROM Moeda
-                                                     ORDER BY Apelido ASC;", Dados.Conexao);
+            SqlDataAdapter da = new SqlDataAdapter(@"
+                                                    SELECT MoedaID, Apelido, Simbolo, Padrao, Virtual, PadraoVirtual, 
+                                                           MercadoBitCoin, CodigoMoedaBancoCentral, Observacao, Eletronica
+                                                    FROM Moeda
+                                                    ORDER BY Apelido ASC;", Dados.Conexao);
             // Carrega a tabela
             da.Fill(tabela);
             // Retorna a listagem

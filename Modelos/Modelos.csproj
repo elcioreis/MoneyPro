@@ -123,6 +123,7 @@
     <Compile Include="VariacaoUltimosDiasInvestimentos.cs" />
     <Compile Include="VariacaoDiariaInvestimentos.cs" />
     <Compile Include="VariacaoMensalInvestimentos.cs" />
+    <Compile Include="Veiculo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\GrupoCategoria.datasource" />

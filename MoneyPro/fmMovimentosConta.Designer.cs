@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmMovimentosConta));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.buttonInvestimento = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
@@ -67,9 +67,6 @@
             this.contextMenuStripGrupo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.filtrarPeloGrupoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelarFiltroPeloGrupoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripCategoria = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.filtrarPelaCategoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cancelarFiltroPelaCategoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripLancamento = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.filtrarPeloLancamentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelarFiltroPeloLancamentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +90,7 @@
             this.Descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoriaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GrupoCategoriaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VeiculoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Debito = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Credito = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -111,6 +109,7 @@
             this.textBoxObservacao = new System.Windows.Forms.TextBox();
             this.labelObservacao = new System.Windows.Forms.Label();
             this.groupBoxPesquisa = new System.Windows.Forms.GroupBox();
+            this.checkBoxSubjacente = new System.Windows.Forms.CheckBox();
             this.labelValorAte = new System.Windows.Forms.Label();
             this.textBoxValorAte = new System.Windows.Forms.TextBox();
             this.mcPesquisaBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -128,13 +127,17 @@
             this.labelParceiro = new System.Windows.Forms.Label();
             this.labelCategoria = new System.Windows.Forms.Label();
             this.labelGrupo = new System.Windows.Forms.Label();
-            this.checkBoxSubjacente = new System.Windows.Forms.CheckBox();
+            this.contextMenuStripVeiculo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.filtrarPeloVeiculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelarFiltroPeloVeiculoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtrarPelaCategoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelarFiltroPelaCategoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripCategoria = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
             this.contextMenuStripDetalhes.SuspendLayout();
             this.contextMenuStripLegenda.SuspendLayout();
             this.contextMenuStripGrupo.SuspendLayout();
-            this.contextMenuStripCategoria.SuspendLayout();
             this.contextMenuStripLancamento.SuspendLayout();
             this.contextMenuStripData.SuspendLayout();
             this.contextMenuStripValor.SuspendLayout();
@@ -145,6 +148,8 @@
             this.panelObservacao.SuspendLayout();
             this.groupBoxPesquisa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mcPesquisaBindingSource)).BeginInit();
+            this.contextMenuStripVeiculo.SuspendLayout();
+            this.contextMenuStripCategoria.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelRodape
@@ -200,7 +205,7 @@
             // labelTopo
             // 
             this.labelTopo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.labelTopo.Size = new System.Drawing.Size(330, 32);
+            this.labelTopo.Size = new System.Drawing.Size(329, 32);
             this.labelTopo.Text = "Movimentação de Conta";
             // 
             // toolTip
@@ -478,7 +483,7 @@
             this.testeToolStripMenuItem});
             this.contextMenuStripDetalhes.Name = "contextMenuStripDetalhes";
             this.contextMenuStripDetalhes.ShowImageMargin = false;
-            this.contextMenuStripDetalhes.Size = new System.Drawing.Size(88, 28);
+            this.contextMenuStripDetalhes.Size = new System.Drawing.Size(186, 56);
             this.contextMenuStripDetalhes.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDetalhes_Opening);
             // 
             // testeToolStripMenuItem
@@ -487,7 +492,7 @@
             this.testeToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.testeToolStripMenuItem.ForeColor = System.Drawing.Color.RoyalBlue;
             this.testeToolStripMenuItem.Name = "testeToolStripMenuItem";
-            this.testeToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.testeToolStripMenuItem.Size = new System.Drawing.Size(185, 24);
             this.testeToolStripMenuItem.Text = "Teste";
             // 
             // contextMenuStripLegenda
@@ -573,31 +578,6 @@
             this.cancelarFiltroPeloGrupoToolStripMenuItem.Size = new System.Drawing.Size(252, 24);
             this.cancelarFiltroPeloGrupoToolStripMenuItem.Text = "Cancelar Filtro pelo Grupo";
             this.cancelarFiltroPeloGrupoToolStripMenuItem.Click += new System.EventHandler(this.cancelarFiltroPeloGrupoToolStripMenuItem_Click);
-            // 
-            // contextMenuStripCategoria
-            // 
-            this.contextMenuStripCategoria.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStripCategoria.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filtrarPelaCategoriaToolStripMenuItem,
-            this.cancelarFiltroPelaCategoriaToolStripMenuItem});
-            this.contextMenuStripCategoria.Name = "contextMenuStripCategoria";
-            this.contextMenuStripCategoria.Size = new System.Drawing.Size(276, 52);
-            this.contextMenuStripCategoria.Tag = "0";
-            this.contextMenuStripCategoria.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripCategoria_Opening);
-            // 
-            // filtrarPelaCategoriaToolStripMenuItem
-            // 
-            this.filtrarPelaCategoriaToolStripMenuItem.Name = "filtrarPelaCategoriaToolStripMenuItem";
-            this.filtrarPelaCategoriaToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
-            this.filtrarPelaCategoriaToolStripMenuItem.Text = "Filtrar pela Categoria";
-            this.filtrarPelaCategoriaToolStripMenuItem.Click += new System.EventHandler(this.filtrarPelaCategoriaToolStripMenuItem_Click);
-            // 
-            // cancelarFiltroPelaCategoriaToolStripMenuItem
-            // 
-            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Name = "cancelarFiltroPelaCategoriaToolStripMenuItem";
-            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
-            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Text = "Cancelar Filtro pela Categoria";
-            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Click += new System.EventHandler(this.cancelarFiltroPelaCategoriaToolStripMenuItem_Click);
             // 
             // contextMenuStripLancamento
             // 
@@ -703,8 +683,8 @@
             this.movimentoContaDataGridView.AllowUserToAddRows = false;
             this.movimentoContaDataGridView.AllowUserToDeleteRows = false;
             this.movimentoContaDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            this.movimentoContaDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Gainsboro;
+            this.movimentoContaDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.movimentoContaDataGridView.AutoGenerateColumns = false;
             this.movimentoContaDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.movimentoContaDataGridView.ColumnHeadersHeight = 29;
@@ -721,6 +701,7 @@
             this.Descricao,
             this.CategoriaID,
             this.GrupoCategoriaID,
+            this.VeiculoID,
             this.Debito,
             this.Credito,
             this.Valor,
@@ -815,14 +796,14 @@
             // 
             this.Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Data.DataPropertyName = "Data";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Data.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Data.DefaultCellStyle = dataGridViewCellStyle10;
             this.Data.FillWeight = 68F;
             this.Data.HeaderText = "Data";
             this.Data.MinimumWidth = 6;
             this.Data.Name = "Data";
             this.Data.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Data.Width = 43;
+            this.Data.Width = 41;
             // 
             // Numero
             // 
@@ -872,14 +853,23 @@
             this.GrupoCategoriaID.Visible = false;
             this.GrupoCategoriaID.Width = 125;
             // 
+            // VeiculoID
+            // 
+            this.VeiculoID.DataPropertyName = "VeiculoID";
+            this.VeiculoID.HeaderText = "VeiculoID";
+            this.VeiculoID.MinimumWidth = 6;
+            this.VeiculoID.Name = "VeiculoID";
+            this.VeiculoID.Visible = false;
+            this.VeiculoID.Width = 125;
+            // 
             // Debito
             // 
             this.Debito.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Debito.DataPropertyName = "Debito";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Debito.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.Debito.DefaultCellStyle = dataGridViewCellStyle11;
             this.Debito.FillWeight = 80F;
             this.Debito.HeaderText = "Débito";
             this.Debito.MinimumWidth = 80;
@@ -891,10 +881,10 @@
             // 
             this.Credito.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Credito.DataPropertyName = "Credito";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.Credito.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.Credito.DefaultCellStyle = dataGridViewCellStyle12;
             this.Credito.FillWeight = 80F;
             this.Credito.HeaderText = "Crédito";
             this.Credito.MinimumWidth = 80;
@@ -906,10 +896,10 @@
             // 
             this.Valor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Valor.DataPropertyName = "Valor";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.Valor.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.Valor.DefaultCellStyle = dataGridViewCellStyle13;
             this.Valor.FillWeight = 80F;
             this.Valor.HeaderText = "Valor";
             this.Valor.MinimumWidth = 80;
@@ -921,8 +911,8 @@
             // 
             this.Conciliacao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Conciliacao.DataPropertyName = "Conciliacao";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Conciliacao.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Conciliacao.DefaultCellStyle = dataGridViewCellStyle14;
             this.Conciliacao.FillWeight = 22F;
             this.Conciliacao.HeaderText = "";
             this.Conciliacao.MinimumWidth = 22;
@@ -934,10 +924,10 @@
             // 
             this.Balanco.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Balanco.DataPropertyName = "Balanco";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.Balanco.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.Balanco.DefaultCellStyle = dataGridViewCellStyle15;
             this.Balanco.FillWeight = 80F;
             this.Balanco.HeaderText = "Balanço";
             this.Balanco.MinimumWidth = 80;
@@ -949,8 +939,8 @@
             // 
             this.Observacao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Observacao.DataPropertyName = "Observacao";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Observacao.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Observacao.DefaultCellStyle = dataGridViewCellStyle16;
             this.Observacao.FillWeight = 22F;
             this.Observacao.HeaderText = "?";
             this.Observacao.MinimumWidth = 22;
@@ -1061,7 +1051,7 @@
             this.labelObservacao.AutoSize = true;
             this.labelObservacao.Location = new System.Drawing.Point(14, 12);
             this.labelObservacao.Name = "labelObservacao";
-            this.labelObservacao.Size = new System.Drawing.Size(96, 17);
+            this.labelObservacao.Size = new System.Drawing.Size(92, 16);
             this.labelObservacao.TabIndex = 0;
             this.labelObservacao.Text = "&Observações:";
             // 
@@ -1097,12 +1087,24 @@
             this.groupBoxPesquisa.TabStop = false;
             this.groupBoxPesquisa.Tag = "66";
             // 
+            // checkBoxSubjacente
+            // 
+            this.checkBoxSubjacente.AutoSize = true;
+            this.checkBoxSubjacente.Checked = true;
+            this.checkBoxSubjacente.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSubjacente.Location = new System.Drawing.Point(1185, 14);
+            this.checkBoxSubjacente.Name = "checkBoxSubjacente";
+            this.checkBoxSubjacente.Size = new System.Drawing.Size(139, 20);
+            this.checkBoxSubjacente.TabIndex = 18;
+            this.checkBoxSubjacente.Text = "Incluir subjacentes";
+            this.checkBoxSubjacente.UseVisualStyleBackColor = true;
+            // 
             // labelValorAte
             // 
             this.labelValorAte.AutoSize = true;
             this.labelValorAte.Location = new System.Drawing.Point(1023, 48);
             this.labelValorAte.Name = "labelValorAte";
-            this.labelValorAte.Size = new System.Drawing.Size(28, 17);
+            this.labelValorAte.Size = new System.Drawing.Size(26, 16);
             this.labelValorAte.TabIndex = 15;
             this.labelValorAte.Text = "até";
             // 
@@ -1148,7 +1150,7 @@
             this.labelPeriodoAte.AutoSize = true;
             this.labelPeriodoAte.Location = new System.Drawing.Point(1023, 17);
             this.labelPeriodoAte.Name = "labelPeriodoAte";
-            this.labelPeriodoAte.Size = new System.Drawing.Size(28, 17);
+            this.labelPeriodoAte.Size = new System.Drawing.Size(26, 16);
             this.labelPeriodoAte.TabIndex = 11;
             this.labelPeriodoAte.Text = "até";
             // 
@@ -1178,7 +1180,7 @@
             this.labelValor.AutoSize = true;
             this.labelValor.Location = new System.Drawing.Point(840, 48);
             this.labelValor.Name = "labelValor";
-            this.labelValor.Size = new System.Drawing.Size(45, 17);
+            this.labelValor.Size = new System.Drawing.Size(42, 16);
             this.labelValor.TabIndex = 11;
             this.labelValor.Text = "Valor:";
             // 
@@ -1187,7 +1189,7 @@
             this.labelPeriodo.AutoSize = true;
             this.labelPeriodo.Location = new System.Drawing.Point(840, 17);
             this.labelPeriodo.Name = "labelPeriodo";
-            this.labelPeriodo.Size = new System.Drawing.Size(61, 17);
+            this.labelPeriodo.Size = new System.Drawing.Size(58, 16);
             this.labelPeriodo.TabIndex = 8;
             this.labelPeriodo.Text = "Período:";
             // 
@@ -1196,7 +1198,7 @@
             this.labelDescricao.AutoSize = true;
             this.labelDescricao.Location = new System.Drawing.Point(16, 17);
             this.labelDescricao.Name = "labelDescricao";
-            this.labelDescricao.Size = new System.Drawing.Size(75, 17);
+            this.labelDescricao.Size = new System.Drawing.Size(72, 16);
             this.labelDescricao.TabIndex = 0;
             this.labelDescricao.Text = "&Descrição:";
             // 
@@ -1253,7 +1255,7 @@
             this.labelParceiro.AutoSize = true;
             this.labelParceiro.Location = new System.Drawing.Point(16, 48);
             this.labelParceiro.Name = "labelParceiro";
-            this.labelParceiro.Size = new System.Drawing.Size(65, 17);
+            this.labelParceiro.Size = new System.Drawing.Size(61, 16);
             this.labelParceiro.TabIndex = 2;
             this.labelParceiro.Text = "&Parceiro:";
             // 
@@ -1262,7 +1264,7 @@
             this.labelCategoria.AutoSize = true;
             this.labelCategoria.Location = new System.Drawing.Point(425, 17);
             this.labelCategoria.Name = "labelCategoria";
-            this.labelCategoria.Size = new System.Drawing.Size(73, 17);
+            this.labelCategoria.Size = new System.Drawing.Size(69, 16);
             this.labelCategoria.TabIndex = 4;
             this.labelCategoria.Text = "&Categoria:";
             // 
@@ -1271,21 +1273,56 @@
             this.labelGrupo.AutoSize = true;
             this.labelGrupo.Location = new System.Drawing.Point(425, 48);
             this.labelGrupo.Name = "labelGrupo";
-            this.labelGrupo.Size = new System.Drawing.Size(52, 17);
+            this.labelGrupo.Size = new System.Drawing.Size(47, 16);
             this.labelGrupo.TabIndex = 6;
             this.labelGrupo.Text = "&Grupo:";
             // 
-            // checkBoxSubjacente
+            // contextMenuStripVeiculo
             // 
-            this.checkBoxSubjacente.AutoSize = true;
-            this.checkBoxSubjacente.Checked = true;
-            this.checkBoxSubjacente.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSubjacente.Location = new System.Drawing.Point(1185, 14);
-            this.checkBoxSubjacente.Name = "checkBoxSubjacente";
-            this.checkBoxSubjacente.Size = new System.Drawing.Size(147, 21);
-            this.checkBoxSubjacente.TabIndex = 18;
-            this.checkBoxSubjacente.Text = "Incluir subjacentes";
-            this.checkBoxSubjacente.UseVisualStyleBackColor = true;
+            this.contextMenuStripVeiculo.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStripVeiculo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filtrarPeloVeiculoToolStripMenuItem,
+            this.cancelarFiltroPeloVeiculoToolStripMenuItem});
+            this.contextMenuStripVeiculo.Name = "contextMenuStripGrupo";
+            this.contextMenuStripVeiculo.Size = new System.Drawing.Size(260, 52);
+            this.contextMenuStripVeiculo.Tag = "0";
+            // 
+            // filtrarPeloVeiculoToolStripMenuItem
+            // 
+            this.filtrarPeloVeiculoToolStripMenuItem.Name = "filtrarPeloVeiculoToolStripMenuItem";
+            this.filtrarPeloVeiculoToolStripMenuItem.Size = new System.Drawing.Size(259, 24);
+            this.filtrarPeloVeiculoToolStripMenuItem.Text = "Filtrar pelo Veículo";
+            // 
+            // cancelarFiltroPeloVeiculoToolStripMenuItem
+            // 
+            this.cancelarFiltroPeloVeiculoToolStripMenuItem.Name = "cancelarFiltroPeloVeiculoToolStripMenuItem";
+            this.cancelarFiltroPeloVeiculoToolStripMenuItem.Size = new System.Drawing.Size(259, 24);
+            this.cancelarFiltroPeloVeiculoToolStripMenuItem.Text = "Cancelar Filtro pelo Veículo";
+            // 
+            // filtrarPelaCategoriaToolStripMenuItem
+            // 
+            this.filtrarPelaCategoriaToolStripMenuItem.Name = "filtrarPelaCategoriaToolStripMenuItem";
+            this.filtrarPelaCategoriaToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
+            this.filtrarPelaCategoriaToolStripMenuItem.Text = "Filtrar pela Categoria";
+            this.filtrarPelaCategoriaToolStripMenuItem.Click += new System.EventHandler(this.filtrarPelaCategoriaToolStripMenuItem_Click);
+            // 
+            // cancelarFiltroPelaCategoriaToolStripMenuItem
+            // 
+            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Name = "cancelarFiltroPelaCategoriaToolStripMenuItem";
+            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
+            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Text = "Cancelar Filtro pela Categoria";
+            this.cancelarFiltroPelaCategoriaToolStripMenuItem.Click += new System.EventHandler(this.cancelarFiltroPelaCategoriaToolStripMenuItem_Click);
+            // 
+            // contextMenuStripCategoria
+            // 
+            this.contextMenuStripCategoria.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStripCategoria.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filtrarPelaCategoriaToolStripMenuItem,
+            this.cancelarFiltroPelaCategoriaToolStripMenuItem});
+            this.contextMenuStripCategoria.Name = "contextMenuStripCategoria";
+            this.contextMenuStripCategoria.Size = new System.Drawing.Size(276, 52);
+            this.contextMenuStripCategoria.Tag = "0";
+            this.contextMenuStripCategoria.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripCategoria_Opening);
             // 
             // fmMovimentosConta
             // 
@@ -1307,7 +1344,6 @@
             this.contextMenuStripDetalhes.ResumeLayout(false);
             this.contextMenuStripLegenda.ResumeLayout(false);
             this.contextMenuStripGrupo.ResumeLayout(false);
-            this.contextMenuStripCategoria.ResumeLayout(false);
             this.contextMenuStripLancamento.ResumeLayout(false);
             this.contextMenuStripData.ResumeLayout(false);
             this.contextMenuStripValor.ResumeLayout(false);
@@ -1320,6 +1356,8 @@
             this.groupBoxPesquisa.ResumeLayout(false);
             this.groupBoxPesquisa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mcPesquisaBindingSource)).EndInit();
+            this.contextMenuStripVeiculo.ResumeLayout(false);
+            this.contextMenuStripCategoria.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1338,9 +1376,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripGrupo;
         private System.Windows.Forms.ToolStripMenuItem filtrarPeloGrupoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelarFiltroPeloGrupoToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripCategoria;
-        private System.Windows.Forms.ToolStripMenuItem filtrarPelaCategoriaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cancelarFiltroPelaCategoriaToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLancamento;
         private System.Windows.Forms.ToolStripMenuItem filtrarPeloLancamentoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelarFiltroPeloLancamentoToolStripMenuItem;
@@ -1390,6 +1425,9 @@
         private System.Windows.Forms.Panel panelObservacao;
         private System.Windows.Forms.TextBox textBoxObservacao;
         private System.Windows.Forms.Label labelObservacao;
+        private System.Windows.Forms.Button buttonSoltar;
+        private System.Windows.Forms.Button buttonFixar;
+        private System.Windows.Forms.CheckBox checkBoxSubjacente;
         private System.Windows.Forms.DataGridViewTextBoxColumn MovimentoContaID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Passo;
         private System.Windows.Forms.DataGridViewTextBoxColumn MovimentoInvestimentoID;
@@ -1401,6 +1439,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Descricao;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoriaID;
         private System.Windows.Forms.DataGridViewTextBoxColumn GrupoCategoriaID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VeiculoID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Debito;
         private System.Windows.Forms.DataGridViewTextBoxColumn Credito;
         private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
@@ -1414,8 +1453,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CotacaoMoedaID;
         private System.Windows.Forms.DataGridViewTextBoxColumn MovimentosAgrupados;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlanejamentoID;
-        private System.Windows.Forms.Button buttonSoltar;
-        private System.Windows.Forms.Button buttonFixar;
-        private System.Windows.Forms.CheckBox checkBoxSubjacente;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripVeiculo;
+        private System.Windows.Forms.ToolStripMenuItem filtrarPeloVeiculoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cancelarFiltroPeloVeiculoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filtrarPelaCategoriaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cancelarFiltroPelaCategoriaToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripCategoria;
     }
 }

@@ -26,8 +26,9 @@ namespace DAL
                 // 2) stpAtualizaBalancoContaPeriodo para os movimentos da conta a partir de uma determinada data
 
                 // Instancia um comando
-                SqlCommand query = new SqlCommand(@"SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, 
-                                                           vmMC.LancamentoID, vmMC.Descricao, vmMC.CategoriaID, vmMC.GrupoCategoriaID, 
+                SqlCommand query = new SqlCommand(@"
+                                                    SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, 
+                                                           vmMC.LancamentoID, vmMC.Descricao, vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.VeiculoID, 
                                                            vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, vmMC.Conciliacao,
                                                            vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, 
                                                            vmMC.MovimentoInvestimentoID, vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, 
@@ -71,42 +72,46 @@ namespace DAL
 
                 // Instancia um comando
                 SqlCommand query = new SqlCommand(
-                    @"SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao,  
-                             vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, 
-                             vmMC.Conciliacao, vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
-                             vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, 
-                             vmMC.VrLiquido, vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, vmMC.IdentificacaoOFX, 
-                             vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, vmMC.PlanejamentoID,
-                             CASE WHEN vmMC.Conciliacao IN ('A','F') THEN 1 ELSE 0 END Conc,
-                             MObs.Observacao
-                      FROM vw_MovimentacaoConta vmMC  
-                      LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID
-                      WHERE vmMC.ContaID = @ContaID  
-                      AND   vmMC.Data >= @DataMinima " +
+                    @"
+                    SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao,  
+                           vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.VeiculoID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, 
+                           vmMC.Conciliacao, vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
+                           vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, 
+                           vmMC.VrLiquido, vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, vmMC.IdentificacaoOFX, 
+                           vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, vmMC.PlanejamentoID,
+                           CASE WHEN vmMC.Conciliacao IN ('A','F') THEN 1 ELSE 0 END Conc,
+                           MObs.Observacao
+                    FROM vw_MovimentacaoConta vmMC  
+                    LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID
+                    WHERE vmMC.ContaID = @ContaID  
+                    AND   vmMC.Data >= @DataMinima " +
 
                     filtro + "  " +
 
-                    @"UNION ALL  
+                    @"
+                    UNION ALL  
 
-                      SELECT -9999, vmMC.UsuarioID, vmMC.ContaID, DATEADD(Day, -1, @DataMinima) Data, NULL, NULL,  
-                             'Reconciliados até ' + CONVERT(VARCHAR(10), DATEADD(Day, -1, @DataMinima), 103) Descricao,  
-                             Ctgr.CategoriaID, NULL, NULL,  
-                             SUM(vmMC.Credito) Credito, SUM(vmMC.Debito) Debito,  
-                             NULL Valor, SUM(vmMC.Valor) Balanco, vmMC.Conciliacao,  
-                             NULL, 0 DoMovimentoContaID, CAST(1 AS BIT) Sistema, NULL, NULL, NULL, NULL,  
-                             NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0 Legenda, NULL, NULL, 0 Passo, 
-                             COUNT(*) MovimentosAgrupados, 0 PlanejamentoID,
-                             -1 Conc, NULL Observacao
-                      FROM vw_MovimentacaoConta vmMC  
-                           JOIN Categoria Ctgr ON Ctgr.ContaID = vmMC.ContaID  
-                      WHERE vmMC.ContaID = @ContaID  
-                      AND   vmMC.Data < @DataMinima " +
+                    SELECT -9999, vmMC.UsuarioID, vmMC.ContaID, DATEADD(Day, -1, @DataMinima) Data, NULL, NULL,  
+                           'Reconciliados até ' + CONVERT(VARCHAR(10), DATEADD(Day, -1, @DataMinima), 103) Descricao,  
+                           Ctgr.CategoriaID, NULL, NULL, NULL,  
+                           SUM(vmMC.Credito) Credito, SUM(vmMC.Debito) Debito,  
+                           NULL Valor, SUM(vmMC.Valor) Balanco, vmMC.Conciliacao,  
+                           NULL, 0 DoMovimentoContaID, CAST(1 AS BIT) Sistema, NULL, NULL, NULL, NULL,  
+                           NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0 Legenda, NULL, NULL, 0 Passo, 
+                           COUNT(*) MovimentosAgrupados, 0 PlanejamentoID,
+                           -1 Conc, NULL Observacao
+                    FROM vw_MovimentacaoConta vmMC  
+                         JOIN Categoria Ctgr ON Ctgr.ContaID = vmMC.ContaID  
+                    WHERE vmMC.ContaID = @ContaID  
+                    AND   vmMC.Data < @DataMinima " +
 
                     filtro + "  " +
 
-                    @"GROUP BY vmMC.UsuarioID, vmMC.ContaID, vmMC.Conciliacao, Ctgr.CategoriaID  
-                      ORDER BY CASE WHEN Conciliacao IN ('A','F') THEN 1 ELSE 0 END ASC, 
-                               Data ASC, MovimentoContaID;", conn);
+                    @"
+                    GROUP BY vmMC.UsuarioID, vmMC.ContaID, vmMC.Conciliacao, Ctgr.CategoriaID  
+                    ORDER BY CASE WHEN Conciliacao IN ('A','F') THEN 1 ELSE 0 END ASC, 
+                             Data ASC, 
+                             MovimentoContaID;", conn);
 
                 // Atribui os parâmetros
                 query.Parameters.AddWithValue("@ContaID", contaID);
@@ -140,42 +145,46 @@ namespace DAL
 
                 // Instancia um comando
                 SqlCommand query = new SqlCommand(
-                    @"SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao,  
-                             vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, 
-                             vmMC.Conciliacao, vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
-                             vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, 
-                             vmMC.VrLiquido, vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, vmMC.IdentificacaoOFX, 
-                             vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, vmMC.PlanejamentoID,
-                             CASE WHEN vmMC.Conciliacao IN ('A','F','P') THEN 1 ELSE 0 END Conc,
-                             MObs.Observacao
-                      FROM vw_MovimentacaoContaPagamentoCartao vmMC  
-                      LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID
-                      WHERE vmMC.ContaID = @ContaID  
-                      AND   vmMC.Data >= @DataMinima " +
+                    @"
+                    SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao,  
+                           vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.VeiculoID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, 
+                           vmMC.Conciliacao, vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
+                           vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, 
+                           vmMC.VrLiquido, vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, vmMC.IdentificacaoOFX, 
+                           vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, vmMC.PlanejamentoID,
+                           CASE WHEN vmMC.Conciliacao IN ('A','F','P') THEN 1 ELSE 0 END Conc,
+                           MObs.Observacao
+                    FROM vw_MovimentacaoContaPagamentoCartao vmMC  
+                    LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID
+                    WHERE vmMC.ContaID = @ContaID  
+                    AND   vmMC.Data >= @DataMinima " +
 
                     filtro + "  " +
 
-                    @"UNION ALL  
+                    @"
+                    UNION ALL  
 
-                      SELECT -9999, vmMC.UsuarioID, vmMC.ContaID, DATEADD(Day, -1, @DataMinima) Data, NULL, NULL,  
-                             'Reconciliados até ' + CONVERT(VARCHAR(10), DATEADD(Day, -1, @DataMinima), 103) Descricao,  
-                             Ctgr.CategoriaID, NULL, NULL,  
-                             SUM(vmMC.Credito) Credito, SUM(vmMC.Debito) Debito,  
-                             NULL Valor, SUM(vmMC.Valor) Balanco, vmMC.Conciliacao,  
-                             NULL, 0 DoMovimentoContaID, CAST(1 AS BIT) Sistema, NULL, NULL, NULL, NULL,  
-                             NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0 Legenda, NULL, NULL, 0 Passo, 
-                             COUNT(*) MovimentosAgrupados, 0 PlanejamentoID,
-                             -1 Conc, NULL Observacao
-                      FROM vw_MovimentacaoContaPagamentoCartao vmMC  
-                           JOIN Categoria Ctgr ON Ctgr.ContaID = vmMC.ContaID  
-                      WHERE vmMC.ContaID = @ContaID  
-                      AND   vmMC.Data < @DataMinima " +
+                    SELECT -9999, vmMC.UsuarioID, vmMC.ContaID, DATEADD(Day, -1, @DataMinima) Data, NULL, NULL,  
+                           'Reconciliados até ' + CONVERT(VARCHAR(10), DATEADD(Day, -1, @DataMinima), 103) Descricao,  
+                           Ctgr.CategoriaID, NULL, NULL, NULL,
+                           SUM(vmMC.Credito) Credito, SUM(vmMC.Debito) Debito,  
+                           NULL Valor, SUM(vmMC.Valor) Balanco, vmMC.Conciliacao,  
+                           NULL, 0 DoMovimentoContaID, CAST(1 AS BIT) Sistema, NULL, NULL, NULL, NULL,  
+                           NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0 Legenda, NULL, NULL, 0 Passo, 
+                           COUNT(*) MovimentosAgrupados, 0 PlanejamentoID,
+                           -1 Conc, NULL Observacao
+                    FROM vw_MovimentacaoContaPagamentoCartao vmMC  
+                         JOIN Categoria Ctgr ON Ctgr.ContaID = vmMC.ContaID  
+                    WHERE vmMC.ContaID = @ContaID  
+                    AND   vmMC.Data < @DataMinima " +
 
                     filtro + "  " +
 
-                    @"GROUP BY vmMC.UsuarioID, vmMC.ContaID, vmMC.Conciliacao, Ctgr.CategoriaID  
-                      ORDER BY CASE WHEN Conciliacao IN ('A','F','P') THEN 1 ELSE 0 END ASC, 
-                               Data ASC, MovimentoContaID;", conn);
+                    @"
+                    GROUP BY vmMC.UsuarioID, vmMC.ContaID, vmMC.Conciliacao, Ctgr.CategoriaID  
+                    ORDER BY CASE WHEN Conciliacao IN ('A','F','P') THEN 1 ELSE 0 END ASC, 
+                             Data ASC, 
+                             MovimentoContaID;", conn);
 
                 // Atribui os parâmetros
                 query.Parameters.AddWithValue("@ContaID", contaID);
@@ -217,6 +226,7 @@ namespace DAL
                                                      vmMC.LancamentoID, Lnct.Apelido Lancamento,
                                                      vmMC.CategoriaID, Ctgr.Apelido Categoria,
                                                      vmMC.GrupoCategoriaID, Grpo.Apelido GrupoCategoria,
+                                                     vmMC.VeiculoID, Veic.Placa Veiculo,
                                                      vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, vmMC.Conciliacao,
                                                      vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
                                                      vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, vmMC.InvestimentoCotacaoID, vmMC.QtCotas, 
@@ -225,7 +235,8 @@ namespace DAL
                                               FROM vw_MovimentacaoConta vmMC
                                               INNER JOIN Categoria Ctgr ON Ctgr.CategoriaID = vmMC.CategoriaID
                                               INNER JOIN Lancamento Lnct ON Lnct.LancamentoID = vmMC.LancamentoID
-                                              LEFT JOIN GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = vmMC.GrupoCategoriaID
+                                               LEFT JOIN GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = vmMC.GrupoCategoriaID
+                                               LEFT JOIN Veiculo Veic ON Veic.VeiculoID = vmMC.VeiculoID
                                               WHERE vmMC.ContaID = @ContaID
                                               AND vmMC.Data >= @DataMinima
                                               ORDER BY vmMC.Data ASC, CASE WHEN vmMC.Valor >= 0 THEN 1 ELSE 2 END ASC;", conn);
@@ -246,15 +257,15 @@ namespace DAL
             string texto = "";
 
             SqlConnection conn = new SqlConnection(Dados.Conexao);
-            SqlCommand cmd = new SqlCommand(@"SELECT 
-                                                  'Sobre' + substring(MCa.Descricao, CHARINDEX(' ', MCa.Descricao), 100) Descricao
-                                              FROM MovimentoConta MCa
-                                              WHERE MCa.ContaID = @ContaID
-                                              AND MCa.Numero = @NumeroCDB
-                                              AND MCa.Data = (SELECT MIN(Data) 
-                                                              FROM MovimentoConta MCb 
-                                                              WHERE MCb.ContaID = @ContaID
-                                                              AND MCb.Numero = @NumeroCDB)", conn);
+            SqlCommand cmd = new SqlCommand(@"
+                                            SELECT 'Sobre' + substring(MCa.Descricao, CHARINDEX(' ', MCa.Descricao), 100) Descricao
+                                            FROM MovimentoConta MCa
+                                            WHERE MCa.ContaID = @ContaID
+                                            AND MCa.Numero = @NumeroCDB
+                                            AND MCa.Data = (SELECT MIN(Data) 
+                                                            FROM MovimentoConta MCb 
+                                                            WHERE MCb.ContaID = @ContaID
+                                                            AND MCb.Numero = @NumeroCDB)", conn);
             cmd.Parameters.AddWithValue("@ContaID", contaID);
             cmd.Parameters.AddWithValue("@NumeroCDB", numeroCDB);
 
@@ -288,10 +299,11 @@ namespace DAL
             decimal saldo = 0;
 
             SqlConnection conn = new SqlConnection(Dados.Conexao);
-            SqlCommand cmd = new SqlCommand(@"SELECT COALESCE(SUM(mc.Credito), 0) - COALESCE(SUM(mc.Debito), 0) Saldo
-                                              FROM MovimentoConta mc
-                                              WHERE mc.ContaID = @ContaID
-                                              AND   mc.Numero = @NumeroCDB;", conn);
+            SqlCommand cmd = new SqlCommand(@"
+                                            SELECT COALESCE(SUM(mc.Credito), 0) - COALESCE(SUM(mc.Debito), 0) Saldo
+                                            FROM MovimentoConta mc
+                                            WHERE mc.ContaID = @ContaID
+                                            AND   mc.Numero = @NumeroCDB;", conn);
             cmd.Parameters.AddWithValue("@ContaID", contaID);
             cmd.Parameters.AddWithValue("@NumeroCDB", numeroCDB);
 
@@ -381,30 +393,32 @@ namespace DAL
                 filtro.Append("AND UPPER(vmMC.Descricao) LIKE '%" + descricao + "%' ");
             }
 
-            StringBuilder texto = new StringBuilder(@"WITH BASE AS (SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, 
-                                                                           vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao, vmMC.CategoriaID,
-                                                                           vmMC.GrupoCategoriaID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, 
-                                                                           CAST(NULL AS NUMERIC(22,10)) Balanco, vmMC.Conciliacao, vmMC.PilhaMovimentoContaID, 
-                                                                           vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
-                                                                           vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, 
-                                                                           vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, vmMC.VrLiquido, 
-                                                                           vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, 
-                                                                           vmMC.IdentificacaoOFX, vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, 
-                                                                           vmMC.PlanejamentoID, MObs.Observacao
-                                                                    FROM vw_MovimentacaoConta vmMC 
-                                                                         JOIN Categoria Pais ON Pais.CategoriaID = vmMC.CategoriaID 
-                                                                    LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID ");
+            StringBuilder texto = new StringBuilder(@"
+                                                    WITH BASE AS (SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, 
+                                                                         vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao, vmMC.CategoriaID,
+                                                                         vmMC.GrupoCategoriaID, vmMC.VeiculoID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, 
+                                                                         CAST(NULL AS NUMERIC(22,10)) Balanco, vmMC.Conciliacao, vmMC.PilhaMovimentoContaID, 
+                                                                         vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID, 
+                                                                         vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, 
+                                                                         vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, vmMC.VrLiquido, 
+                                                                         vmMC.SldCotas, vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, 
+                                                                         vmMC.IdentificacaoOFX, vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, 
+                                                                         vmMC.PlanejamentoID, MObs.Observacao
+                                                                  FROM vw_MovimentacaoConta vmMC 
+                                                                       JOIN Categoria Pais ON Pais.CategoriaID = vmMC.CategoriaID 
+                                                                  LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID ");
 
             texto.Append(filtro.ToString() + "), ");
 
-            texto.Append(@"SELECAO AS (SELECT MovimentoContaID, UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, 
-                                              CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito, Valor, Balanco,
-                                              Conciliacao, PilhaMovimentoContaID, DoMovimentoContaID, Sistema,
-                                              MovimentoInvestimentoID, InvestimentoID, TransacaoID, Transacao,
-                                              InvestimentoCotacaoID, QtCotas, VrBruto, VrLiquido, SldCotas, VrCotacao,
-                                              VrDespesa, Legenda, IdentificacaoOFX, CotacaoMoedaID, Passo, 
-                                              MovimentosAgrupados, PlanejamentoID, Observacao
-                                       FROM BASE ");
+            texto.Append(@"
+                                SELECAO AS (SELECT MovimentoContaID, UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, 
+                                       CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito, Valor, Balanco,
+                                       Conciliacao, PilhaMovimentoContaID, DoMovimentoContaID, Sistema,
+                                       MovimentoInvestimentoID, InvestimentoID, TransacaoID, Transacao,
+                                       InvestimentoCotacaoID, QtCotas, VrBruto, VrLiquido, SldCotas, VrCotacao,
+                                       VrDespesa, Legenda, IdentificacaoOFX, CotacaoMoedaID, Passo, 
+                                       MovimentosAgrupados, PlanejamentoID, Observacao
+                                FROM BASE ");
 
             if (mcPesquisa.Subjacente)
             {
@@ -413,7 +427,7 @@ namespace DAL
 
                                SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, 
                                       vmMC.Numero, vmMC.LancamentoID, vmMC.Descricao, vmMC.CategoriaID,
-                                      vmMC.GrupoCategoriaID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor,
+                                      vmMC.GrupoCategoriaID, vmMC.VeiculoID, vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor,
                                       CAST(NULL AS NUMERIC(22, 10)) Balanco, vmMC.Conciliacao, vmMC.PilhaMovimentoContaID,
                                       vmMC.DoMovimentoContaID, vmMC.Sistema, vmMC.MovimentoInvestimentoID,
                                       vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao,
@@ -431,14 +445,13 @@ namespace DAL
                 texto.Append(" )");
             }
 
-            texto.Append(@"SELECT * FROM SELECAO
-                           ORDER BY CASE WHEN Conciliacao IN ('A','F') THEN 1 ELSE 0 END, 
-                                 Data, 
-                                 CrdDeb, 
-                                 DoMovimentoContaID, 
-                                 MovimentoContaID");
-
-
+            texto.Append(@"
+                         SELECT * FROM SELECAO
+                         ORDER BY CASE WHEN Conciliacao IN ('A','F') THEN 1 ELSE 0 END, 
+                               Data, 
+                              CrdDeb, 
+                              DoMovimentoContaID, 
+                              MovimentoContaID");
 
             // Instancia uma tabela
             DataTable table = new DataTable();
@@ -505,9 +518,10 @@ namespace DAL
             string tipoArquivo = "OFX";
 
             SqlConnection conn = new SqlConnection(Dados.Conexao);
-            SqlCommand cmd = new SqlCommand(@"SELECT UPPER(TipoArquivo) TipoArquivo
-                                              FROM Conta
-                                              WHERE ContaID = @ContaID", conn);
+            SqlCommand cmd = new SqlCommand(@"
+                                            SELECT UPPER(TipoArquivo) TipoArquivo
+                                            FROM Conta
+                                            WHERE ContaID = @ContaID", conn);
             cmd.Parameters.AddWithValue("@ContaID", contaID);
 
             try
@@ -630,9 +644,9 @@ namespace DAL
                 try
                 {
                     cmd.CommandText = @"INSERT INTO MovimentoContaObservacao
-                                    (MovimentoContaID, Observacao)
-                                    VALUES
-                                    (@MovimentoContaID, @Observacao)";
+                                        (MovimentoContaID, Observacao)
+                                        VALUES
+                                        (@MovimentoContaID, @Observacao)";
                     cmd.Parameters.AddWithValue("@MovimentoContaID", identity);
                     cmd.Parameters.AddWithValue("@Observacao", observacao);
                     cmd.ExecuteNonQuery();
@@ -649,12 +663,12 @@ namespace DAL
             try
             {
                 cmd.CommandText = @"INSERT INTO MovimentoConta
-                                    (UsuarioID, ContaID, Data, Numero, LancamentoID,
-                                     Descricao, CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito,
+                                    (UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, 
+                                     CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito,
                                      Conciliacao, PilhaMovimentoContaID, DoMovimentoContaID, Sistema)
                                     VALUES
-                                    (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID,
-                                     @Descricao, @CategoriaID, @GrupoCategoriaID, @CrdDeb, @Credito, @Debito,
+                                    (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID, @Descricao, 
+                                     @CategoriaID, @GrupoCategoriaID, @VeiculoID, @CrdDeb, @Credito, @Debito,
                                      @Conciliacao, @PilhaMovimentoContaID, @DoMovimentoContaID, @Sistema);
                                     
                                     SELECT CAST(@@IDENTITY AS INT) AS MovimentoContaID;";
@@ -675,6 +689,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@CategoriaID", modelo.CategoriaID);
                 cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@CrdDeb", (object)modelo.CrdDeb ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Credito", (object)modelo.Credito ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Debito", (object)modelo.Debito ?? DBNull.Value);
@@ -702,12 +717,12 @@ namespace DAL
             {
                 // Insere a movimentação e retorna a identidade (MovimentoConta.MovimentoContaID)
                 cmd.CommandText = @"INSERT INTO MovimentoConta
-                                    (UsuarioID, ContaID, Data, Numero, LancamentoID,
-                                     Descricao, CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito,
+                                    (UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, 
+                                     CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito,
                                      Conciliacao, PilhaMovimentoContaID, DoMovimentoContaID, Sistema)
                                     VALUES
                                     (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID,
-                                     @Descricao, @CategoriaID, @GrupoCategoriaID, @CrdDeb, @Credito, @Debito,
+                                     @Descricao, @CategoriaID, @GrupoCategoriaID, @VeiculoID, @CrdDeb, @Credito, @Debito,
                                      @Conciliacao, @PilhaMovimentoContaID, @DoMovimentoContaID, @Sistema);
                                     
                                     SELECT CAST(@@IDENTITY AS INT) AS MovimentoContaID;";
@@ -728,6 +743,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@CategoriaID", modelo.CategoriaID);
                 cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
 
                 // Se a origem é um débito, o destino será um crédito e vice-versa.
                 if (modelo.CrdDeb == "D")
@@ -839,6 +855,7 @@ namespace DAL
                                         Descricao = @Descricao,  
                                         CategoriaID = @CategoriaID,  
                                         GrupoCategoriaID = @GrupoCategoriaID,  
+                                        VeiculoID = @VeiculoID,  
                                         CrdDeb = @CrdDeb,  
                                         Credito = @Credito,  
                                         Debito = @Debito,  
@@ -861,6 +878,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@CategoriaID", modelo.CategoriaID);
                 cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@CrdDeb", (object)modelo.CrdDeb ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Credito", (object)modelo.Credito ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Debito", (object)modelo.Debito ?? DBNull.Value);
@@ -920,6 +938,7 @@ namespace DAL
                                                 LancamentoID = @LancamentoID,
                                                 CategoriaID = @CategoriaID,
                                                 GrupoCategoriaID = @GrupoCategoriaID,
+                                                VeiculoID = @VeiculoID,
                                                 CrdDeb = @CrdDeb,
                                                 Credito = @Credito,
                                                 Debito = @Debito,
@@ -939,6 +958,7 @@ namespace DAL
                         // CategoriaID é igual a categoria ligada à conta de origem.
                         cmd.Parameters.AddWithValue("@CategoriaID", categoriaPara);
                         cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
 
                         // Se a origem é um débito, o destino será um crédito e vice-versa.
                         if (modelo.CrdDeb == "D")
@@ -991,12 +1011,12 @@ namespace DAL
                         // A categoria está ligada a uma conta, logo é uma transferência.
                         cmd.Parameters.Clear();
                         cmd.CommandText = @"INSERT INTO MovimentoConta
-                                            (UsuarioID, ContaID, Data, Numero, LancamentoID,
-                                             Descricao, CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito,
+                                            (UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, 
+                                             CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito,
                                              Conciliacao, PilhaMovimentoContaID, DoMovimentoContaID, Sistema)
                                             VALUES
                                             (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID,
-                                             @Descricao, @CategoriaID, @GrupoCategoriaID, @CrdDeb, @Credito, @Debito,
+                                             @Descricao, @CategoriaID, @GrupoCategoriaID, @VeiculoID, @CrdDeb, @Credito, @Debito,
                                              @Conciliacao, @PilhaMovimentoContaID, @DoMovimentoContaID, @Sistema);
 
                                             SELECT CAST(@@IDENTITY AS INT) AS MovimentoContaID;";
@@ -1011,6 +1031,7 @@ namespace DAL
                         // CategoriaID é igual a categoria ligada à conta de origem.
                         cmd.Parameters.AddWithValue("@CategoriaID", categoriaPara);
                         cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
 
                         // Se a origem é um débito, o destino será um crédito e vice-versa.
                         if (modelo.CrdDeb == "D")
@@ -1162,12 +1183,13 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT TOP 1
-                                                Descricao, CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito
-                                                FROM MovimentoConta
-                                                WHERE ContaID = @ContaID
-                                                AND LancamentoID = @ParceiroID
-                                                ORDER BY Data DESC, MovimentoContaID DESC;", conn);
+            SqlCommand query = new SqlCommand(@"
+                                              SELECT TOP 1
+                                              Descricao, CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito
+                                              FROM MovimentoConta
+                                              WHERE ContaID = @ContaID
+                                              AND LancamentoID = @ParceiroID
+                                              ORDER BY Data DESC, MovimentoContaID DESC;", conn);
             // Atribui os parâmetros
             query.Parameters.AddWithValue("@ContaID", contaID);
             query.Parameters.AddWithValue("@ParceiroID", parceiroID);
@@ -1236,7 +1258,7 @@ namespace DAL
             SqlCommand query = new SqlCommand(
                 @"SELECT 
                              MovimentoContaID, UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao,
-                             CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito, Valor, Balanco, Conciliacao,
+                             CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito, Valor, Balanco, Conciliacao,
                              PilhaMovimentoContaID, DoMovimentoContaID, Sistema, MovimentoInvestimentoID, InvestimentoID,
                              TransacaoID, InvestimentoCotacaoID, QtCotas, VrBruto, VrLiquido, SldCotas, VrCotacao,
                              VrDespesa, Legenda

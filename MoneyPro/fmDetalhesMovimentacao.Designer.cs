@@ -48,6 +48,8 @@
             this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GrupoCategoriaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GrupoCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VeiculoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Veiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CrdDeb = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Debito = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Credito = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,8 +64,9 @@
             // 
             // panelRodape
             // 
-            this.panelRodape.Location = new System.Drawing.Point(0, 337);
-            this.panelRodape.Size = new System.Drawing.Size(453, 30);
+            this.panelRodape.Location = new System.Drawing.Point(0, 415);
+            this.panelRodape.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panelRodape.Size = new System.Drawing.Size(604, 37);
             // 
             // buttonExcluir
             // 
@@ -76,13 +79,15 @@
             // panelTopo
             // 
             this.panelTopo.Controls.Add(this.buttonFecharDetalhes);
-            this.panelTopo.Size = new System.Drawing.Size(453, 40);
+            this.panelTopo.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.panelTopo.Size = new System.Drawing.Size(604, 49);
             this.panelTopo.Controls.SetChildIndex(this.labelTopo, 0);
             this.panelTopo.Controls.SetChildIndex(this.buttonFecharDetalhes, 0);
             // 
             // labelTopo
             // 
-            this.labelTopo.Size = new System.Drawing.Size(191, 24);
+            this.labelTopo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.labelTopo.Size = new System.Drawing.Size(251, 32);
             this.labelTopo.Text = "Detalhes da conta";
             // 
             // toolTip
@@ -96,9 +101,10 @@
             this.buttonFecharDetalhes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFecharDetalhes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFecharDetalhes.Image = global::MoneyPro.Properties.Resources.z16fechar;
-            this.buttonFecharDetalhes.Location = new System.Drawing.Point(418, 9);
+            this.buttonFecharDetalhes.Location = new System.Drawing.Point(557, 11);
+            this.buttonFecharDetalhes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFecharDetalhes.Name = "buttonFecharDetalhes";
-            this.buttonFecharDetalhes.Size = new System.Drawing.Size(23, 23);
+            this.buttonFecharDetalhes.Size = new System.Drawing.Size(31, 28);
             this.buttonFecharDetalhes.TabIndex = 13;
             this.buttonFecharDetalhes.TabStop = false;
             this.buttonFecharDetalhes.Tag = "OFX";
@@ -131,6 +137,8 @@
             this.Categoria,
             this.GrupoCategoriaID,
             this.GrupoCategoria,
+            this.VeiculoID,
+            this.Veiculo,
             this.CrdDeb,
             this.Debito,
             this.Credito,
@@ -139,12 +147,14 @@
             this.PlanejamentoRepeticao});
             this.detalhesMovimentacaoDataGridView.DataSource = this.detalhesMovimentacaoBindingSource;
             this.detalhesMovimentacaoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.detalhesMovimentacaoDataGridView.Location = new System.Drawing.Point(0, 40);
+            this.detalhesMovimentacaoDataGridView.Location = new System.Drawing.Point(0, 49);
+            this.detalhesMovimentacaoDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.detalhesMovimentacaoDataGridView.Name = "detalhesMovimentacaoDataGridView";
             this.detalhesMovimentacaoDataGridView.ReadOnly = true;
             this.detalhesMovimentacaoDataGridView.RowHeadersVisible = false;
+            this.detalhesMovimentacaoDataGridView.RowHeadersWidth = 51;
             this.detalhesMovimentacaoDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.detalhesMovimentacaoDataGridView.Size = new System.Drawing.Size(453, 297);
+            this.detalhesMovimentacaoDataGridView.Size = new System.Drawing.Size(604, 366);
             this.detalhesMovimentacaoDataGridView.TabIndex = 5;
             this.detalhesMovimentacaoDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.detalhesMovimentacaoDataGridView_CellFormatting);
             // 
@@ -152,25 +162,31 @@
             // 
             this.Detalhe.DataPropertyName = "Detalhe";
             this.Detalhe.HeaderText = "Detalhe";
+            this.Detalhe.MinimumWidth = 6;
             this.Detalhe.Name = "Detalhe";
             this.Detalhe.ReadOnly = true;
             this.Detalhe.Visible = false;
+            this.Detalhe.Width = 125;
             // 
             // MovimentoContaID
             // 
             this.MovimentoContaID.DataPropertyName = "MovimentoContaID";
             this.MovimentoContaID.HeaderText = "MovimentoContaID";
+            this.MovimentoContaID.MinimumWidth = 6;
             this.MovimentoContaID.Name = "MovimentoContaID";
             this.MovimentoContaID.ReadOnly = true;
             this.MovimentoContaID.Visible = false;
+            this.MovimentoContaID.Width = 125;
             // 
             // ContaID
             // 
             this.ContaID.DataPropertyName = "ContaID";
             this.ContaID.HeaderText = "ContaID";
+            this.ContaID.MinimumWidth = 6;
             this.ContaID.Name = "ContaID";
             this.ContaID.ReadOnly = true;
             this.ContaID.Visible = false;
+            this.ContaID.Width = 125;
             // 
             // Conta
             // 
@@ -188,17 +204,20 @@
             this.Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Data.DataPropertyName = "Data";
             this.Data.HeaderText = "Data";
+            this.Data.MinimumWidth = 6;
             this.Data.Name = "Data";
             this.Data.ReadOnly = true;
-            this.Data.Width = 55;
+            this.Data.Width = 65;
             // 
             // LancamentoID
             // 
             this.LancamentoID.DataPropertyName = "LancamentoID";
             this.LancamentoID.HeaderText = "LancamentoID";
+            this.LancamentoID.MinimumWidth = 6;
             this.LancamentoID.Name = "LancamentoID";
             this.LancamentoID.ReadOnly = true;
             this.LancamentoID.Visible = false;
+            this.LancamentoID.Width = 125;
             // 
             // Lancamento
             // 
@@ -225,9 +244,11 @@
             // 
             this.CategoriaID.DataPropertyName = "CategoriaID";
             this.CategoriaID.HeaderText = "CategoriaID";
+            this.CategoriaID.MinimumWidth = 6;
             this.CategoriaID.Name = "CategoriaID";
             this.CategoriaID.ReadOnly = true;
             this.CategoriaID.Visible = false;
+            this.CategoriaID.Width = 125;
             // 
             // Categoria
             // 
@@ -244,9 +265,11 @@
             // 
             this.GrupoCategoriaID.DataPropertyName = "GrupoCategoriaID";
             this.GrupoCategoriaID.HeaderText = "GrupoCategoriaID";
+            this.GrupoCategoriaID.MinimumWidth = 6;
             this.GrupoCategoriaID.Name = "GrupoCategoriaID";
             this.GrupoCategoriaID.ReadOnly = true;
             this.GrupoCategoriaID.Visible = false;
+            this.GrupoCategoriaID.Width = 125;
             // 
             // GrupoCategoria
             // 
@@ -259,13 +282,35 @@
             this.GrupoCategoria.ReadOnly = true;
             this.GrupoCategoria.Width = 120;
             // 
+            // VeiculoID
+            // 
+            this.VeiculoID.DataPropertyName = "VeiculoID";
+            this.VeiculoID.HeaderText = "VeiculoID";
+            this.VeiculoID.MinimumWidth = 6;
+            this.VeiculoID.Name = "VeiculoID";
+            this.VeiculoID.ReadOnly = true;
+            this.VeiculoID.Visible = false;
+            this.VeiculoID.Width = 125;
+            // 
+            // Veiculo
+            // 
+            this.Veiculo.DataPropertyName = "Veiculo";
+            this.Veiculo.FillWeight = 80F;
+            this.Veiculo.HeaderText = "VeÍculo";
+            this.Veiculo.MinimumWidth = 80;
+            this.Veiculo.Name = "Veiculo";
+            this.Veiculo.ReadOnly = true;
+            this.Veiculo.Width = 80;
+            // 
             // CrdDeb
             // 
             this.CrdDeb.DataPropertyName = "CrdDeb";
             this.CrdDeb.HeaderText = "CrdDeb";
+            this.CrdDeb.MinimumWidth = 6;
             this.CrdDeb.Name = "CrdDeb";
             this.CrdDeb.ReadOnly = true;
             this.CrdDeb.Visible = false;
+            this.CrdDeb.Width = 125;
             // 
             // Debito
             // 
@@ -298,31 +343,37 @@
             this.Conciliacao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Conciliacao.DataPropertyName = "Conciliacao";
             this.Conciliacao.HeaderText = "";
+            this.Conciliacao.MinimumWidth = 6;
             this.Conciliacao.Name = "Conciliacao";
             this.Conciliacao.ReadOnly = true;
-            this.Conciliacao.Width = 19;
+            this.Conciliacao.Width = 23;
             // 
             // PlanejamentoID
             // 
             this.PlanejamentoID.DataPropertyName = "PlanejamentoID";
             this.PlanejamentoID.HeaderText = "PlanejamentoID";
+            this.PlanejamentoID.MinimumWidth = 6;
             this.PlanejamentoID.Name = "PlanejamentoID";
             this.PlanejamentoID.ReadOnly = true;
             this.PlanejamentoID.Visible = false;
+            this.PlanejamentoID.Width = 125;
             // 
             // PlanejamentoRepeticao
             // 
             this.PlanejamentoRepeticao.DataPropertyName = "PlanejamentoRepeticao";
             this.PlanejamentoRepeticao.HeaderText = "PlanejamentoRepeticao";
+            this.PlanejamentoRepeticao.MinimumWidth = 6;
             this.PlanejamentoRepeticao.Name = "PlanejamentoRepeticao";
             this.PlanejamentoRepeticao.ReadOnly = true;
             this.PlanejamentoRepeticao.Visible = false;
+            this.PlanejamentoRepeticao.Width = 125;
             // 
             // fmDetalhesMovimentacao
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(453, 367);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.ClientSize = new System.Drawing.Size(604, 452);
             this.Controls.Add(this.detalhesMovimentacaoDataGridView);
+            this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.Name = "fmDetalhesMovimentacao";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fmDetalhes_FormClosed);
             this.Controls.SetChildIndex(this.panelTopo, 0);
@@ -354,6 +405,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn GrupoCategoriaID;
         private System.Windows.Forms.DataGridViewTextBoxColumn GrupoCategoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VeiculoID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Veiculo;
         private System.Windows.Forms.DataGridViewTextBoxColumn CrdDeb;
         private System.Windows.Forms.DataGridViewTextBoxColumn Debito;
         private System.Windows.Forms.DataGridViewTextBoxColumn Credito;

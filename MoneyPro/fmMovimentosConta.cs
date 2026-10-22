@@ -17,7 +17,6 @@ namespace MoneyPro
         // DataMovimento é utilizado para pintar os lançamentos 
         // futuros do mês de verde e dos meses seguintes de azul
         private DateTime DataMovimento;
-
         private DateTime? UltimaDataInserida = null;
 
         private fmMovimentosContaFluxo fmMovimentosContaFluxoEspecifico;
@@ -30,6 +29,7 @@ namespace MoneyPro
         private int[] selecaoLancamentoID = new int[MAXIMO];
         private int[] selecaoCategoriaID = new int[MAXIMO];
         private int[] selecaoGrupoCategoriaID = new int[MAXIMO];
+        private int[] selecaoVeiculoID = new int[MAXIMO];
         private DateTime[] selecaoData = new DateTime[2];
 
         private int IDUsuario { get; set; }
@@ -74,6 +74,7 @@ namespace MoneyPro
             LimpaArraySelecionados(selecaoLancamentoID);
             LimpaArraySelecionados(selecaoCategoriaID);
             LimpaArraySelecionados(selecaoGrupoCategoriaID);
+            LimpaArraySelecionados(selecaoVeiculoID);
 
             movimentoContaDataGridView.Columns["Debito"].DefaultCellStyle.Format = "N" + decimais.ToString("0");
             movimentoContaDataGridView.Columns["Credito"].DefaultCellStyle.Format = "N" + decimais.ToString("0");
@@ -232,6 +233,7 @@ namespace MoneyPro
             CriaColunaLancamento();
             CriaColunaCategoria();
             CriaColunaGrupoCategoria();
+            CriaColunaVeiculo();
             CriaColunaLegenda();
             CarregarMovimentosContas(contaID, false, previaCartao);
 
@@ -366,28 +368,26 @@ namespace MoneyPro
 
         private void CriaColunaGrupoCategoria()
         {
-            string nomeColuna = "GrupoCategoria";
-
             // Cria uma nova colluna do tipo ComboBox
-            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
-            combo.Name = nomeColuna;
-            combo.DataPropertyName = "GrupoCategoriaID";
+            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn
+            {
+                Name = "GrupoCategoria",
+                DataPropertyName = "GrupoCategoriaID",
+                DisplayMember = "Apelido",
+                ValueMember = "GrupoCategoriaID",
+                HeaderText = "Grupo",
+                SortMode = DataGridViewColumnSortMode.NotSortable,
+                // Atributos de formato
+                FlatStyle = FlatStyle.Flat,
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                AutoComplete = true,
+                Width = 100,
+                FillWeight = 100,
+                MinimumWidth = 80
+            };
             // Adiciona o menu de contexto
             combo.HeaderCell.ContextMenuStrip = contextMenuStripGrupo;
-
-            combo.DisplayMember = "Apelido";
-            combo.ValueMember = "GrupoCategoriaID";
-            combo.HeaderText = "Grupo";
-            combo.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // Atributos de formato
-            combo.FlatStyle = FlatStyle.Flat;
-            combo.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
-            combo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            combo.AutoComplete = true;
-            combo.Width = 100;
-            combo.FillWeight = 100;
-            combo.MinimumWidth = 80;
-
             // Acha a posição da coluna numérica e coloca o combobox junto, deixando a coluna numérica invisível.
             int index = movimentoContaDataGridView.Columns["GrupoCategoriaID"].Index;
             movimentoContaDataGridView.Columns[index].Visible = false;
@@ -399,9 +399,46 @@ namespace MoneyPro
         private void CarregaGrupoCategorias()
         {
             DataGridViewComboBoxColumn combo = (DataGridViewComboBoxColumn)movimentoContaDataGridView.Columns["GrupoCategoria"];
-
             GrupoCategoriaBLL bll = new GrupoCategoriaBLL();
             combo.DataSource = bll.Listar(IDUsuario);
+        }
+
+        private void CriaColunaVeiculo()
+        {
+            // Cria uma nova colluna do tipo ComboBox
+            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn
+            {
+                Name = "Veiculo",
+                DataPropertyName = "VeiculoID",
+                DisplayMember = "Placa",
+                ValueMember = "VeiculoID",
+                HeaderText = "Veículo",
+                SortMode = DataGridViewColumnSortMode.NotSortable,
+                // Atributos de formato
+                FlatStyle = FlatStyle.Flat,
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
+                //AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                AutoComplete = true,
+                Width = 70,
+                FillWeight = 70,
+                MinimumWidth = 70
+            };
+            // Adiciona o menu de contexto
+            combo.HeaderCell.ContextMenuStrip = contextMenuStripVeiculo;
+
+            // Acha a posição da coluna numérica e coloca o combobox junto, deixando a coluna numérica invisível.
+            int index = movimentoContaDataGridView.Columns["VeiculoID"].Index;
+            movimentoContaDataGridView.Columns[index].Visible = false;
+            movimentoContaDataGridView.Columns.Insert(index, combo);
+
+            CarregaVeiculos(IDUsuario);
+        }
+
+        private void CarregaVeiculos(int UsuarioID)
+        {
+            DataGridViewComboBoxColumn combo = (DataGridViewComboBoxColumn)movimentoContaDataGridView.Columns["Veiculo"];
+            VeiculoBLL bll = new VeiculoBLL();
+            combo.DataSource = bll.Listar();
         }
 
         public void CarregarMovimentosContas(int contaID, bool ultimaLinha, bool previaCartao = false)
@@ -733,12 +770,12 @@ namespace MoneyPro
                 else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.N)
                 {
                     // Se teclado ctrl + N chama a rotina de inclusão
-                    IncluirMovimentoConta(false);
+                    IncluirMovimentoConta(UltimaDataInserida != null);
                 }
                 else if ((e.Modifiers & (Keys.Control | Keys.Shift)) == (Keys.Control | Keys.Shift) && e.KeyCode == Keys.N)
                 {
                     // Se teclado ctrl + shift + N chama a rotina de inclusão
-                    IncluirMovimentoConta(UltimaDataInserida != null);
+                    IncluirMovimentoConta(false);
                 }
                 else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Insert)
                 {
@@ -1336,147 +1373,148 @@ namespace MoneyPro
                 // Se estiver em conciliação não poderá executar a validação da linha
                 if (!conciliado && movimentoContaDataGridView.RowCount > 0 && movimentoContaDataGridView.CurrentRow != null)
                 {
-                    //if (movimentoContaDataGridView.CurrentRow.Cells["MovimentoContaID"].Value != null)
-                    if (true)
+                    if (movimentoContaDataGridView.IsCurrentRowDirty || (int)movimentoContaDataGridView.CurrentRow.Cells["MovimentoContaID"].Value < 0)
                     {
-                        if (movimentoContaDataGridView.IsCurrentRowDirty || (int)movimentoContaDataGridView.CurrentRow.Cells["MovimentoContaID"].Value < 0)
+                        DataGridViewRow linha = movimentoContaDataGridView.CurrentRow;
+
+                        // Movimentos gerados pelo sistema não são alterado nunca.
+                        if (!(bool)linha.Cells["Sistema"].Value)
                         {
-                            DataGridViewRow linha = movimentoContaDataGridView.CurrentRow;
+                            MovimentoConta modelo = new MovimentoConta();
 
-                            // Movimentos gerados pelo sistema não são alterado nunca.
-                            if (!(bool)linha.Cells["Sistema"].Value)
+                            modelo.MovimentoContaID = (int)linha.Cells["MovimentoContaID"].Value;
+                            modelo.UsuarioID = (int)linha.Cells["UsuarioID"].Value;
+                            modelo.ContaID = (int)linha.Cells["ContaID"].Value;
+
+                            if (linha.Cells["Data"].Value != DBNull.Value)
                             {
-                                MovimentoConta modelo = new MovimentoConta();
+                                modelo.Data = (DateTime)linha.Cells["Data"].Value;
+                            }
+                            else
+                            {
+                                modelo.Data = null;
+                            }
 
-                                modelo.MovimentoContaID = (int)linha.Cells["MovimentoContaID"].Value;
-                                modelo.UsuarioID = (int)linha.Cells["UsuarioID"].Value;
-                                modelo.ContaID = (int)linha.Cells["ContaID"].Value;
+                            if (linha.Cells["Numero"].Value != DBNull.Value)
+                                modelo.Numero = (string)linha.Cells["Numero"].Value;
+                            else
+                                modelo.Numero = null;
 
-                                if (linha.Cells["Data"].Value != DBNull.Value)
+                            if (linha.Cells["LancamentoID"].Value != DBNull.Value)
+                                modelo.LancamentoID = (int)linha.Cells["LancamentoID"].Value;
+                            else
+                                modelo.LancamentoID = null;
+
+                            if (linha.Cells["Descricao"].Value != DBNull.Value)
+                                modelo.Descricao = (string)linha.Cells["Descricao"].Value;
+                            else
+                                modelo.Descricao = null;
+
+                            if (linha.Cells["CategoriaID"].Value != DBNull.Value)
+                                modelo.CategoriaID = (int)linha.Cells["CategoriaID"].Value;
+                            else
+                                modelo.CategoriaID = null;
+
+                            if (linha.Cells["VeiculoID"].Value != DBNull.Value)
+                                modelo.VeiculoID = (int)linha.Cells["VeiculoID"].Value;
+                            else
+                                modelo.VeiculoID = null;
+
+                            if (linha.Cells["GrupoCategoriaID"].Value != DBNull.Value)
+                                modelo.GrupoCategoriaID = (int)linha.Cells["GrupoCategoriaID"].Value;
+                            else
+                                modelo.GrupoCategoriaID = null;
+
+                            if (linha.Cells["CrdDeb"].Value != DBNull.Value)
+                                modelo.CrdDeb = (string)linha.Cells["CrdDeb"].Value;
+                            else
+                                modelo.CrdDeb = null;
+
+                            if (linha.Cells["Credito"].Value != DBNull.Value)
+                                modelo.Credito = (decimal)linha.Cells["Credito"].Value;
+                            else
+                                modelo.Credito = null;
+
+                            if (linha.Cells["Debito"].Value != DBNull.Value)
+                                modelo.Debito = (decimal)linha.Cells["Debito"].Value;
+                            else
+                                modelo.Debito = null;
+
+                            if (modelo.Data != null && modelo.Data <= DateTime.Now)
+                            {
+                                if (linha.Cells["Conciliacao"].Value != DBNull.Value)
                                 {
-                                    modelo.Data = (DateTime)linha.Cells["Data"].Value;
+                                    modelo.Conciliacao = (string)linha.Cells["Conciliacao"].Value;
                                 }
                                 else
                                 {
-                                    modelo.Data = null;
+                                    modelo.Conciliacao = null;
                                 }
-
-                                if (linha.Cells["Numero"].Value != DBNull.Value)
-                                    modelo.Numero = (string)linha.Cells["Numero"].Value;
-                                else
-                                    modelo.Numero = null;
-
-                                if (linha.Cells["LancamentoID"].Value != DBNull.Value)
-                                    modelo.LancamentoID = (int)linha.Cells["LancamentoID"].Value;
-                                else
-                                    modelo.LancamentoID = null;
-
-                                if (linha.Cells["Descricao"].Value != DBNull.Value)
-                                    modelo.Descricao = (string)linha.Cells["Descricao"].Value;
-                                else
-                                    modelo.Descricao = null;
-
-                                if (linha.Cells["CategoriaID"].Value != DBNull.Value)
-                                    modelo.CategoriaID = (int)linha.Cells["CategoriaID"].Value;
-                                else
-                                    modelo.CategoriaID = null;
-
-                                if (linha.Cells["GrupoCategoriaID"].Value != DBNull.Value)
-                                    modelo.GrupoCategoriaID = (int)linha.Cells["GrupoCategoriaID"].Value;
-                                else
-                                    modelo.GrupoCategoriaID = null;
-
-                                if (linha.Cells["CrdDeb"].Value != DBNull.Value)
-                                    modelo.CrdDeb = (string)linha.Cells["CrdDeb"].Value;
-                                else
-                                    modelo.CrdDeb = null;
-
-                                if (linha.Cells["Credito"].Value != DBNull.Value)
-                                    modelo.Credito = (decimal)linha.Cells["Credito"].Value;
-                                else
-                                    modelo.Credito = null;
-
-                                if (linha.Cells["Debito"].Value != DBNull.Value)
-                                    modelo.Debito = (decimal)linha.Cells["Debito"].Value;
-                                else
-                                    modelo.Debito = null;
-
-                                if (modelo.Data != null && modelo.Data <= DateTime.Now)
+                            }
+                            else
+                            {
+                                if (linha.Cells["Conciliacao"].Value != DBNull.Value && (string)linha.Cells["Conciliacao"].Value == "A")
                                 {
-                                    if (linha.Cells["Conciliacao"].Value != DBNull.Value)
-                                    {
-                                        modelo.Conciliacao = (string)linha.Cells["Conciliacao"].Value;
-                                    }
-                                    else
-                                    {
-                                        modelo.Conciliacao = null;
-                                    }
+                                    // Marca como lançamento AGENDADO.
+                                    modelo.Conciliacao = "A";
                                 }
                                 else
                                 {
-                                    if (linha.Cells["Conciliacao"].Value != DBNull.Value && (string)linha.Cells["Conciliacao"].Value == "A")
-                                    {
-                                        // Marca como lançamento AGENDADO.
-                                        modelo.Conciliacao = "A";
-                                    }
-                                    else
-                                    {
-                                        // Marca como lançamento FUTURO.
-                                        modelo.Conciliacao = "F";
-                                    }
+                                    // Marca como lançamento FUTURO.
+                                    modelo.Conciliacao = "F";
                                 }
+                            }
 
-                                if (linha.Cells["PilhaMovimentoContaID"].Value != DBNull.Value)
-                                    modelo.PilhaMovimentoContaID = (int)linha.Cells["PilhaMovimentoContaID"].Value;
-                                else
-                                    modelo.PilhaMovimentoContaID = null;
+                            if (linha.Cells["PilhaMovimentoContaID"].Value != DBNull.Value)
+                                modelo.PilhaMovimentoContaID = (int)linha.Cells["PilhaMovimentoContaID"].Value;
+                            else
+                                modelo.PilhaMovimentoContaID = null;
 
-                                if (linha.Cells["DoMovimentoContaID"].Value != DBNull.Value)
-                                    modelo.DoMovimentoContaID = (int)linha.Cells["DoMovimentoContaID"].Value;
-                                else
-                                    modelo.DoMovimentoContaID = null;
+                            if (linha.Cells["DoMovimentoContaID"].Value != DBNull.Value)
+                                modelo.DoMovimentoContaID = (int)linha.Cells["DoMovimentoContaID"].Value;
+                            else
+                                modelo.DoMovimentoContaID = null;
 
-                                modelo.Sistema = (bool)linha.Cells["Sistema"].Value;
+                            modelo.Sistema = (bool)linha.Cells["Sistema"].Value;
 
-                                if (movimentoContaDataGridView.CurrentRow.Cells["Observacao"].Value != DBNull.Value)
+                            if (movimentoContaDataGridView.CurrentRow.Cells["Observacao"].Value != DBNull.Value)
+                            {
+                                modelo.Observacao = (string)movimentoContaDataGridView.CurrentRow.Cells["Observacao"].Value;
+                            }
+                            else
+                            {
+                                modelo.Observacao = null;
+                            }
+
+                            MovimentoContaBLL bll = new MovimentoContaBLL();
+
+                            if (bll.Validar(modelo))
+                            {
+                                var storedRow = movimentoContaDataGridView.CurrentRow.Index;
+                                var storedCol = movimentoContaDataGridView.CurrentCell.ColumnIndex;
+
+                                int registro = bll.Gravar(modelo);
+                                UltimaDataInserida = modelo.Data;
+                                CarregarMovimentosContas(IDConta, false);
+                                Origem.CarregarRolContasAsync();
+
+                                // Esconde a caixa de observações após a gravação
+                                AlternaExibicaoCaixaObservacao(movimentoContaDataGridView.CurrentRow.Index, true);
+
+
+                                // Trata quando há exibição do resumo e a entrada muda a quantidade de linhas exibidas.
+                                if (movimentoContaDataGridView.Rows.Count >= storedRow)
                                 {
-                                    modelo.Observacao = (string)movimentoContaDataGridView.CurrentRow.Cells["Observacao"].Value;
-                                }
-                                else
-                                {
-                                    modelo.Observacao = null;
-                                }
-
-                                MovimentoContaBLL bll = new MovimentoContaBLL();
-
-                                if (bll.Validar(modelo))
-                                {
-                                    var storedRow = movimentoContaDataGridView.CurrentRow.Index;
-                                    var storedCol = movimentoContaDataGridView.CurrentCell.ColumnIndex;
-
-                                    int registro = bll.Gravar(modelo);
-                                    UltimaDataInserida = modelo.Data;
-                                    CarregarMovimentosContas(IDConta, false);
-                                    Origem.CarregarRolContasAsync();
-
-                                    // Esconde a caixa de observações após a gravação
-                                    AlternaExibicaoCaixaObservacao(movimentoContaDataGridView.CurrentRow.Index, true);
-
-
-                                    // Trata quando há exibição do resumo e a entrada muda a quantidade de linhas exibidas.
-                                    if (movimentoContaDataGridView.Rows.Count >= storedRow)
-                                    {
-                                        movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[storedRow].Cells[storedCol];
-                                    }
-                                    else
-                                    {
-                                        movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[movimentoContaDataGridView.Rows.Count - 1].Cells[storedCol];
-                                    }
+                                    movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[storedRow].Cells[storedCol];
                                 }
                                 else
                                 {
-                                    e.Cancel = true;
+                                    movimentoContaDataGridView.CurrentCell = movimentoContaDataGridView.Rows[movimentoContaDataGridView.Rows.Count - 1].Cells[storedCol];
                                 }
+                            }
+                            else
+                            {
+                                e.Cancel = true;
                             }
                         }
                     }
@@ -2683,37 +2721,49 @@ namespace MoneyPro
             {
                 int lancamentoID = (int)movimentoContaDataGridView.CurrentRow.Cells["LancamentoID"].Value;
 
-                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, IDConta, lancamentoID, null, null);
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, IDConta, lancamentoID, null, null, null);
             }
             else if ((string)origem.Tag == "especificoCategoria")
             {
                 int categoriaID = (int)movimentoContaDataGridView.CurrentRow.Cells["CategoriaID"].Value;
 
-                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, IDConta, null, categoriaID, null);
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, IDConta, null, categoriaID, null, null);
             }
             else if ((string)origem.Tag == "especificoGrupoCategoria")
             {
                 int grupoCategoriaID = (int)movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoriaID"].Value;
 
-                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, IDConta, null, null, grupoCategoriaID);
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, IDConta, null, null, grupoCategoriaID, null);
             }
+            else if ((string)origem.Tag == "especificoVeiculo")
+            {
+                int veiculoID = (int)movimentoContaDataGridView.CurrentRow.Cells["VeiculoID"].Value;
+
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, IDConta, null, null, null, veiculoID);
+            }
+
             else if ((string)origem.Tag == "geralLancamento")
             {
                 int lancamentoID = (int)movimentoContaDataGridView.CurrentRow.Cells["LancamentoID"].Value;
 
-                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, null, lancamentoID, null, null);
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, null, lancamentoID, null, null, null);
             }
             else if ((string)origem.Tag == "geralCategoria")
             {
                 int categoriaID = (int)movimentoContaDataGridView.CurrentRow.Cells["CategoriaID"].Value;
 
-                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, null, null, categoriaID, null);
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, null, null, categoriaID, null, null);
             }
             else if ((string)origem.Tag == "geralGrupoCategoria")
             {
                 int grupoCategoriaID = (int)movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoriaID"].Value;
 
-                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, null, null, null, grupoCategoriaID);
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, null, null, null, grupoCategoriaID, null);
+            }
+            else if ((string)origem.Tag == "geralVeiculo")
+            {
+                int veiculoID = (int)movimentoContaDataGridView.CurrentRow.Cells["VeiculoID"].Value;
+                detalhes = fmDetalhesMovimentacao.CreateInstance(this, titulo, IDUsuario, null, null, null, null, veiculoID);
             }
 
             this.Detalhes = detalhes;
@@ -2768,7 +2818,6 @@ namespace MoneyPro
 
         private void contextMenuStripDetalhes_Opening(object sender, CancelEventArgs e)
         {
-
             e.Cancel = !contextMenuStripDetalhes.Enabled;
 
             // Apaga itens anteriores
@@ -2780,15 +2829,12 @@ namespace MoneyPro
                 // Verifica se há linha atual selecionada
                 if (movimentoContaDataGridView.CurrentRow != null)
                 {
-
                     ToolStripMenuItem itemTitulo = new ToolStripMenuItem();
-
                     itemTitulo.Text = "Pesquisas Disponíveis";
                     itemTitulo.DisplayStyle = ToolStripItemDisplayStyle.Text;
                     itemTitulo.BackColor = Color.DarkGray;
                     itemTitulo.ForeColor = Color.White;
                     itemTitulo.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-
                     contextMenuStripDetalhes.Items.Add(itemTitulo);
 
                     //
@@ -2799,12 +2845,10 @@ namespace MoneyPro
                     if (movimentoContaDataGridView.CurrentRow.Cells["Lancamento"].Value != DBNull.Value)
                     {
                         ToolStripMenuItem itemLancamento = new ToolStripMenuItem();
-
                         itemLancamento.DisplayStyle = ToolStripItemDisplayStyle.Text;
                         itemLancamento.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["Lancamento"].FormattedValue + " em " + labelTopo.Text;
                         itemLancamento.Tag = "especificoLancamento";
                         itemLancamento.Click += opcaoDetalhesToolStripMenuItem_Click;
-
                         contextMenuStripDetalhes.Items.Add(itemLancamento);
                     }
 
@@ -2812,12 +2856,10 @@ namespace MoneyPro
                     if (movimentoContaDataGridView.CurrentRow.Cells["Categoria"].Value != DBNull.Value)
                     {
                         ToolStripMenuItem itemCategoria = new ToolStripMenuItem();
-
                         itemCategoria.DisplayStyle = ToolStripItemDisplayStyle.Text;
                         itemCategoria.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["Categoria"].FormattedValue + " em " + labelTopo.Text;
                         itemCategoria.Tag = "especificoCategoria";
                         itemCategoria.Click += opcaoDetalhesToolStripMenuItem_Click;
-
                         contextMenuStripDetalhes.Items.Add(itemCategoria);
                     }
 
@@ -2825,13 +2867,22 @@ namespace MoneyPro
                     if (movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoria"].Value != DBNull.Value)
                     {
                         ToolStripMenuItem itemGrupoCategoria = new ToolStripMenuItem();
-
                         itemGrupoCategoria.DisplayStyle = ToolStripItemDisplayStyle.Text;
                         itemGrupoCategoria.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoria"].FormattedValue + " em " + labelTopo.Text;
                         itemGrupoCategoria.Tag = "especificoGrupoCategoria";
                         itemGrupoCategoria.Click += opcaoDetalhesToolStripMenuItem_Click;
-
                         contextMenuStripDetalhes.Items.Add(itemGrupoCategoria);
+                    }
+
+                    // Se o veículo não for nulo
+                    if (movimentoContaDataGridView.CurrentRow.Cells["Veiculo"].Value != DBNull.Value)
+                    {
+                        ToolStripMenuItem itemVeiculo = new ToolStripMenuItem();
+                        itemVeiculo.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                        itemVeiculo.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["Veiculo"].FormattedValue + " em " + labelTopo.Text;
+                        itemVeiculo.Tag = "especificoVeiculo";
+                        itemVeiculo.Click += opcaoDetalhesToolStripMenuItem_Click;
+                        contextMenuStripDetalhes.Items.Add(itemVeiculo);
                     }
 
                     //
@@ -2849,12 +2900,10 @@ namespace MoneyPro
                     if (movimentoContaDataGridView.CurrentRow.Cells["Lancamento"].Value != DBNull.Value)
                     {
                         ToolStripMenuItem geralLancamento = new ToolStripMenuItem();
-
                         geralLancamento.DisplayStyle = ToolStripItemDisplayStyle.Text;
                         geralLancamento.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["Lancamento"].FormattedValue + " em todas as contas";
                         geralLancamento.Tag = "geralLancamento";
                         geralLancamento.Click += opcaoDetalhesToolStripMenuItem_Click;
-
                         contextMenuStripDetalhes.Items.Add(geralLancamento);
                     }
 
@@ -2862,12 +2911,10 @@ namespace MoneyPro
                     if (movimentoContaDataGridView.CurrentRow.Cells["Categoria"].Value != DBNull.Value)
                     {
                         ToolStripMenuItem geralCategoria = new ToolStripMenuItem();
-
                         geralCategoria.DisplayStyle = ToolStripItemDisplayStyle.Text;
                         geralCategoria.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["Categoria"].FormattedValue + " em todas as contas";
                         geralCategoria.Tag = "geralCategoria";
                         geralCategoria.Click += opcaoDetalhesToolStripMenuItem_Click;
-
                         contextMenuStripDetalhes.Items.Add(geralCategoria);
                     }
 
@@ -2875,13 +2922,22 @@ namespace MoneyPro
                     if (movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoria"].Value != DBNull.Value)
                     {
                         ToolStripMenuItem geralGrupoCategoria = new ToolStripMenuItem();
-
                         geralGrupoCategoria.DisplayStyle = ToolStripItemDisplayStyle.Text;
                         geralGrupoCategoria.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoria"].FormattedValue + " em todas as contas";
                         geralGrupoCategoria.Tag = "geralGrupoCategoria";
                         geralGrupoCategoria.Click += opcaoDetalhesToolStripMenuItem_Click;
-
                         contextMenuStripDetalhes.Items.Add(geralGrupoCategoria);
+                    }
+
+                    // Se o veículo não for nulo
+                    if (movimentoContaDataGridView.CurrentRow.Cells["Veiculo"].Value != DBNull.Value)
+                    {
+                        ToolStripMenuItem geralVeiculo = new ToolStripMenuItem();
+                        geralVeiculo.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                        geralVeiculo.Text = (string)movimentoContaDataGridView.CurrentRow.Cells["Veiculo"].FormattedValue + " em todas as contas";
+                        geralVeiculo.Tag = "geralVeiculo";
+                        geralVeiculo.Click += opcaoDetalhesToolStripMenuItem_Click;
+                        contextMenuStripDetalhes.Items.Add(geralVeiculo);
                     }
                 }
             }

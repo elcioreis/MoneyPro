@@ -131,7 +131,6 @@ namespace BLL
             return dal.Conciliados(movimentoContaID);
         }
 
-
         /// <summary>
         /// Pesquisa o último lançamento do parceiro pra repetir como sujestão na próxima inclusão.
         /// </summary>
@@ -148,6 +147,7 @@ namespace BLL
                 linha.Cells["Descricao"].Value = (object)tabela.Rows[0].Field<string>("Descricao") ?? DBNull.Value;
                 linha.Cells["Categoria"].Value = (object)tabela.Rows[0].Field<int?>("CategoriaID") ?? DBNull.Value;
                 linha.Cells["GrupoCategoria"].Value = (object)tabela.Rows[0].Field<int?>("GrupoCategoriaID") ?? DBNull.Value;
+                linha.Cells["Veiculo"].Value = (object)tabela.Rows[0].Field<int?>("VeiculoID") ?? DBNull.Value;
                 linha.Cells["CrdDeb"].Value = (object)tabela.Rows[0].Field<string>("CrdDeb") ?? DBNull.Value;
                 linha.Cells["Credito"].Value = (object)tabela.Rows[0].Field<decimal?>("Credito") ?? DBNull.Value;
                 linha.Cells["Debito"].Value = (object)tabela.Rows[0].Field<decimal?>("Debito") ?? DBNull.Value;

@@ -7,9 +7,17 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
     Implementação de cadastro de impostos/taxas por tipo de investimento
 	Permite copiar o cadastro de impostos/taxas para um investimento específico
 	Criar tela com saldo até o DiaCom, proventos recebidos e porcentagem para Ações e FII marcados como BuyAndHold
+	Alteração da carga de arquivo texto para incluir o grupo de veículo se o regex abaixo for encontrado na descrição enviada pelo banco:
+		@"\b[A-Za-z]{3}[-]?[0-9][A-Za-z0-9][0-9]{2}\b"gm
+    Desligar o recálculo do saldo da conta automaticamente para poder fazer ajustes em lote
+
+## Versão 1.6.0.103
+	Criação de grupo de veículos com acesso pelo menu Cadadastro, com chave pela placa no formato AAA-9999 ou AAA-9A99 - Tabela veiculo
+	Inclusão de grupo veículo no lançamento de contas disponíveis ou cartão de crédito, que será opcional
 
 ## Versão 1.5.1.102
 	Verifica se o banco de dados está no ar; se não estiver, tenta levantar o banco de dados.
+	Se o banco estiver fora do ar ao iniciar, ao finalizar, será tirado do ar novamente.
 
 ## Versão 1.5.0.101
 	Correção de bug na tela de lançamento de movimentação que impede de escolher o novo parceiro

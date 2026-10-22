@@ -5,10 +5,10 @@ namespace BLL
 {
     public class DetalhesMovimentacaoBLL
     {
-        public DataTable Listar(int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID)
+        public DataTable Listar(int usuarioID, int? contaID, int? lancamentoID, int? categoriaID, int? grupoCategoriaID, int? veiculoID)
         {
             DetalhesMovimentacaoDAL dal = new DetalhesMovimentacaoDAL();
-            return dal.Listar(usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID);
+            return dal.Listar(usuarioID, contaID, lancamentoID, categoriaID, grupoCategoriaID, veiculoID);
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Modelos
         public string Categoria { get; set; }
         public int? GrupoCategoriaID { get; set; }
         public string GrupoCategoria { get; set; }
+        public int? VeiculoID { get; set; }
+        public string Veiculo { get; set; }
         public string CrdDeb { get; set; }
         public decimal? Credito { get; set; }
         public decimal? Debito { get; set; }
