@@ -36,19 +36,20 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.planejamentoDataGridView = new System.Windows.Forms.DataGridView();
+            this.planejamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonEditar = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.buttonEfetivar = new System.Windows.Forms.Button();
             this.buttonCalendario = new System.Windows.Forms.Button();
             this.btnExibeSomentePlanejamentosAtivos = new System.Windows.Forms.Button();
             this.btnExibeTodosPlanejamentos = new System.Windows.Forms.Button();
-            this.planejamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.PlanejamentoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Conta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lancamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GrupoCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Veiculo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CrdDeb = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -103,7 +104,7 @@
             // labelTopo
             // 
             this.labelTopo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.labelTopo.Size = new System.Drawing.Size(193, 32);
+            this.labelTopo.Size = new System.Drawing.Size(192, 32);
             this.labelTopo.Text = "Planejamento";
             // 
             // planejamentoDataGridView
@@ -121,6 +122,7 @@
             this.Lancamento,
             this.Categoria,
             this.GrupoCategoria,
+            this.Veiculo,
             this.CrdDeb,
             this.Valor,
             this.TipoTotal,
@@ -149,6 +151,10 @@
             this.planejamentoDataGridView.TabIndex = 5;
             this.planejamentoDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.planejamentoDataGridView_CellFormatting);
             this.planejamentoDataGridView.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.PlanejamentoDataGridView_CellMouseMove);
+            // 
+            // planejamentoBindingSource
+            // 
+            this.planejamentoBindingSource.DataSource = typeof(Modelos.Planejamento);
             // 
             // buttonEditar
             // 
@@ -232,10 +238,6 @@
             this.btnExibeTodosPlanejamentos.Visible = false;
             this.btnExibeTodosPlanejamentos.Click += new System.EventHandler(this.BtnExibeTodosPlanejamentos_Click);
             // 
-            // planejamentoBindingSource
-            // 
-            this.planejamentoBindingSource.DataSource = typeof(Modelos.Planejamento);
-            // 
             // PlanejamentoID
             // 
             this.PlanejamentoID.DataPropertyName = "PlanejamentoID";
@@ -264,7 +266,7 @@
             this.Conta.MinimumWidth = 6;
             this.Conta.Name = "Conta";
             this.Conta.ReadOnly = true;
-            this.Conta.Width = 74;
+            this.Conta.Width = 71;
             // 
             // Lancamento
             // 
@@ -274,7 +276,7 @@
             this.Lancamento.MinimumWidth = 6;
             this.Lancamento.Name = "Lancamento";
             this.Lancamento.ReadOnly = true;
-            this.Lancamento.Width = 115;
+            this.Lancamento.Width = 110;
             // 
             // Categoria
             // 
@@ -295,6 +297,16 @@
             this.GrupoCategoria.Name = "GrupoCategoria";
             this.GrupoCategoria.ReadOnly = true;
             this.GrupoCategoria.Width = 70;
+            // 
+            // Veiculo
+            // 
+            this.Veiculo.DataPropertyName = "Veiculo";
+            this.Veiculo.FillWeight = 70F;
+            this.Veiculo.HeaderText = "Veículo";
+            this.Veiculo.MinimumWidth = 70;
+            this.Veiculo.Name = "Veiculo";
+            this.Veiculo.ReadOnly = true;
+            this.Veiculo.Width = 70;
             // 
             // CrdDeb
             // 
@@ -322,7 +334,7 @@
             this.Valor.MinimumWidth = 6;
             this.Valor.Name = "Valor";
             this.Valor.ReadOnly = true;
-            this.Valor.Width = 70;
+            this.Valor.Width = 68;
             // 
             // TipoTotal
             // 
@@ -332,7 +344,7 @@
             this.TipoTotal.MinimumWidth = 6;
             this.TipoTotal.Name = "TipoTotal";
             this.TipoTotal.ReadOnly = true;
-            this.TipoTotal.Width = 69;
+            this.TipoTotal.Width = 67;
             // 
             // Parcela
             // 
@@ -345,7 +357,7 @@
             this.Parcela.Name = "Parcela";
             this.Parcela.ReadOnly = true;
             this.Parcela.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Parcela.Width = 62;
+            this.Parcela.Width = 60;
             // 
             // DtInicial
             // 
@@ -355,7 +367,7 @@
             this.DtInicial.MinimumWidth = 6;
             this.DtInicial.Name = "DtInicial";
             this.DtInicial.ReadOnly = true;
-            this.DtInicial.Width = 87;
+            this.DtInicial.Width = 85;
             // 
             // Dia
             // 
@@ -377,7 +389,8 @@
             this.TipoDia.MinimumWidth = 6;
             this.TipoDia.Name = "TipoDia";
             this.TipoDia.ReadOnly = true;
-            this.TipoDia.Width = 65;
+            this.TipoDia.Visible = false;
+            this.TipoDia.Width = 64;
             // 
             // SeNaoUtil
             // 
@@ -390,7 +403,8 @@
             this.SeNaoUtil.ReadOnly = true;
             this.SeNaoUtil.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.SeNaoUtil.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SeNaoUtil.Width = 64;
+            this.SeNaoUtil.Visible = false;
+            this.SeNaoUtil.Width = 61;
             // 
             // SeDiferenca
             // 
@@ -403,7 +417,8 @@
             this.SeDiferenca.ReadOnly = true;
             this.SeDiferenca.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.SeDiferenca.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SeDiferenca.Width = 75;
+            this.SeDiferenca.Visible = false;
+            this.SeDiferenca.Width = 71;
             // 
             // Processados
             // 
@@ -424,7 +439,7 @@
             this.Ativo.MinimumWidth = 6;
             this.Ativo.Name = "Ativo";
             this.Ativo.ReadOnly = true;
-            this.Ativo.Width = 45;
+            this.Ativo.Width = 43;
             // 
             // Observacao
             // 
@@ -487,6 +502,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lancamento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn GrupoCategoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Veiculo;
         private System.Windows.Forms.DataGridViewTextBoxColumn CrdDeb;
         private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoTotal;

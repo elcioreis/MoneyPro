@@ -11,6 +11,10 @@ Sistema desenvolvido em C# com framework Windows Form e banco de dados SQL Serve
 		@"\b[A-Za-z]{3}[-]?[0-9][A-Za-z0-9][0-9]{2}\b"gm
     Desligar o recálculo do saldo da conta automaticamente para poder fazer ajustes em lote
 
+## Versão 1.6.0.104
+	Ajuste na tela de detalhes de lançamentos para filtrar opcionalmente por veículo
+	Inclusão de Veículo no Planejamento e na efetivação do planejamento
+
 ## Versão 1.6.0.103
 	Criação de grupo de veículos com acesso pelo menu Cadadastro, com chave pela placa no formato AAA-9999 ou AAA-9A99 - Tabela veiculo
 	Inclusão de grupo veículo no lançamento de contas disponíveis ou cartão de crédito, que será opcional

@@ -39,6 +39,7 @@
             System.Windows.Forms.Label diferencaNaPrimeiraLabel;
             System.Windows.Forms.Label valorParcelaLabel;
             System.Windows.Forms.Label labelObservacao;
+            System.Windows.Forms.Label veiculoIDLabel;
             this.repeticoesLabel = new System.Windows.Forms.Label();
             this.dtInicialLabel = new System.Windows.Forms.Label();
             this.apelidoTextBox = new System.Windows.Forms.TextBox();
@@ -69,6 +70,8 @@
             this.categoriaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.grupoCategoriaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.observacaoTextBox = new System.Windows.Forms.TextBox();
+            this.veiculoIDComboBox = new System.Windows.Forms.ComboBox();
+            this.veiculoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             apelidoLabel = new System.Windows.Forms.Label();
             contaIDLabel = new System.Windows.Forms.Label();
             categoriaIDLabel = new System.Windows.Forms.Label();
@@ -79,6 +82,7 @@
             diferencaNaPrimeiraLabel = new System.Windows.Forms.Label();
             valorParcelaLabel = new System.Windows.Forms.Label();
             labelObservacao = new System.Windows.Forms.Label();
+            veiculoIDLabel = new System.Windows.Forms.Label();
             this.panelRodape.SuspendLayout();
             this.panelTopo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.planejamentoBindingSource)).BeginInit();
@@ -87,6 +91,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lancamentoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoriaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grupoCategoriaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.veiculoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panelRodape
@@ -94,10 +99,10 @@
             this.panelRodape.Controls.Add(this.buttonEfetivarTodasParcelas);
             this.panelRodape.Controls.Add(this.buttonGravarPlanejamento);
             this.panelRodape.Controls.Add(this.buttonCancelarCategoria);
-            this.panelRodape.Location = new System.Drawing.Point(0, 448);
+            this.panelRodape.Location = new System.Drawing.Point(0, 481);
             this.panelRodape.Margin = new System.Windows.Forms.Padding(5);
             this.panelRodape.Size = new System.Drawing.Size(460, 37);
-            this.panelRodape.TabIndex = 16;
+            this.panelRodape.TabIndex = 21;
             this.panelRodape.Controls.SetChildIndex(this.buttonIncluir, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonExcluir, 0);
             this.panelRodape.Controls.SetChildIndex(this.buttonCancelarCategoria, 0);
@@ -161,7 +166,7 @@
             // valorLabel
             // 
             valorLabel.AutoSize = true;
-            valorLabel.Location = new System.Drawing.Point(12, 254);
+            valorLabel.Location = new System.Drawing.Point(12, 284);
             valorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             valorLabel.Name = "valorLabel";
             valorLabel.Size = new System.Drawing.Size(42, 16);
@@ -181,7 +186,7 @@
             // diaLabel
             // 
             diaLabel.AutoSize = true;
-            diaLabel.Location = new System.Drawing.Point(12, 349);
+            diaLabel.Location = new System.Drawing.Point(12, 379);
             diaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             diaLabel.Name = "diaLabel";
             diaLabel.Size = new System.Drawing.Size(31, 16);
@@ -191,7 +196,7 @@
             // diferencaNaPrimeiraLabel
             // 
             diferencaNaPrimeiraLabel.AutoSize = true;
-            diferencaNaPrimeiraLabel.Location = new System.Drawing.Point(12, 286);
+            diferencaNaPrimeiraLabel.Location = new System.Drawing.Point(12, 316);
             diferencaNaPrimeiraLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             diferencaNaPrimeiraLabel.Name = "diferencaNaPrimeiraLabel";
             diferencaNaPrimeiraLabel.Size = new System.Drawing.Size(68, 16);
@@ -211,7 +216,7 @@
             // labelObservacao
             // 
             labelObservacao.AutoSize = true;
-            labelObservacao.Location = new System.Drawing.Point(12, 223);
+            labelObservacao.Location = new System.Drawing.Point(12, 253);
             labelObservacao.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelObservacao.Name = "labelObservacao";
             labelObservacao.Size = new System.Drawing.Size(85, 16);
@@ -221,7 +226,7 @@
             // repeticoesLabel
             // 
             this.repeticoesLabel.AutoSize = true;
-            this.repeticoesLabel.Location = new System.Drawing.Point(12, 380);
+            this.repeticoesLabel.Location = new System.Drawing.Point(12, 410);
             this.repeticoesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.repeticoesLabel.Name = "repeticoesLabel";
             this.repeticoesLabel.Size = new System.Drawing.Size(64, 16);
@@ -231,7 +236,7 @@
             // dtInicialLabel
             // 
             this.dtInicialLabel.AutoSize = true;
-            this.dtInicialLabel.Location = new System.Drawing.Point(12, 318);
+            this.dtInicialLabel.Location = new System.Drawing.Point(12, 348);
             this.dtInicialLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dtInicialLabel.Name = "dtInicialLabel";
             this.dtInicialLabel.Size = new System.Drawing.Size(89, 16);
@@ -300,11 +305,11 @@
             // valorTextBox
             // 
             this.valorTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planejamentoBindingSource, "Valor", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "N2"));
-            this.valorTextBox.Location = new System.Drawing.Point(112, 251);
+            this.valorTextBox.Location = new System.Drawing.Point(112, 281);
             this.valorTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.valorTextBox.Name = "valorTextBox";
             this.valorTextBox.Size = new System.Drawing.Size(107, 22);
-            this.valorTextBox.TabIndex = 6;
+            this.valorTextBox.TabIndex = 7;
             this.valorTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.valorTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.valorTextBox_KeyPress);
             // 
@@ -323,31 +328,31 @@
             // 
             this.totalComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.totalComboBox.FormattingEnabled = true;
-            this.totalComboBox.Location = new System.Drawing.Point(329, 250);
+            this.totalComboBox.Location = new System.Drawing.Point(329, 280);
             this.totalComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.totalComboBox.Name = "totalComboBox";
             this.totalComboBox.Size = new System.Drawing.Size(115, 24);
-            this.totalComboBox.TabIndex = 8;
+            this.totalComboBox.TabIndex = 9;
             this.totalComboBox.SelectedIndexChanged += new System.EventHandler(this.totalComboBox_SelectedIndexChanged);
             // 
             // dtInicialDateTimePicker
             // 
             this.dtInicialDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.planejamentoBindingSource, "DtInicial", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.dtInicialDateTimePicker.Location = new System.Drawing.Point(112, 315);
+            this.dtInicialDateTimePicker.Location = new System.Drawing.Point(112, 345);
             this.dtInicialDateTimePicker.Margin = new System.Windows.Forms.Padding(4);
             this.dtInicialDateTimePicker.Name = "dtInicialDateTimePicker";
             this.dtInicialDateTimePicker.Size = new System.Drawing.Size(332, 22);
-            this.dtInicialDateTimePicker.TabIndex = 10;
+            this.dtInicialDateTimePicker.TabIndex = 11;
             this.dtInicialDateTimePicker.ValueChanged += new System.EventHandler(this.dtInicialDateTimePicker_ValueChanged);
             // 
             // diaTextBox
             // 
             this.diaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planejamentoBindingSource, "Dia", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
-            this.diaTextBox.Location = new System.Drawing.Point(112, 346);
+            this.diaTextBox.Location = new System.Drawing.Point(112, 376);
             this.diaTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.diaTextBox.Name = "diaTextBox";
             this.diaTextBox.Size = new System.Drawing.Size(43, 22);
-            this.diaTextBox.TabIndex = 11;
+            this.diaTextBox.TabIndex = 15;
             this.diaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.diaTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.diaTextBox_KeyPress);
             // 
@@ -356,43 +361,43 @@
             this.diaFixoComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planejamentoBindingSource, "DiaFixo", true));
             this.diaFixoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.diaFixoComboBox.FormattingEnabled = true;
-            this.diaFixoComboBox.Location = new System.Drawing.Point(164, 345);
+            this.diaFixoComboBox.Location = new System.Drawing.Point(164, 375);
             this.diaFixoComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.diaFixoComboBox.Name = "diaFixoComboBox";
             this.diaFixoComboBox.Size = new System.Drawing.Size(80, 24);
-            this.diaFixoComboBox.TabIndex = 12;
+            this.diaFixoComboBox.TabIndex = 16;
             // 
             // adiaSeNaoUtilComboBox
             // 
             this.adiaSeNaoUtilComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planejamentoBindingSource, "AdiaSeNaoUtil", true));
             this.adiaSeNaoUtilComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.adiaSeNaoUtilComboBox.FormattingEnabled = true;
-            this.adiaSeNaoUtilComboBox.Location = new System.Drawing.Point(253, 345);
+            this.adiaSeNaoUtilComboBox.Location = new System.Drawing.Point(253, 375);
             this.adiaSeNaoUtilComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.adiaSeNaoUtilComboBox.Name = "adiaSeNaoUtilComboBox";
             this.adiaSeNaoUtilComboBox.Size = new System.Drawing.Size(191, 24);
-            this.adiaSeNaoUtilComboBox.TabIndex = 13;
+            this.adiaSeNaoUtilComboBox.TabIndex = 17;
             // 
             // diferencaNaPrimeiraComboBox
             // 
             this.diferencaNaPrimeiraComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planejamentoBindingSource, "DiferencaNaPrimeira", true));
             this.diferencaNaPrimeiraComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.diferencaNaPrimeiraComboBox.FormattingEnabled = true;
-            this.diferencaNaPrimeiraComboBox.Location = new System.Drawing.Point(112, 282);
+            this.diferencaNaPrimeiraComboBox.Location = new System.Drawing.Point(112, 312);
             this.diferencaNaPrimeiraComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.diferencaNaPrimeiraComboBox.Name = "diferencaNaPrimeiraComboBox";
             this.diferencaNaPrimeiraComboBox.Size = new System.Drawing.Size(332, 24);
-            this.diferencaNaPrimeiraComboBox.TabIndex = 9;
+            this.diferencaNaPrimeiraComboBox.TabIndex = 10;
             // 
             // repeticoesTextBox
             // 
             this.repeticoesTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planejamentoBindingSource, "Repeticoes", true));
-            this.repeticoesTextBox.Location = new System.Drawing.Point(112, 377);
+            this.repeticoesTextBox.Location = new System.Drawing.Point(112, 407);
             this.repeticoesTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.repeticoesTextBox.MaxLength = 3;
             this.repeticoesTextBox.Name = "repeticoesTextBox";
             this.repeticoesTextBox.Size = new System.Drawing.Size(43, 22);
-            this.repeticoesTextBox.TabIndex = 14;
+            this.repeticoesTextBox.TabIndex = 18;
             this.repeticoesTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.repeticoesTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.repeticoesTextBox_KeyPress);
             this.repeticoesTextBox.Leave += new System.EventHandler(this.repeticoesTextBox_Leave);
@@ -400,7 +405,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(164, 380);
+            this.label1.Location = new System.Drawing.Point(164, 410);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 16);
@@ -417,7 +422,6 @@
             this.buttonGravarPlanejamento.Name = "buttonGravarPlanejamento";
             this.buttonGravarPlanejamento.Size = new System.Drawing.Size(31, 28);
             this.buttonGravarPlanejamento.TabIndex = 0;
-            this.toolTip.SetToolTip(this.buttonGravarPlanejamento, "Gravar planejamento");
             this.buttonGravarPlanejamento.UseVisualStyleBackColor = true;
             this.buttonGravarPlanejamento.Click += new System.EventHandler(this.buttonGravarPlanejamento_Click);
             // 
@@ -431,7 +435,6 @@
             this.buttonCancelarCategoria.Name = "buttonCancelarCategoria";
             this.buttonCancelarCategoria.Size = new System.Drawing.Size(31, 28);
             this.buttonCancelarCategoria.TabIndex = 1;
-            this.toolTip.SetToolTip(this.buttonCancelarCategoria, "Cancelar");
             this.buttonCancelarCategoria.UseVisualStyleBackColor = true;
             this.buttonCancelarCategoria.Click += new System.EventHandler(this.buttonCancelarCategoria_Click);
             // 
@@ -458,21 +461,21 @@
             // 
             this.crdDebComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.crdDebComboBox.FormattingEnabled = true;
-            this.crdDebComboBox.Location = new System.Drawing.Point(228, 250);
+            this.crdDebComboBox.Location = new System.Drawing.Point(228, 280);
             this.crdDebComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.crdDebComboBox.Name = "crdDebComboBox";
             this.crdDebComboBox.Size = new System.Drawing.Size(92, 24);
-            this.crdDebComboBox.TabIndex = 7;
+            this.crdDebComboBox.TabIndex = 8;
             // 
             // ativoCheckBox
             // 
             this.ativoCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.planejamentoBindingSource, "Ativo", true));
             this.ativoCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ativoCheckBox.Location = new System.Drawing.Point(384, 373);
+            this.ativoCheckBox.Location = new System.Drawing.Point(384, 403);
             this.ativoCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.ativoCheckBox.Name = "ativoCheckBox";
             this.ativoCheckBox.Size = new System.Drawing.Size(63, 30);
-            this.ativoCheckBox.TabIndex = 15;
+            this.ativoCheckBox.TabIndex = 19;
             this.ativoCheckBox.Text = "Ativo";
             this.ativoCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -481,10 +484,10 @@
             this.valorParcelaPanel.Controls.Add(valorParcelaLabel);
             this.valorParcelaPanel.Controls.Add(this.valorParcelaTextBox);
             this.valorParcelaPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.valorParcelaPanel.Location = new System.Drawing.Point(0, 400);
+            this.valorParcelaPanel.Location = new System.Drawing.Point(0, 433);
             this.valorParcelaPanel.Name = "valorParcelaPanel";
             this.valorParcelaPanel.Size = new System.Drawing.Size(460, 48);
-            this.valorParcelaPanel.TabIndex = 16;
+            this.valorParcelaPanel.TabIndex = 20;
             // 
             // valorParcelaTextBox
             // 
@@ -511,15 +514,43 @@
             // 
             // observacaoTextBox
             // 
-            this.observacaoTextBox.Location = new System.Drawing.Point(112, 220);
+            this.observacaoTextBox.Location = new System.Drawing.Point(112, 250);
             this.observacaoTextBox.Name = "observacaoTextBox";
             this.observacaoTextBox.Size = new System.Drawing.Size(332, 22);
-            this.observacaoTextBox.TabIndex = 5;
+            this.observacaoTextBox.TabIndex = 6;
+            // 
+            // veiculoIDLabel
+            // 
+            veiculoIDLabel.AutoSize = true;
+            veiculoIDLabel.Location = new System.Drawing.Point(12, 223);
+            veiculoIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            veiculoIDLabel.Name = "veiculoIDLabel";
+            veiculoIDLabel.Size = new System.Drawing.Size(65, 20);
+            veiculoIDLabel.TabIndex = 25;
+            veiculoIDLabel.Text = "Veículo";
+            // 
+            // veiculoIDComboBox
+            // 
+            this.veiculoIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.planejamentoBindingSource, "GrupoCategoriaID", true));
+            this.veiculoIDComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.planejamentoBindingSource, "GrupoCategoriaID", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.veiculoIDComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.veiculoIDComboBox.FormattingEnabled = true;
+            this.veiculoIDComboBox.Location = new System.Drawing.Point(112, 219);
+            this.veiculoIDComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.veiculoIDComboBox.Name = "veiculoIDComboBox";
+            this.veiculoIDComboBox.Size = new System.Drawing.Size(332, 24);
+            this.veiculoIDComboBox.TabIndex = 5;
+            // 
+            // veiculoBindingSource
+            // 
+            this.veiculoBindingSource.DataSource = typeof(Modelos.Veiculo);
             // 
             // fmPlanejamentoManutencao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.ClientSize = new System.Drawing.Size(460, 485);
+            this.ClientSize = new System.Drawing.Size(460, 518);
+            this.Controls.Add(veiculoIDLabel);
+            this.Controls.Add(this.veiculoIDComboBox);
             this.Controls.Add(this.observacaoTextBox);
             this.Controls.Add(labelObservacao);
             this.Controls.Add(this.valorParcelaPanel);
@@ -584,6 +615,8 @@
             this.Controls.SetChildIndex(this.valorParcelaPanel, 0);
             this.Controls.SetChildIndex(labelObservacao, 0);
             this.Controls.SetChildIndex(this.observacaoTextBox, 0);
+            this.Controls.SetChildIndex(this.veiculoIDComboBox, 0);
+            this.Controls.SetChildIndex(veiculoIDLabel, 0);
             this.panelRodape.ResumeLayout(false);
             this.panelTopo.ResumeLayout(false);
             this.panelTopo.PerformLayout();
@@ -594,6 +627,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lancamentoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.categoriaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grupoCategoriaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.veiculoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -631,5 +665,7 @@
         private System.Windows.Forms.TextBox valorParcelaTextBox;
         private System.Windows.Forms.TextBox observacaoTextBox;
         private System.Windows.Forms.Button buttonEfetivarTodasParcelas;
+        private System.Windows.Forms.ComboBox veiculoIDComboBox;
+        private System.Windows.Forms.BindingSource veiculoBindingSource;
     }
 }

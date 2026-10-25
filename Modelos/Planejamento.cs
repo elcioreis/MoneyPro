@@ -19,7 +19,9 @@ namespace Modelos
         public int CategoriaID { get; set; }
         public string Categoria { get; set; }
         public int? GrupoCategoriaID { get; set; }
-        public string GrupoCategoria { get; set; }        
+        public string GrupoCategoria { get; set; }
+        public int? VeiculoID { get; set; }
+        public string Veiculo { get; set; }
         public string CrdDeb { get; set; }
         public decimal? Valor { get; set; }
         public bool Total { get; set; }

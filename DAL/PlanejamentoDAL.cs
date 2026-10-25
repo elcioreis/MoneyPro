@@ -17,9 +17,13 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT PlanejamentoID, UsuarioID, Apelido, Descricao, ContaID, Conta, ValorFixo,
-                                                       LancamentoID, Lancamento, CategoriaID, Categoria, GrupoCategoriaID,
-                                                       GrupoCategoria, CrdDeb, Total, DtInicial, Dia, DiaFixo,
+            SqlCommand query = new SqlCommand(@"
+                                                SELECT PlanejamentoID, UsuarioID, Apelido, Descricao, ContaID, Conta, ValorFixo,
+                                                       LancamentoID, Lancamento, 
+                                                       CategoriaID, Categoria, 
+                                                       GrupoCategoriaID, GrupoCategoria, 
+                                                       VeiculoID, Veiculo, 
+                                                       CrdDeb, Total, DtInicial, Dia, DiaFixo,
                                                        CASE WHEN CrdDeb = 'C' THEN Valor ELSE -Valor END Valor,
                                                        AdiaSeNaoUtil, DiferencaNaPrimeira, Repeticoes, Processados,
                                                        TipoDia, TipoTotal, SeNaoUtil, SeDiferenca, Ativo,
@@ -50,8 +54,9 @@ namespace DAL
             // Instancia um adaptador
             SqlDataAdapter da = new SqlDataAdapter();
             // Instancia um comando
-            SqlCommand query = new SqlCommand(@"SELECT PlanejamentoID, UsuarioID, ContaID, LancamentoID, CategoriaID,
-                                                       GrupoCategoriaID, Descricao, CrdDeb, Valor, Total, DtInicial,
+            SqlCommand query = new SqlCommand(@"
+                                                SELECT PlanejamentoID, UsuarioID, ContaID, LancamentoID, CategoriaID,
+                                                       GrupoCategoriaID, VeiculoID, Descricao, CrdDeb, Valor, Total, DtInicial,
                                                        Dia, DiaFixo, AdiaSeNaoUtil, DiferencaNaPrimeira, Repeticoes,
                                                        Processados, Apelido, ValorFixo, Ativo, UltimoDiaMes, Observacao,
                                                        CAST(0 AS DECIMAL(18,4)) ValorParcela   
@@ -79,7 +84,7 @@ namespace DAL
                     cmd.Connection = conn;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = @"INSERT INTO Planejamento
-                                        (UsuarioID, ContaID, LancamentoID, CategoriaID, GrupoCategoriaID,
+                                        (UsuarioID, ContaID, LancamentoID, CategoriaID, GrupoCategoriaID, VeiculoID,
                                          Descricao, CrdDeb, Valor, Total, DtInicial, Dia, DiaFixo, AdiaSeNaoUtil,
                                          DiferencaNaPrimeira, Repeticoes, Processados, Apelido, ValorFixo,
                                          UltimoDiaMes, Observacao)
@@ -94,6 +99,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@LancamentoID", modelo.LancamentoID);
                     cmd.Parameters.AddWithValue("@CategoriaID", modelo.CategoriaID);
                     cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Apelido", modelo.Apelido);
                     cmd.Parameters.AddWithValue("@Descricao", modelo.Descricao);
                     cmd.Parameters.AddWithValue("@CrdDeb", modelo.CrdDeb);
@@ -109,7 +115,6 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@ValorFixo", modelo.ValorFixo);
                     cmd.Parameters.AddWithValue("@UltimoDiaMes", (object)modelo.UltimoDiaMes ?? 0);
                     cmd.Parameters.AddWithValue("@Observacao", (object)modelo.Observacao ?? DBNull.Value);
-
 
                     try
                     {
@@ -139,6 +144,7 @@ namespace DAL
                                             LancamentoID = @LancamentoID,
                                             CategoriaID = @CategoriaID,
                                             GrupoCategoriaID = @GrupoCategoriaID,
+                                            VeiculoID = @VeiculoID,
                                             Descricao = @Descricao,
                                             CrdDeb = @CrdDeb,
                                             Valor = @Valor,
@@ -162,6 +168,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@LancamentoID", modelo.LancamentoID);
                     cmd.Parameters.AddWithValue("@CategoriaID", modelo.CategoriaID);
                     cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Apelido", modelo.Apelido);
                     cmd.Parameters.AddWithValue("@Descricao", modelo.Descricao);
                     cmd.Parameters.AddWithValue("@CrdDeb", modelo.CrdDeb);
@@ -327,13 +334,13 @@ namespace DAL
 
                 // Retornará o ID do MovimentoConta
                 cmd.CommandText = @"INSERT INTO MovimentoConta
-                                    (UsuarioID, ContaID, Data, Numero, LancamentoID,
-                                     Descricao, CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito,
+                                    (UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, 
+                                     CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito,
                                      Conciliacao, PilhaMovimentoContaID, DoMovimentoContaID,
                                      PlanejamentoID, PlanejamentoRepeticao, Sistema)
                                     VALUES
-                                    (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID,
-                                     @Descricao, @CategoriaID, @GrupoCategoriaID, @CrdDeb, @Credito, @Debito,
+                                    (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID, @Descricao, 
+                                     @CategoriaID, @GrupoCategoriaID, @VeiculoID, @CrdDeb, @Credito, @Debito,
                                      @Conciliacao, @PilhaMovimentoContaID, @DoMovimentoContaID,
                                      @PlanejamentoID, @PlanejamentoRepeticao, @Sistema);
 
@@ -354,6 +361,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Descricao", (object)modelo.Descricao ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@CategoriaID", modelo.CategoriaID);
                 cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@CrdDeb", (object)modelo.CrdDeb ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Credito", (object)Credito ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Debito", (object)Debito ?? DBNull.Value);
@@ -395,12 +403,12 @@ namespace DAL
                     cmd.Parameters.Clear();
                     // A categoria está ligada a uma conta, logo é uma transferência.
                     cmd.CommandText = @"INSERT INTO MovimentoConta
-                                        (UsuarioID, ContaID, Data, Numero, LancamentoID,
-                                         Descricao, CategoriaID, GrupoCategoriaID, CrdDeb, Credito, Debito,
+                                        (UsuarioID, ContaID, Data, Numero, LancamentoID, Descricao, 
+                                         CategoriaID, GrupoCategoriaID, VeiculoID, CrdDeb, Credito, Debito,
                                          Conciliacao, PilhaMovimentoContaID, DoMovimentoContaID, Sistema)
                                         VALUES
-                                        (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID,
-                                         @Descricao, @CategoriaID, @GrupoCategoriaID, @CrdDeb, @Credito, @Debito,
+                                        (@UsuarioID, @ContaID, @Data, @Numero, @LancamentoID, @Descricao, 
+                                         @CategoriaID, @GrupoCategoriaID, @VeiculoID, @CrdDeb, @Credito, @Debito,
                                          @Conciliacao, @PilhaMovimentoContaID, @DoMovimentoContaID, @Sistema);
 
                                         SELECT CAST(@@IDENTITY AS INT) AS MovimentoContaID;";
@@ -414,6 +422,7 @@ namespace DAL
                     // CategoriaID é igual a categoria ligada à conta de origem.
                     cmd.Parameters.AddWithValue("@CategoriaID", categoriaPara);
                     cmd.Parameters.AddWithValue("@GrupoCategoriaID", (object)modelo.GrupoCategoriaID ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@VeiculoID", (object)modelo.VeiculoID ?? DBNull.Value);
 
                     // Se a origem é um débito, o destino será um crédito e vice-versa.
                     if (modelo.CrdDeb == "D")

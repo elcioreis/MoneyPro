@@ -17,7 +17,7 @@ namespace DAL
             // Instancia um comando
             SqlCommand query = new SqlCommand(
                 @"
-                SELECT 1 Detalhe, Mvto.MovimentoContaID,
+                select 1 Detalhe, Mvto.MovimentoContaID,
                        Mvto.ContaID, Cnta.Apelido Conta,
                        Mvto.Data, 
                        Mvto.LancamentoID, Lcto.Apelido Lancamento,
@@ -27,47 +27,47 @@ namespace DAL
                        Mvto.VeiculoID, Vcl.Placa Veiculo,
                        Mvto.CrdDeb, Mvto.Credito, Mvto.Debito, Mvto.Conciliacao,
                        Mvto.PlanejamentoID, Mvto.PlanejamentoRepeticao
-                FROM MovimentoConta Mvto
-                INNER JOIN Conta Cnta ON Cnta.ContaID = Mvto.ContaID
-                INNER JOIN Lancamento Lcto ON Lcto.LancamentoID = Mvto.LancamentoID
-                INNER JOIN vw_CategoriasSelecionaveis Ctng ON Ctng.CategoriaID = Mvto.CategoriaID
-                LEFT  JOIN GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = Mvto.GrupoCategoriaID
-                LEFT  JOIN Veiculo Vcl ON Vcl.VeiculoID = Mvto.VeiculoID    
-                WHERE Mvto.UsuarioID = @UsuarioID
+                from MovimentoConta Mvto
+                inner join Conta Cnta ON Cnta.ContaID = Mvto.ContaID
+                inner join Lancamento Lcto ON Lcto.LancamentoID = Mvto.LancamentoID
+                inner join vw_CategoriasSelecionaveis Ctng ON Ctng.CategoriaID = Mvto.CategoriaID
+                left  join GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = Mvto.GrupoCategoriaID
+                left  join Veiculo Vcl ON Vcl.VeiculoID = Mvto.VeiculoID    
+                where Mvto.UsuarioID = @UsuarioID
                   and Mvto.Conciliacao <> 'F'
                   and Mvto.ContaID = COALESCE(@ContaID, Mvto.ContaID)
                   and Mvto.LancamentoID = COALESCE(@LancamentoID, Mvto.LancamentoID)
                   and Mvto.CategoriaID = COALESCE(@CategoriaID, Mvto.CategoriaID)
-                  and Mvto.VeiculoID = COALESCE(@VeiculoID, Mvto.VeiculoID)
-                  and COALESCE(Mvto.GrupoCategoriaID, 0) = COALESCE(@GrupoCategoriaID, Mvto.GrupoCategoriaID, 0)
+                  and coalesce(Mvto.VeiculoID, 0) = coalesce(@VeiculoID, Mvto.VeiculoID, 0)
+                  and coalesce(Mvto.GrupoCategoriaID, 0) = coalesce(@GrupoCategoriaID, Mvto.GrupoCategoriaID, 0)
 
-                UNION ALL
+                union all
 
-                SELECT 2 Detalhe, NULL MovimentoContaID,
-                       NULL ContaID, NULL Conta,
-                       NULL Data, 
-                       NULL LancamentoID, NULL Lancamento,
-                       NULL Descricao,
-                       NULL CategoriaID, NULL Categoria,
-                       NULL VeiculoID, NULL Veiculo,
-                       NULL GrupoCategoriaID, NULL GrupoCategoria,
-                       NULL CrdDeb, SUM(Mvto.Credito) Credito, SUM(Mvto.Debito) Debito, NULL Conciliacao,
-                       NULL PlanejamentoID, NULL PlanejamentoRepeticao
-                FROM MovimentoConta Mvto
-                INNER JOIN Conta Cnta ON Cnta.ContaID = Mvto.ContaID
-                INNER JOIN Lancamento Lcto ON Lcto.LancamentoID = Mvto.LancamentoID
-                INNER JOIN vw_CategoriasSelecionaveis Ctng ON Ctng.CategoriaID = Mvto.CategoriaID
-                LEFT  JOIN GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = Mvto.GrupoCategoriaID
-                LEFT  JOIN Veiculo Vcl ON Vcl.VeiculoID = Mvto.VeiculoID
-                WHERE Mvto.UsuarioID = @UsuarioID
+                select 2 Detalhe, null MovimentoContaID,
+                       null ContaID, null Conta,
+                       null Data, 
+                       null LancamentoID, null Lancamento,
+                       null Descricao,
+                       null CategoriaID, null Categoria,
+                       null VeiculoID, null Veiculo,
+                       null GrupoCategoriaID, null GrupoCategoria,
+                       null CrdDeb, SUM(Mvto.Credito) Credito, SUM(Mvto.Debito) Debito, null Conciliacao,
+                       null PlanejamentoID, null PlanejamentoRepeticao
+                from MovimentoConta Mvto
+                inner join Conta Cnta ON Cnta.ContaID = Mvto.ContaID
+                inner join Lancamento Lcto ON Lcto.LancamentoID = Mvto.LancamentoID
+                inner join vw_CategoriasSelecionaveis Ctng ON Ctng.CategoriaID = Mvto.CategoriaID
+                left  join GrupoCategoria Grpo ON Grpo.GrupoCategoriaID = Mvto.GrupoCategoriaID
+                left  join Veiculo Vcl ON Vcl.VeiculoID = Mvto.VeiculoID
+                where Mvto.UsuarioID = @UsuarioID
                   and Mvto.Conciliacao <> 'F'
                   and Mvto.ContaID = COALESCE(@ContaID, Mvto.ContaID)
                   and Mvto.LancamentoID = COALESCE(@LancamentoID, Mvto.LancamentoID)
                   and Mvto.CategoriaID = COALESCE(@CategoriaID, Mvto.CategoriaID)
-                  and Mvto.VeiculoID = COALESCE(@VeiculoID, Mvto.VeiculoID)
-                  and COALESCE(Mvto.GrupoCategoriaID, 0) = COALESCE(@GrupoCategoriaID, Mvto.GrupoCategoriaID, 0)
+                  and coalesce(Mvto.VeiculoID, 0) = coalesce(@VeiculoID, Mvto.VeiculoID, 0)
+                  and coalesce(Mvto.GrupoCategoriaID, 0) = coalesce(@GrupoCategoriaID, Mvto.GrupoCategoriaID, 0)
 
-                ORDER BY Detalhe ASC, Data ASC, CrdDeb ASC, MovimentoContaID ASC;", conn);
+                order by Detalhe ASC, Data ASC, CrdDeb ASC, MovimentoContaID ASC;", conn);
 
             // Atribui os parâmetros            
             query.Parameters.AddWithValue("@UsuarioID", usuarioID);

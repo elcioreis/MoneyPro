@@ -892,6 +892,7 @@
     <None Include="Properties\DataSources\Modelos.VariacaoDezDiasInvestimentos.datasource" />
     <None Include="Properties\DataSources\Modelos.VariacaoDiariaInvestimentos.datasource" />
     <None Include="Properties\DataSources\Modelos.VariacaoMensalInvestimentos.datasource" />
+    <None Include="Properties\DataSources\Modelos.Veiculo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

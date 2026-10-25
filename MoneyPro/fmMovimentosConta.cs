@@ -2508,11 +2508,17 @@ namespace MoneyPro
                 {
                     int lancamentoID = (int)movimentoContaDataGridView.CurrentRow.Cells["LancamentoID"].Value;
                     int categoriaID = (int)movimentoContaDataGridView.CurrentRow.Cells["CategoriaID"].Value;
-                    int grupoID = -1;
 
+                    int grupoID = -1;
                     if (movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoriaID"].Value != DBNull.Value)
                     {
                         grupoID = (int)movimentoContaDataGridView.CurrentRow.Cells["GrupoCategoriaID"].Value;
+                    }
+
+                    int veiculoID = -1;
+                    if (movimentoContaDataGridView.CurrentRow.Cells["VeiculoID"].Value != DBNull.Value)
+                    {
+                        veiculoID = (int)movimentoContaDataGridView.CurrentRow.Cells["VeiculoID"].Value;
                     }
 
                     decimal valor = Math.Abs((decimal)movimentoContaDataGridView.CurrentRow.Cells["Valor"].Value);
@@ -2542,7 +2548,7 @@ namespace MoneyPro
 
                     if (incluir)
                     {
-                        fmPlanejamentoManutencao form = new fmPlanejamentoManutencao(IDUsuario, -1, this.IDConta, lancamentoID, categoriaID, grupoID, valor, crddeb, data);
+                        fmPlanejamentoManutencao form = new fmPlanejamentoManutencao(IDUsuario, -1, this.IDConta, lancamentoID, categoriaID, grupoID, veiculoID, valor, crddeb, data);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             MessageBox.Show("Item incluído no planejamento.", "Informação",

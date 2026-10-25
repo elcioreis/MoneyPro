@@ -18,11 +18,11 @@ namespace MoneyPro
         private int LancamentoID;
         private int CategoriaID;
         private int GrupoID;
+        private int VeiculoID;
         private decimal Valor;
         private string CrdDeb;
         private DateTime Data;
         private bool Efetivar = false;
-
         private int _planejamentoID;
         private int PlanejamentoID
         {
@@ -50,7 +50,7 @@ namespace MoneyPro
         DataRow row = null;
 
         public fmPlanejamentoManutencao(int usuarioID, int planejamentoID, int contaID = -1, int lancamentoID = -1,
-                                        int categoriaID = -1, int grupoID = -1, decimal valor = 0, string crddeb = "D",
+                                        int categoriaID = -1,int grupoID = -1, int veiculoID = -1, decimal valor = 0, string crddeb = "D",
                                         DateTime? dia = null)
         {
             InitializeComponent();
@@ -65,6 +65,7 @@ namespace MoneyPro
             this.LancamentoID = lancamentoID;
             this.CategoriaID = categoriaID;
             this.GrupoID = grupoID;
+            this.VeiculoID = veiculoID;
             this.Valor = valor;
             this.CrdDeb = crddeb;
             if (dia == null)
@@ -100,6 +101,7 @@ namespace MoneyPro
             CarregarLancamentos();
             CarregarCategorias();
             CarregarGrupoCategorias();
+            CarregarVeiculos();
             // Combobox com opções fixas (BIT)
             CarregaCrdDeb();
             CarregarTotal();
@@ -140,6 +142,7 @@ namespace MoneyPro
                 lancamentoIDComboBox.Enabled = false;
                 categoriaIDComboBox.Enabled = false;
                 grupoCategoriaIDComboBox.Enabled = false;
+                veiculoIDComboBox.Enabled = false;
                 crdDebComboBox.Enabled = false;
                 totalComboBox.Enabled = false;
                 diferencaNaPrimeiraComboBox.Enabled = false;
@@ -373,6 +376,11 @@ namespace MoneyPro
             else
                 row["GrupoCategoriaID"] = DBNull.Value;
 
+            if (this.VeiculoID > 0)
+                row["VeiculoID"] = this.VeiculoID;
+            else
+                row["VeiculoID"] = DBNull.Value;
+
             row["Descricao"] = DBNull.Value;
             row["Apelido"] = DBNull.Value;
             row["Ativo"] = true;
@@ -413,6 +421,27 @@ namespace MoneyPro
             }
         }
 
+        private void CarregarVeiculos()
+        {
+            VeiculoBLL bll = new VeiculoBLL();
+            veiculoBindingSource.DataSource = bll.Listar();
+            veiculoIDComboBox.DataBindings.Clear();
+            try
+            {
+                veiculoIDComboBox.DataBindings.Add("SelectedValue", planejamentoBindingSource, "VeiculoID");
+                veiculoIDComboBox.DataSource = veiculoBindingSource;
+                veiculoIDComboBox.DisplayMember = "Placa";
+                veiculoIDComboBox.ValueMember = "VeiculoID";
+
+                veiculoIDComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+                veiculoIDComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+        }
         private void CarregarCategorias()
         {
             CategoriaBLL bll = new CategoriaBLL();
@@ -610,7 +639,6 @@ namespace MoneyPro
                 else if (Geral.Feriado(modelo.DtInicial))
                 {
                     msg = Geral.Capitaliza(modelo.DtInicial.ToString("dddd, dd/MM/yyyy")) + " é feriado, mantém o dia?";
-
                 }
 
                 if (msg != string.Empty)
@@ -710,7 +738,16 @@ namespace MoneyPro
             {
                 modelo.GrupoCategoriaID = null;
             }
-            //modelo.GrupoCategoria { get; set; }        
+            //modelo.GrupoCategoria { get; set; }
+
+            if (row["VeiculoID"] != DBNull.Value)
+            {
+                modelo.VeiculoID = (int)row["VeiculoID"];
+            }
+            else
+            {
+                modelo.VeiculoID = null;
+            }
 
             if (row["Valor"] != DBNull.Value)
             {
