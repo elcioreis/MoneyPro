@@ -45,5 +45,11 @@ namespace BLL
             VeiculoDAL dal = new VeiculoDAL();
             return dal.Excluir(veiculoID);
         }
+
+        public int EncontraVeiculoPelaPlaca(string placa)
+        {
+            VeiculoDAL dal = new VeiculoDAL();
+            return dal.EncontraVeiculoPelaPlaca(placa);
+        }
     }
 }

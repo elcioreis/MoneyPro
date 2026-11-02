@@ -131,5 +131,25 @@ namespace DAL
             }
             return excluido;
         }
+
+        public int EncontraVeiculoPelaPlaca(string placa)
+        {
+            SqlConnection conn = new SqlConnection(Dados.Conexao);
+            SqlCommand cmd = new SqlCommand(@"
+                                            select coalesce((select VeiculoID
+                                                             from veiculo 
+                                                             where placa = @placa), 0) AS VeiculoID", conn);
+            cmd.Parameters.AddWithValue("@Placa", placa);
+            conn.Open();
+            try
+            {
+                return (int)cmd.ExecuteScalar();
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
     }
 }

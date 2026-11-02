@@ -27,21 +27,21 @@ namespace DAL
 
                 // Instancia um comando
                 SqlCommand query = new SqlCommand(@"
-                                                    SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, 
-                                                           vmMC.LancamentoID, vmMC.Descricao, vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.VeiculoID, 
-                                                           vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, vmMC.Conciliacao,
-                                                           vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, 
-                                                           vmMC.MovimentoInvestimentoID, vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, 
-                                                           vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, vmMC.VrLiquido, vmMC.SldCotas,
-                                                           vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, vmMC.IdentificacaoOFX, 
-                                                           vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, 
-                                                           vmMC.PlanejamentoID, MObs.Observacao
-                                                    FROM vw_MovimentacaoConta vmMC
-                                                    LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID
-                                                    WHERE ContaID = @ContaID " +
-                                                    filtro + " " +
-                                                   @"ORDER BY CASE WHEN Conciliacao IN ('A','F') THEN 1 ELSE 0 END ASC, 
-                                                              Data ASC, MovimentoContaID;", conn);
+                                                  SELECT vmMC.MovimentoContaID, vmMC.UsuarioID, vmMC.ContaID, vmMC.Data, vmMC.Numero, 
+                                                         vmMC.LancamentoID, vmMC.Descricao, vmMC.CategoriaID, vmMC.GrupoCategoriaID, vmMC.VeiculoID, 
+                                                         vmMC.CrdDeb, vmMC.Credito, vmMC.Debito, vmMC.Valor, vmMC.Balanco, vmMC.Conciliacao,
+                                                         vmMC.PilhaMovimentoContaID, vmMC.DoMovimentoContaID, vmMC.Sistema, 
+                                                         vmMC.MovimentoInvestimentoID, vmMC.InvestimentoID, vmMC.TransacaoID, vmMC.Transacao, 
+                                                         vmMC.InvestimentoCotacaoID, vmMC.QtCotas, vmMC.VrBruto, vmMC.VrLiquido, vmMC.SldCotas,
+                                                         vmMC.VrCotacao, vmMC.VrDespesa, vmMC.Legenda, vmMC.IdentificacaoOFX, 
+                                                         vmMC.CotacaoMoedaID, vmMC.Passo, 1 MovimentosAgrupados, 
+                                                         vmMC.PlanejamentoID, MObs.Observacao
+                                                  FROM vw_MovimentacaoConta vmMC
+                                                  LEFT JOIN MovimentoContaObservacao MObs ON MObs.MovimentoContaID = vmMC.MovimentoContaID
+                                                  WHERE ContaID = @ContaID " +
+                                                  filtro + " " +
+                                                  @"ORDER BY CASE WHEN Conciliacao IN ('A','F') THEN 1 ELSE 0 END ASC, 
+                                                             Data ASC, MovimentoContaID;", conn);
                 // Atribui os parâmetros
                 query.Parameters.AddWithValue("@ContaID", contaID);
                 query.CommandTimeout = 240;
@@ -1215,16 +1215,16 @@ namespace DAL
             {
                 cmd.Transaction = transacao;
 
-                cmd.CommandText =
-                    "UPDATE MovimentoConta " +
-                    "SET Conciliacao = @Conciliacao " +
-                    "WHERE MovimentoContaID = @MovimentoContaID " +
-                    " OR DoMovimentoContaID = @MovimentoContaID; " +
-
-                    "UPDATE MovimentoConta " +
-                    "SET Conciliacao = @Conciliacao " +
-                    "WHERE MovimentoContaID = @MovimentoContaID " +
-                    " OR MovimentoContaID = (SELECT DoMovimentoContaID FROM MovimentoConta WHERE MovimentoContaID = @MovimentoContaID); ";
+                cmd.CommandText = @"
+                    update MovimentoConta
+                    set Conciliacao = @Conciliacao
+                    where MovimentoContaID = @MovimentoContaID
+                     or DoMovimentoContaID = @MovimentoContaID;
+                    
+                    update MovimentoConta
+                    set Conciliacao = @Conciliacao
+                    where MovimentoContaID = @MovimentoContaID
+                     or MovimentoContaID = (select DoMovimentoContaID from MovimentoConta where MovimentoContaID = @MovimentoContaID); ";
 
                 cmd.Parameters.AddWithValue("@Conciliacao", conciliacao);
                 cmd.Parameters.AddWithValue("@MovimentoContaID", movimentoContaID);
@@ -1243,6 +1243,52 @@ namespace DAL
             {
                 conn.Close();
                 conn.Dispose();
+            }
+        }
+
+        public void GravarConciliacao(int movimentoContaID, int veiculoID, string conciliacao)
+        {
+            if (veiculoID == 0)
+            {
+                GravarConciliacao(movimentoContaID, conciliacao);
+            }
+            else
+            {
+                SqlConnection conn = new SqlConnection(Dados.Conexao);
+                conn.Open();
+                SqlTransaction transacao = conn.BeginTransaction("Movimentacao");
+                SqlCommand cmd = conn.CreateCommand();
+                try
+                {
+                    cmd.Transaction = transacao;
+                    cmd.CommandText = @"
+                        update MovimentoConta
+                        set Conciliacao = @Conciliacao,
+                            VeiculoID = @VeiculoID
+                        where MovimentoContaID = @MovimentoContaID
+                         or DoMovimentoContaID = @MovimentoContaID;
+                        
+                        update MovimentoConta
+                        set Conciliacao = @Conciliacao,
+                            VeiculoID = @VeiculoID
+                        where MovimentoContaID = @MovimentoContaID
+                         or MovimentoContaID = (select DoMovimentoContaID from MovimentoConta where MovimentoContaID = @MovimentoContaID); ";
+                    cmd.Parameters.AddWithValue("@Conciliacao", conciliacao);
+                    cmd.Parameters.AddWithValue("@VeiculoID", veiculoID);
+                    cmd.Parameters.AddWithValue("@MovimentoContaID", movimentoContaID);
+                    cmd.ExecuteScalar();
+                    transacao.Commit();
+                }
+                catch (SyntaxErrorException e)
+                {
+                    transacao.Rollback();
+                    throw new System.SystemException("Falha ao executar conciliação.", e);
+                }
+                finally
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
             }
         }
 
@@ -1309,13 +1355,13 @@ namespace DAL
             }
         }
 
-        public Boolean ConciliacaoViaOFX(int movimentoContaID, Transaction transacao, bool jaReconciliado)
+        public Boolean ConciliacaoViaOFX(int movimentoContaID, Transaction transacao, int veiculoID, bool jaReconciliado)
         {
             try
             {
                 if (CriaLigacao(movimentoContaID, transacao))
                 {
-                    GravarConciliacao(movimentoContaID, jaReconciliado ? "R" : "C");
+                    GravarConciliacao(movimentoContaID, veiculoID, jaReconciliado ? "R" : "C");
                     return true;
                 }
                 else

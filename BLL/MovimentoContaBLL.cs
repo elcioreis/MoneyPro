@@ -21,24 +21,12 @@ namespace BLL
             }
         }
 
-        /// <summary>
-        /// Lista com todos os registros da tabela de movimento de contas.
-        /// </summary>
-        /// <returns>
-        /// Retorna um DataTable
-        /// </returns>
         public DataTable ListarMovimentosConta(int contaID, string filtro)
         {
             MovimentoContaDAL dal = new MovimentoContaDAL();
             return dal.ListarMovimentosConta(contaID, filtro);
         }
-
-        /// <summary>
-        /// Lista com resumo da tabela de movimento de contas.
-        /// </summary>
-        /// <returns>
-        /// Retorna um DataTable
-        /// </returns>        
+     
         public DataTable ListarMovimentosContaResumo(int contaID, string filtro)
         {
             MovimentoContaDAL dal = new MovimentoContaDAL();
@@ -56,7 +44,6 @@ namespace BLL
             MovimentoContaDAL dal = new MovimentoContaDAL();
             return dal.ListarNaoConciliados(contaID, dataInicial);
         }
-
 
         public DataTable Movimento(int movimentoContaID)
         {
@@ -166,10 +153,10 @@ namespace BLL
             }
         }
 
-        public Boolean ConciliacaoViaOFX(int movimentoContaID, Transaction transacao, bool jaReconciliado)
+        public Boolean ConciliacaoViaOFX(int movimentoContaID, Transaction transacao, int veiculoID,bool jaReconciliado)
         {
             MovimentoContaDAL dal = new MovimentoContaDAL();
-            return dal.ConciliacaoViaOFX(movimentoContaID, transacao, jaReconciliado);
+            return dal.ConciliacaoViaOFX(movimentoContaID, transacao, veiculoID, jaReconciliado);
         }
 
         public DateTime PrimeiroDiaNaoReconciliado(int contaID)

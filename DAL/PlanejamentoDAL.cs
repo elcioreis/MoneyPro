@@ -89,7 +89,7 @@ namespace DAL
                                          DiferencaNaPrimeira, Repeticoes, Processados, Apelido, ValorFixo,
                                          UltimoDiaMes, Observacao)
                                         VALUES
-                                        (@UsuarioID, @ContaID, @LancamentoID, @CategoriaID, @GrupoCategoriaID,
+                                        (@UsuarioID, @ContaID, @LancamentoID, @CategoriaID, @GrupoCategoriaID, @VeiculoID,
                                          @Descricao, @CrdDeb, @Valor, @Total, @DtInicial, @Dia, @DiaFixo, @AdiaSeNaoUtil,
                                          @DiferencaNaPrimeira, @Repeticoes, @Processados, @Apelido, @ValorFixo,
                                          @UltimoDiaMes, @Observacao);";

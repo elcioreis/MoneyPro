@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Modelos;
 using BLL;
 using System.IO;
 using OFXSharp;
+using System.Text.RegularExpressions;
 
 namespace MoneyPro
 {
@@ -266,6 +262,10 @@ namespace MoneyPro
             bool valorIgual = ((Decimal)item.Cells["Valor"].Value == registro.Amount);
             bool jaReconciliado = ((string)item.Cells["Conciliacao"].Value == "R");
 
+            string descricao = (string)registro.Memo;
+
+            int veiculoID = IdentificaPlacaVeiculo(descricao);
+
             string msg = null;
 
             if (!dataIgual && !valorIgual)
@@ -289,11 +289,30 @@ namespace MoneyPro
             if (continua)
             {
                 MovimentoContaBLL bll = new MovimentoContaBLL();
-                if (bll.ConciliacaoViaOFX((int)item.Cells["MovimentoContaID"].Value, registro, jaReconciliado))
+                if (bll.ConciliacaoViaOFX((int)item.Cells["MovimentoContaID"].Value, registro, veiculoID, jaReconciliado))
                 {
                     CarregarDados();
                     ExibirLancamentoArquivo(Posicao);
                 }
+            }
+        }
+
+        private int IdentificaPlacaVeiculo(string descricao)
+        {
+            Match match = Regex.Match(descricao,
+                                    @"\b[A-Za-z]{3}[-]?[0-9][A-Za-z0-9][0-9]{2}\b",
+                                    RegexOptions.IgnoreCase);
+
+            string placa = match.Success ? match.Value.ToUpperInvariant().Insert(3, "-") : null;
+
+            if (placa != null)
+            {
+                VeiculoBLL bll = new VeiculoBLL();
+                return bll.EncontraVeiculoPelaPlaca(placa);
+            }
+            else
+            {
+                return 0;
             }
         }
 
